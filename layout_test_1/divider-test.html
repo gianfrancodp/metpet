@@ -8,16 +8,15 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Layout Test 1</title>
     <link rel="stylesheet" type="text/css" href="css/home.css">
-    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
-    <script src="js/leaflet.ajax.min.js"></script> -->
-    <script src="js/qgis2web_expressions.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <!-- Rimuovere alcuni -->
+    <!-- <script src="js/qgis2web_expressions.js"></script> -->
     <script src="js/leaflet.js"></script>
-    <script src="js/multi-style-layer.js"></script>
+    <!-- <script src="js/multi-style-layer.js"></script>
     <script src="js/leaflet-svg-shape-markers.min.js"></script>
     <script src="js/leaflet.rotatedMarker.js"></script>
     <script src="js/leaflet.pattern.js"></script>
@@ -25,20 +24,16 @@
     <script src="js/Autolinker.min.js"></script>
     <script src="js/rbush.min.js"></script>
     <script src="js/labelgun.min.js"></script>
-    <script src="js/labels.js"></script>
-    <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
-    <script src="data/CartaGeologica_1.js"></script>
-    <script src="data/Litografia_2.js"></script>
-    <style src="css/home.css"></style>
+    <script src="js/labels.js"></script> -->
+    <!-- <script src="js/leaflet-control-geocoder.Geocoder.js"></script> -->
+    <!-- <script src="data/CartaGeologica_1.js"></script>
+    <script src="data/Litografia_2.js"></script> -->
+    <!-- <style src="css/home.css"></style> TEST and REMOVE this-->
     <link rel="stylesheet" href="css/leaflet.css">
-    <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <!-- <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css"> -->
     <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-</head>
-<body>
-   <div id="top-bar">MetPetID - Layout-test #1 </div>
+   <div id="top-bar">MetPetID - Layout-test #1; Go to <a href="../index.html">MetPetID/Home</a></div>
     <div class="container">
         
         <div class="view">
@@ -49,7 +44,9 @@
         <div class="divider" id="divider"></div>
         <div class="view">
             <div id="dividertitlebar">Divider</div>
+
             <p>E' possibile spostare l'asse centrale con il mouse per ridimensionare la vista</p>
+            <p id="content"></p>
         </div>
     </div>
     <script src="js/layout.js"></script>
