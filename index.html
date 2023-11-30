@@ -75,7 +75,9 @@
         })
         
         var hash = new L.Hash(map);
-        map.attributionControl.setPrefix('CCBYSA &middot; Gianfranco Di Pietro &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot;');
+        var creativecommonslicencattribution = '<a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;"><img style="height:10px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:10px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:10px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a>'
+        map.attributionControl.setPrefix(creativecommonslicencattribution + ' | <a href="http://gianfrancodp.github.io">GDP</a> | <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+        
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
