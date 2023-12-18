@@ -175,27 +175,30 @@
             })
           ],
           view: new ol.View({
+            //projection: 'EPSG:4326',
             center: [0, 0],
-            zoom: 2
+            zoom: 4
           })
         });
+        //map.getView().setCenter([16, 38]);
 
         // Aggiunta GeoJson file
-        async function loadGeoJsonData() {
-          const response = await fetch('assets/mapdata/map.geojson');
-          const geojsonData = await response.json();
+          // async function loadGeoJsonData() {
+          //   const response = await fetch("https://gianfrancodp.github.io/metpet/layout_test_2/assets/mapdata/CartaGeoTEST.geojson");
+          //   const geojsonData = await response.json();
 
-          var vectorSource = new ol.source.Vector({
-            features: new ol.format.GeoJSON().readFeatures(geojsonData),
-          });
-          const vectorLayerGeo = new ol.layer.Vector({
-            source: vectorSource,
-          });
+          //   var vectorSource = new ol.source.Vector({
+          //     features: new ol.format.GeoJSON().readFeatures(geojsonData),
+          //   });
+          //   const vectorLayerGeo = new ol.layer.Vector({
+          //     source: vectorSource,
+          //   });
 
-          map.addLayer(vectorLayerGeo);
-        }
+          //   map.addLayer(vectorLayerGeo);
+          // }
 
-        loadGeoJsonData();
+        // loadGeoJsonData();
+
         // const vectorSource = new ol.source.Vector({
         //     url: 'assets/mapdata/CartaGeoTEST.geojson',
         //     //layout_test_2/assets/mapdata/CartaGeoTEST.geojson
