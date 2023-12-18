@@ -180,22 +180,36 @@
         });
 
         // Aggiunta GeoJson file
+        async function loadGeoJsonData() {
+          const response = await fetch('assets/mapdata/CartaGeoTEST.geojson');
+          const geojsonData = await response.json();
 
-        const vectorSource = new ol.source.Vector({
-            url: 'assets/mapdata/CartaGeoTEST.geojson',
-            //layout_test_2/assets/mapdata/CartaGeoTEST.geojson
-            format: new ol.format.GeoJSON()
+          var vectorSource = new ol.source.Vector({
+            features: new ol.format.GeoJSON().readFeatures(geojsonData),
           });
-          fetch('assets/mapdata/CartaGeoTEST.geojson')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch((error) => console.error('Errore:', error));
+          const vectorLayerGeo = new ol.layer.Vector({
+            source: vectorSource,
+          });
 
-        const vectorLayerGeo = new ol.layer.Vector({
-          source: vectorSource,
-        });
+          map.addLayer(vectorLayerGeo);
+        }
 
-        map.addLayer(vectorLayerGeo);
+        loadGeoJsonData();
+        // const vectorSource = new ol.source.Vector({
+        //     url: 'assets/mapdata/CartaGeoTEST.geojson',
+        //     //layout_test_2/assets/mapdata/CartaGeoTEST.geojson
+        //     format: new ol.format.GeoJSON()
+        //   });
+        //   // fetch('assets/mapdata/CartaGeoTEST.geojson')
+        //   //   .then(response => response.text())
+        //   //   .then(data => console.log(data))
+        //   //   .catch((error) => console.error('Errore:', error));
+
+        // const vectorLayerGeo = new ol.layer.Vector({
+        //   source: vectorSource,
+        // });
+
+        // map.addLayer(vectorLayerGeo);
 
         // const overlay = new Overlay({
         //   // Elemento HTML per il tuo popup
@@ -221,7 +235,7 @@
         //   })
         // });
         console.log("Layer vettoriale caricato ?");
-        console.log("Numero di feature nel layer vettoriale: " + vectorLayerGeo.getSource().getFeatures().length);
+        //console.log("Numero di feature nel layer vettoriale: " + vectorLayerGeo.getSource().getFeatures().length);
         
         
 
