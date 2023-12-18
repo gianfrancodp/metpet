@@ -1,4 +1,6 @@
 // V.0
+
+// create map
 var map = L.map('map').setView([37, 15], 13);
 
 // Adding creative commons licence attribution
@@ -28,3 +30,21 @@ map.on('popupopen', function(e) {
     // Inserisci il contenuto del popup nel div
     div.innerHTML = popupContent;
 });
+
+
+
+        // map.createPane('pane_CartaGeologica_1');
+        // map.getPane('pane_CartaGeologica_1').style.zIndex = 401;
+        // map.getPane('pane_CartaGeologica_1').style['mix-blend-mode'] = 'normal';
+        var layer_CartaGeologica_1 = new L.geoJson(json_CartaGeologica_1, {
+            attribution: 'Unknow',
+            interactive: true,
+            dataVar: 'json_CartaGeologica_1',
+            layerName: 'layer_CartaGeologica_1',
+            pane: 'pane_CartaGeologica_1',
+            onEachFeature: pop_CartaGeologica_1,
+            style: style_CartaGeologica_1_0,
+        });
+        bounds_group.addLayer(layer_CartaGeologica_1);
+        map.addLayer(layer_CartaGeologica_1);
+
