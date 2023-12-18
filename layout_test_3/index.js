@@ -25,6 +25,7 @@ async function initMap() {
   // map.data.loadGeoJson(
   //      "https://storage.googleapis.com/mapsdevsite/json/google.json",
   //    );
-  map.data.loadGeoJson(Geologia_Nuova);
+  map.data.loadGeoJson('assets/map.geojson');
+  // map.data.loadGeoJson(Geologia_Nuova);
 }
 initMap();
