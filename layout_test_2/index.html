@@ -181,7 +181,7 @@
 
         // Aggiunta GeoJson file
         async function loadGeoJsonData() {
-          const response = await fetch('assets/mapdata/CartaGeoTEST.geojson');
+          const response = await fetch('assets/mapdata/map.geojson');
           const geojsonData = await response.json();
 
           var vectorSource = new ol.source.Vector({
