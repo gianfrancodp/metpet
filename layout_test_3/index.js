@@ -22,10 +22,9 @@ async function initMap() {
     position: position,
     title: "MetPetId",
   });
+
+  map.data.loadGeoJson("https://gianfrancodp.github.io/metpet/layout_test_3/assets/map.geojson");
   // map.data.loadGeoJson(
-  //      "https://storage.googleapis.com/mapsdevsite/json/google.json",
-  //    );
-  map.data.loadGeoJson('assets/map.geojson');
   // map.data.loadGeoJson(Geologia_Nuova);
 }
 initMap();
