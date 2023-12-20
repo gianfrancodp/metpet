@@ -4,250 +4,36 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Map Viewer (3-column layout)</title>
     <link rel="stylesheet" href="assets/css/ol.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
-    <style type="text/css">
-      body { overflow: hidden; }
-
-      .navbar-offset { margin-top: 50px; }
-      #map { position: absolute; top: 50px; bottom: 0px; left: 0px; right: 0px; }
-      #map .ol-zoom { font-size: 1.2em; }
-
-      .zoom-top-opened-sidebar { margin-top: 5px; }
-      .zoom-top-collapsed { margin-top: 45px; }
-
-      .mini-submenu{
-        display:none;  
-        background-color: rgba(255, 255, 255, 0.46);
-        border: 1px solid rgba(0, 0, 0, 0.9);
-        border-radius: 4px;
-        padding: 9px;  
-        /*position: relative;*/
-        width: 42px;
-        text-align: center;
-      }
-
-      .mini-submenu-left {
-        position: absolute;
-        top: 60px;
-        left: .5em;
-        z-index: 40;
-      }
-      .mini-submenu-right {
-        position: absolute;
-        top: 60px;
-        right: .5em;
-        z-index: 40;
-      }
-
-      #map { z-index: 35; }
-
-      .sidebar { z-index: 45; }
-
-      .main-row { position: relative; top: 0; }
-
-      .mini-submenu:hover{
-        cursor: pointer;
-      }
-
-      .slide-submenu{
-        background: rgba(0, 0, 0, 0.45);
-        display: inline-block;
-        padding: 0 8px;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-    </style>
-    <script type="text/javascript" src="assets/js/ol.js"></script>
-    <!-- <script type="text/javascript" src="../node_modules/ol/source/Vector.js"></script> -->
+    <link rel="stylesheet" href="./index.css" />
+    
+    <script src="assets/js/leaflet.js"></script>
+    <link rel="stylesheet" href="assets/css/leaflet.css">
+    <link rel="stylesheet" href="assets/css/leaflet-control-geocoder.Geocoder.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="index.js">  </script>
+    <!-- Libreria Three.JS importata tramite CDN -->
     
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@<version>/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@<version>/examples/jsm/"
+        }
+      }
+    </script>
     <!-- /
-      // TODO separare lo script in un file a parte 
       // creare transizioni tra i pannelli
       // https://pedrobern.github.io/react-tiger-transition/
     -->
-    <script type="text/javascript">
-      //
-      // Questo script si occupa di regolare i margini dei pannelli di zoom e 
-      // rotazione sulla mappa in base alla visibilità dei pulsanti di 
-      // attivazione del menu a sinistra e a destra. 
-      // Inoltre, controlla se l'elemento con la classe "mid" è vincolato in larghezza.
-      //
-      //import Overlay from 'ol/Overlay';
-      // import { Vector as VectorLayer } from 'ol/layer';
-      // import { Vector as VectorSource } from 'ol/source';
-      // import { GeoJSON } from 'ol/format';
-      // Questa funzione aggiusta i margini del pannello di zoom e rotazione sulla mappa.
-      function applyMargins() {
-        // Seleziona i pulsanti di attivazione del menu a sinistra e a destra.
-        var leftToggler = $(".mini-submenu-left");
-        var rightToggler = $(".mini-submenu-right");
-
-        // Se il pulsante di attivazione del menu a sinistra è visibile...
-        if (leftToggler.is(":visible")) {
-          //...aggiusta il margine sinistro del pannello di zoom sulla mappa...
-          $("#map .ol-zoom")
-            .css("margin-left", 0)
-            // ...rimuovi la classe "zoom-top-opened-sidebar"...
-            .removeClass("zoom-top-opened-sidebar")
-            // ...e aggiungi la classe "zoom-top-collapsed".
-            .addClass("zoom-top-collapsed");
-        } else {
-          $("#map .ol-zoom")
-            .css("margin-left", $(".sidebar-left").width())
-            .removeClass("zoom-top-opened-sidebar")
-            .removeClass("zoom-top-collapsed");
-        }
-        if (rightToggler.is(":visible")) {
-          $("#map .ol-rotate")
-            .css("margin-right", 0)
-            .removeClass("zoom-top-opened-sidebar")
-            .addClass("zoom-top-collapsed");
-        } else {
-          $("#map .ol-rotate")
-            .css("margin-right", $(".sidebar-right").width())
-            .removeClass("zoom-top-opened-sidebar")
-            .removeClass("zoom-top-collapsed");
-        }
-      }
-
-      //
-      // Questa funzione controlla se la larghezza dell'elemento con la classe "mid" 
-      // è uguale alla larghezza della finestra del browser.
-      function isConstrained() {
-        return $("div.mid").width() == $(window).width();
-      }
-
-      function applyInitialUIState() {
-        if (isConstrained()) {
-          $(".sidebar-left .sidebar-body").fadeOut('slide');
-          $(".sidebar-right .sidebar-body").fadeOut('slide');
-          $('.mini-submenu-left').fadeIn();
-          $('.mini-submenu-right').fadeIn();
-        }
-      }
-
-      $(function(){
-        $('.sidebar-left .slide-submenu').on('click',function() {
-          var thisEl = $(this);
-          thisEl.closest('.sidebar-body').fadeOut('slide',function(){
-            $('.mini-submenu-left').fadeIn();
-            applyMargins();
-          });
-        });
-
-        $('.mini-submenu-left').on('click',function() {
-          var thisEl = $(this);
-          $('.sidebar-left .sidebar-body').toggle('slide');
-          thisEl.hide();
-          applyMargins();
-        });
-
-        $('.sidebar-right .slide-submenu').on('click',function() {
-          var thisEl = $(this);
-          thisEl.closest('.sidebar-body').fadeOut('slide',function(){
-            $('.mini-submenu-right').fadeIn();
-            applyMargins();
-          });
-        });
-
-        $('.mini-submenu-right').on('click',function() {
-          var thisEl = $(this);
-          $('.sidebar-right .sidebar-body').toggle('slide');
-          thisEl.hide();
-          applyMargins();
-        });
-
-        $(window).on("resize", applyMargins);
-
-        // Mappa OpenLayer
-        //
-        var map = new ol.Map({
-          target: "map",
-          layers: [
-            new ol.layer.Tile({
-              source: new ol.source.OSM()
-            })
-          ],
-          view: new ol.View({
-            //projection: 'EPSG:4326',
-            center: [0, 0],
-            zoom: 4
-          })
-        });
-        //map.getView().setCenter([16, 38]);
-
-        // Aggiunta GeoJson file
-          // async function loadGeoJsonData() {
-          //   const response = await fetch("https://gianfrancodp.github.io/metpet/layout_test_2/assets/mapdata/CartaGeoTEST.geojson");
-          //   const geojsonData = await response.json();
-
-          //   var vectorSource = new ol.source.Vector({
-          //     features: new ol.format.GeoJSON().readFeatures(geojsonData),
-          //   });
-          //   const vectorLayerGeo = new ol.layer.Vector({
-          //     source: vectorSource,
-          //   });
-
-          //   map.addLayer(vectorLayerGeo);
-          // }
-
-        // loadGeoJsonData();
-
-        // const vectorSource = new ol.source.Vector({
-        //     url: 'assets/mapdata/CartaGeoTEST.geojson',
-        //     //layout_test_2/assets/mapdata/CartaGeoTEST.geojson
-        //     format: new ol.format.GeoJSON()
-        //   });
-        //   // fetch('assets/mapdata/CartaGeoTEST.geojson')
-        //   //   .then(response => response.text())
-        //   //   .then(data => console.log(data))
-        //   //   .catch((error) => console.error('Errore:', error));
-
-        // const vectorLayerGeo = new ol.layer.Vector({
-        //   source: vectorSource,
-        // });
-
-        // map.addLayer(vectorLayerGeo);
-
-        // const overlay = new Overlay({
-        //   // Elemento HTML per il tuo popup
-        //   element: document.getElementById('popup')
-        // });
-        // map.addOverlay(overlay);
-
-        // map.on('singleclick', function (event) {
-        //   if (map.hasFeatureAtPixel(event.pixel) === true) {
-        //     const coordinate = event.coordinate;
-        //     const features = map.getFeaturesAtPixel(event.pixel);
-        //     // Aggiungi qui il codice per popolare e mostrare il popup
-        //     overlay.setPosition(coordinate);
-        //   } else {
-        //     overlay.setPosition(undefined);
-        //   }
-        // });
-
-        // var vectorLayer = new ol.layer.Vector({
-        //   source: new ol.source.Vector({
-        //     url: './assets/mapdata/CartaGeoTEST.geojson',
-        //     format: new ol.format.GeoJSON()
-        //   })
-        // });
-        console.log("Layer vettoriale caricato ?");
-        //console.log("Numero di feature nel layer vettoriale: " + vectorLayerGeo.getSource().getFeatures().length);
-        
-        
-
-        applyInitialUIState();
-        applyMargins();
-      });
-    </script>
   </head>
+  <!-- Layout HTML -->
   <body>
     <div class="container">
       <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
@@ -306,6 +92,8 @@
       </nav>
       <div class="navbar-offset"></div>
       <div id="map">
+        <script src="index.js"></script>
+        <!-- Mappa di sfondo -->
       </div>
       <div class="row main-row">
         <div class="col-sm-4 col-md-3 sidebar sidebar-left pull-left">
@@ -348,16 +136,7 @@
               <div id="properties" class="panel-collapse collapse in">
                 <div class="panel-body">
                   <p>
-                  Lorem ipsum dolor sit amet, vel an wisi propriae. Sea ut graece gloriatur. Per ei quando dicant vivendum. An insolens appellantur eos, doctus convenire vis et, at solet aeterno intellegebat qui.
-                  </p>
-                  <p>
-                  Elitr minimum inciderint qui no. Ne mea quaerendum scriptorem consequuntur. Mel ea nobis discere dignissim, aperiam patrioque ei ius. Stet laboramus eos te, his recteque mnesarchum an, quo id adipisci salutatus. Quas solet inimicus eu per. Sonet conclusionemque id vis.
-                  </p>
-                  <p>
-                  Eam vivendo repudiandae in, ei pri sint probatus. Pri et lorem praesent periculis, dicam singulis ut sed. Omnis patrioque sit ei, vis illud impetus molestiae id. Ex viderer assentior mel, inani liber officiis pro et. Qui ut perfecto repudiandae, per no hinc tation labores.
-                  </p>
-                  <p>
-                  Pro cu scaevola antiopam, cum id inermis salutatus. No duo liber gloriatur. Duo id vitae decore, justo consequat vix et. Sea id tale quot vitae.
+                    Proprietà elemento
                   </p>
                 </div>
               </div>
@@ -406,5 +185,6 @@
         <i class="fa fa-tasks"></i>
       </div>
     </div>
+        
   </body>
 </html>
