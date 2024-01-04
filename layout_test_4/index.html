@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
      <!-- CSS di Leaflet -->
      <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
+
 </head>
 <body class="vh-100">
     <!-- Header -->
@@ -31,7 +33,7 @@
             <div class="col-3 d-flex align-items-stretch">
                
                 <!-- <iframe allowfullscreen width="640" height="480" loading="lazy" frameborder="0" src="https://p3d.in/e/Gh7xz+nopan+nozoom+shading,dl,share,fs,link-hidden"></iframe>     -->
-                <iframe loading="lazy" frameborder="1" src="https://p3d.in/e/Gh7xz+nopan+nozoom+shading,dl,share,fs,link-hidden"></iframe>
+                <iframe loading="lazy" frameborder="0" src="https://p3d.in/e/Gh7xz+nopan+nozoom+shading,dl,share,fs,link-hidden"></iframe>
               
             </div>
             <div class="col-6 d-flex align-items-stretch">
@@ -39,8 +41,24 @@
                 <!-- Mappa -->
                 <div id="map" style="height:100%; width:100%;"></div>
             </div>
-            <div class="col-3 d-flex align-items-stretch">
-                <p>Microdata</p>
+            <div class="col-3 align-items-stretch">
+            <!-- <div class="col-3 d-flex align-items-stretch"> -->
+                
+                <img src="Gabbro_pmg_ss_2006.jpg" usemap="#image-map" style="width: 100%; height: auto;">
+
+                <map name="image-map">
+                    <area target="_blank" alt="Element #1" title="Element #1" href="" coords="39,500,28,496,30,479,29,462,39,453,56,446,69,459,77,456,92,453,105,453,115,450,109,430,118,423,135,422,148,409,171,407,198,408,209,422,211,433,207,446,208,458,208,481,213,504,204,513,190,519,182,526,163,530,47,532" shape="poly">
+                    <area target="_blank" alt="Element #2" title="Element #2" href="" coords="219,448,245,450,276,461,292,470,316,495,306,517,299,532,196,529,221,500,216,473,228,191,232,169,232,156,210,142,196,147,188,158,195,180,219,201,428,218,420,196,439,196,456,202,461,217,478,218,481,232,474,241,449,228" shape="poly">
+                    <area target="_blank" alt="Element #3" title="Element #3" href="" coords="554,380,68" shape="circle">
+                    <area target="_blank" alt="Element #4" title="Element #4" href="" coords="449,190,449,174,462,133,490,119,518,132,545,127,578,126,599,116,600,107,609,101,630,97,657,105,636,136,627,183,620,201,603,235,586,240,586,233,590,219,537,191,548,221,546,230,526,228,501,228,472,215" shape="poly">
+                </map>
+                <script>
+                    // TODO aggiungere jquery for bootter compatibility
+                    $(document).ready(function() {
+                        $('img[usemap]').rwdImageMaps();
+                    });
+                </script>
+            </div>
             </div>
         </div>
     </div>
