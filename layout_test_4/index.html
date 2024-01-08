@@ -12,6 +12,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="imageMapResizer.min.js"></script>
     <script>console.log("Header load completed")</script>
+    <!-- Script for Chart JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Stile per il popup microdata -->
     <style>
         .popup {
@@ -62,11 +64,13 @@
                 <img src="Gabbro_pmg_ss_2006.jpg" usemap="#image-map" style="width: 100%; height: auto;">
 
                 <map name="image-map">
-                    <area target="_blank" alt="Element #1" title="Element #1" href="" coords="39,500,28,496,30,479,29,462,39,453,56,446,69,459,77,456,92,453,105,453,115,450,109,430,118,423,135,422,148,409,171,407,198,408,209,422,211,433,207,446,208,458,208,481,213,504,204,513,190,519,182,526,163,530,47,532" shape="poly">
-                    <area target="_blank" alt="Element #2" title="Element #2" href="" coords="219,448,245,450,276,461,292,470,316,495,306,517,299,532,196,529,221,500,216,473,228,191,232,169,232,156,210,142,196,147,188,158,195,180,219,201,428,218,420,196,439,196,456,202,461,217,478,218,481,232,474,241,449,228" shape="poly">
-                    <area target="_blank" alt="Element #3" title="Element #3" href="" coords="554,380,68" shape="circle">
-                    <area target="_blank" alt="Element #4" title="Element #4" href="" coords="449,190,449,174,462,133,490,119,518,132,545,127,578,126,599,116,600,107,609,101,630,97,657,105,636,136,627,183,620,201,603,235,586,240,586,233,590,219,537,191,548,221,546,230,526,228,501,228,472,215" shape="poly">
+                    <area target="_blank" id="imgzone1" alt="Element #1" title="Element #1" coords="39,500,28,496,30,479,29,462,39,453,56,446,69,459,77,456,92,453,105,453,115,450,109,430,118,423,135,422,148,409,171,407,198,408,209,422,211,433,207,446,208,458,208,481,213,504,204,513,190,519,182,526,163,530,47,532" shape="poly">
+                    <area target="_blank" id="imgzone2" alt="Element #2" title="Element #2" coords="219,448,245,450,276,461,292,470,316,495,306,517,299,532,196,529,221,500,216,473,228,191,232,169,232,156,210,142,196,147,188,158,195,180,219,201,428,218,420,196,439,196,456,202,461,217,478,218,481,232,474,241,449,228" shape="poly">
+                    <area target="_blank" id="imgzone3" alt="Element #3" title="Element #3" coords="554,380,68" shape="circle">
+                    <area target="_blank" id="imgzone4" alt="Element #4" title="Element #4" coords="449,190,449,174,462,133,490,119,518,132,545,127,578,126,599,116,600,107,609,101,630,97,657,105,636,136,627,183,620,201,603,235,586,240,586,233,590,219,537,191,548,221,546,230,526,228,501,228,472,215" shape="poly">
                 </map>
+                <!-- Chart test -->
+                <canvas id="myChart"></canvas>
                 <!-- script for image map -->
                 <script>
                     $(document).ready(function() {
@@ -86,10 +90,68 @@
                         });
                     });
                 </script>
-            </div>
+                <!-- Script for chart test -->
+                <script> 
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            datasets: [{
+                                label: '% of Minerals',
+                                data: [12, 19, 3, 5, 2, 3],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+});
+                    $('area').on('click', function() {
+                        // Ottieni l'ID dell'area cliccata
+                        var areaId = $(this).attr('id');
+
+                        // Usa l'ID dell'area per determinare quali dati mostrare
+                        var data;
+                        if (areaId === 'imgzone1') {
+                            data = [12, 19, 3, 5, 2, 3];
+                        } else if (areaId === 'imgzone2') {
+                            data = [5, 10, 15, 20, 25, 30];
+                        } else if (areaId === 'imgzone3') {
+                            data = [4, 10, 33, 20, 25, 30];
+                        } else {
+                            data = [1, 2, 3, 4, 5, 6];
+                        }
+
+                        // Aggiorna il grafico con i nuovi dati
+                        myChart.data.datasets[0].data = data;
+                        myChart.update();
+                    });
+                </script>
             </div>
         </div>
     </div>
+</div>
     <!-- Footer -->
     <footer class="bg-dark text-white p-3 fixed-bottom">
         <p>Il tuo testo qui</p>
@@ -97,9 +159,10 @@
 
     <!-- JavaScript di Bootstrap 5.1.3 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-     <!-- JavaScript di Leaflet -->
-     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-     <script src="map.js"></script>
+    <!-- JavaScript di Leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="map.js"></script>
+
  
 </body>
 </html>
