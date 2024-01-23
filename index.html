@@ -1,229 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Project #MetPetID - Test</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#page-top">Home</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#index">Index</a></li>
-                        <!-- <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li> -->
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    </ul>
-                </div>
+<!-- imageMapResizer lib credit: Copyright © 2014-19 David J. Bradshaw - Licensed under the MIT license -->
+<!-- CC-BY Gianfranco Di Pietro 2023 -->
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS di Bootstrap 5.1.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- CSS di Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- <link rel="stylesheet" href="css/leaflet.css"> -->
+    <link rel="stylesheet" href="css/qgis2web.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+    <!-- popup microdata -->
+    <style>
+        /* !!! NOT properly working !!! */
+        .popup {
+            position: absolute;
+            z-index: 10;
+            display: none;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+    </style>   
+    <!-- JQuery script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Map Resizer script -->
+    <script src="imageMapResizer.min.js"></script>
+    <!-- Script for Chart JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <title>MetPetID</title>
+</head>
+<body class="vh-100">
+    <!-- Header -->
+    <header class="bg-dark text-white p-3">
+        <h1 class="text-center">Met Pet demo</h1>
+    </header>
+
+    <!-- Corpo centrale -->
+    <div class="container text-center vh-100 d-flex flex-column">
+        <div class="row align-item-start">
+            <div class="col-3">
+                <h2>3D Data</h2>
             </div>
-        </nav>
-        <!-- Masthead-->
-        <header class="masthead">
-            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-                <div class="d-flex justify-content-center">
-                    <div class="text-center">
-                        <h1 class="mx-auto my-0 text-uppercase">#MetPetID</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">A new way to explore geological data</h2>
-                        <a class="btn btn-primary" href="#index">Layout test</a>
-                    </div>
-                </div>
+            <div class="col-6">
+                <h2>Geological map</h2>
             </div>
-        </header>
-        <!-- Layout test index-->
-        <section class="about-section text-center" id="index">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8">
-                        <h2 class="text-white mb-4">Layout test </h2>
-                        <p class="text-white-50">
-                            We are developing several new data visualization modes.
-                            Stay tuned... 
-                            <a class="btn btn-primary" href="layout_test_2/index.html">Go to Test</a>
-
-                        </p>
-                        
-                       
-                    </div>
-                </div>
-                <img class="img-fluid" src="assets/img/ipad.png" alt="..." />
+            <div class="col-3">
+                <h2>Microdata</h2>
             </div>
-        </section>
-        <!-- Projects-->
-        <!-- <section class="projects-section bg-light" id="projects"> -->
-            <!-- <div class="container px-4 px-lg-5"> -->
-                <!-- Featured Project Row-->
-                <!-- <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/bg-masthead.jpg" alt="..." /></div>
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="featured-text text-center text-lg-left">
-                            <h4>Shoreline</h4>
-                            <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- Project One Row-->
-                <!-- <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-01.jpg" alt="..." /></div>
-                    <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">Misty</h4>
-                                    <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- Project Two Row-->
-                <!-- <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-02.jpg" alt="..." /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Mountains</h4>
-                                    <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-            <!-- </div> -->
-        <!-- </section> -->
-        <!-- Contat-->
-        <section class="signup-section" id="contact">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-10 col-lg-8 mx-auto text-center">
-                    <a href="https://github.com/gianfrancodp/metpet">
-                        <i class="fa-brands fa-github fa-2x mb-2 text-white"></i>
-                        <h2 class="text-white mb-5">Follow this repo on github!</h2>
-                    </a>
-                        
-                    </div>
-                </div>
+        </div>
+        <div class="row flex-grow-1 align-item-start">
+            <div class="col-3 d-flex align-items-stretch">
+               
+                <!-- <iframe allowfullscreen width="640" height="480" loading="lazy" frameborder="0" src="https://p3d.in/e/Gh7xz+nopan+nozoom+shading,dl,share,fs,link-hidden"></iframe>     -->
+                <iframe loading="lazy" frameborder="0" src="https://p3d.in/e/Gh7xz+nopan+nozoom+shading,dl,share,fs,link-hidden"></iframe>
+              
             </div>
-        </section>
-        <!-- Contact-->
-        <!-- <section class="contact-section bg-black">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Università degli Studi di Catania</h4>
-                                <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50">Facoltà di Geologia</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-envelope text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Email</h4>
-                                <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50"><a href="#!">gianfranco.dipietro@phd.unict.it</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Phone</h4>
-                                <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50">+1 (555) 902-8832</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="social d-flex justify-content-center">
-                    <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                    <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                    <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
-                </div>
+            <div class="col-6 d-flex align-items-stretch">
+                
+                <!-- Mappa -->
+                <div id="map" style="height:100%; width:100%;"></div>
             </div>
-        </section> -->
-        <!-- Footer-->
-        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Contributors &copy; Gianfranco Di Pietro and more</div></footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script>
-            /*!
-            * Start Bootstrap - Grayscale v7.0.6 (https://startbootstrap.com/theme/grayscale)
-            * Copyright 2013-2023 Start Bootstrap
-            * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
-            */
-            //
-            // Scripts
-            // 
+            <div class="col-3 align-items-stretch">
+            <!-- <div class="col-3 d-flex align-items-stretch"> -->
+                
+                <img src="Gabbro_pmg_ss_2006.jpg" usemap="#image-map" style="width: 100%; height: auto;">
 
-            window.addEventListener('DOMContentLoaded', event => {
+                <map name="image-map">
+                    <area target="_blank" id="imgzone1" alt="Element #1" title="Element #1" coords="39,500,28,496,30,479,29,462,39,453,56,446,69,459,77,456,92,453,105,453,115,450,109,430,118,423,135,422,148,409,171,407,198,408,209,422,211,433,207,446,208,458,208,481,213,504,204,513,190,519,182,526,163,530,47,532" shape="poly">
+                    <area target="_blank" id="imgzone2" alt="Element #2" title="Element #2" coords="219,448,245,450,276,461,292,470,316,495,306,517,299,532,196,529,221,500,216,473,228,191,232,169,232,156,210,142,196,147,188,158,195,180,219,201,428,218,420,196,439,196,456,202,461,217,478,218,481,232,474,241,449,228" shape="poly">
+                    <area target="_blank" id="imgzone3" alt="Element #3" title="Element #3" coords="554,380,68" shape="circle">
+                    <area target="_blank" id="imgzone4" alt="Element #4" title="Element #4" coords="449,190,449,174,462,133,490,119,518,132,545,127,578,126,599,116,600,107,609,101,630,97,657,105,636,136,627,183,620,201,603,235,586,240,586,233,590,219,537,191,548,221,546,230,526,228,501,228,472,215" shape="poly">
+                </map>
+                <!-- Chart test -->
+                &nbsp;
+                <p> % of minerals Chart </p>
+                <canvas id="myChart"></canvas>
+                <!-- script for image map -->
+                <script>
+                    $(document).ready(function() {
+                        $('map').imageMapResize();
+                        $('area').hover(function() {
+                            // Mostra il popup quando il mouse entra nell'area
+                            var title = $(this).attr('title');
+                            $('<p class="popup"></p>')
+                            .text(title)
+                            .appendTo('body')
+                            .fadeIn('slow');
+                        }, function() {
+                            // Nasconde il popup quando il mouse esce dall'area
+                            $('.popup').fadeOut('slow', function() {
+                                $(this).remove();
+                             });
+                        });
+                    });
+                </script>
+                <!-- Script for chart test -->
+                <script> 
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            datasets: [{
+                                label: '% of Minerals',
+                                data: [12, 19, 3, 5, 2, 3],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+});
+                    $('area').on('click', function() {
+                        // Ottieni l'ID dell'area cliccata
+                        var areaId = $(this).attr('id');
 
-            // Navbar shrink function
-            var navbarShrink = function () {
-                const navbarCollapsible = document.body.querySelector('#mainNav');
-                if (!navbarCollapsible) {
-                    return;
-                }
-                if (window.scrollY === 0) {
-                    navbarCollapsible.classList.remove('navbar-shrink')
-                } else {
-                    navbarCollapsible.classList.add('navbar-shrink')
-                }
+                        // Usa l'ID dell'area per determinare quali dati mostrare
+                        var data;
+                        if (areaId === 'imgzone1') {
+                            data = [12, 19, 3, 5, 2, 3];
+                        } else if (areaId === 'imgzone2') {
+                            data = [5, 10, 15, 20, 25, 30];
+                        } else if (areaId === 'imgzone3') {
+                            data = [4, 10, 33, 20, 25, 30];
+                        } else {
+                            data = [1, 2, 3, 4, 5, 6];
+                        }
 
-            };
+                        // Aggiorna il grafico con i nuovi dati
+                        myChart.data.datasets[0].data = data;
+                        myChart.update();
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Footer -->
+    <footer class="bg-dark text-white p-3 fixed-bottom">
+        <p>Il tuo testo qui</p>
+    </footer>
 
-            // Shrink the navbar 
-            navbarShrink();
-
-            // Shrink the navbar when page is scrolled
-            document.addEventListener('scroll', navbarShrink);
-
-            // Activate Bootstrap scrollspy on the main nav element
-            const mainNav = document.body.querySelector('#mainNav');
-            if (mainNav) {
-                new bootstrap.ScrollSpy(document.body, {
-                    target: '#mainNav',
-                    rootMargin: '0px 0px -40%',
-                });
-            };
-
-            // Collapse responsive navbar when toggler is visible
-            const navbarToggler = document.body.querySelector('.navbar-toggler');
-            const responsiveNavItems = [].slice.call(
-                document.querySelectorAll('#navbarResponsive .nav-link')
-            );
-            responsiveNavItems.map(function (responsiveNavItem) {
-                responsiveNavItem.addEventListener('click', () => {
-                    if (window.getComputedStyle(navbarToggler).display !== 'none') {
-                        navbarToggler.click();
-                    }
-                });
-            });
-
-            });
-        </script>
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-    </body>
+    <!-- JavaScript di Bootstrap 5.1.3 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- JavaScript di Leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
+    <script src="js/qgis2web_expressions.js"></script>
+    <!-- <script src="js/leaflet.js"></script> -->
+    <script src="js/multi-style-layer.js"></script>
+    <script src="js/leaflet-svg-shape-markers.min.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/rbush.min.js"></script>
+    <script src="js/labelgun.min.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+    <script src="data/CartaGeologica_1.js"></script>
+    <script src="data/Litografia_2.js"></script>
+    <script src="map.js"></script>
+ 
+</body>
 </html>

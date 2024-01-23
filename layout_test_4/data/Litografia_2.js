@@ -1,1 +1,0 @@
-var json_Litografia_2 = {"type":"FeatureCollection","name":"Litografia_2","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"fid":"1","Id":0.0},"geometry":{"type":"Point","coordinates":[15.85897647350205,38.380880357515657]}}]}
