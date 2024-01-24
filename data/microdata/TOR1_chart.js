@@ -1,27 +1,22 @@
+
 // chartJS script
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
-    type: 'pie',
+    type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['W', 'L', 'P',],
         datasets: [{
-            label: '% of Minerals',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'micro parameters',
+            data: [12,19,3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 206, 86, 0.2)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(255, 206, 86, 1)'
             ],
             borderWidth: 1
         }]
@@ -34,23 +29,39 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+var W ='';
+var L ='';
+var Ver_0 ='';
+var A ='';
+var P ='';
+// 	// Click event scripts
 $('area').on('click', function() {
-    // Ottieni l'ID dell'area cliccata
-    var areaId = $(this).attr('id');
+    console.log('Hai cliccato su ' + $(this).attr('id'));
+    var areaID = $(this).attr('id');
+    var areaID = areaID.replace('imgzone', ''); // Remove imgzone from areaID
+    var areaID = parseInt(areaID); // Convert areaID to integer
+    console.log('areaID clicked: ' + areaID);
 
-    // Usa l'ID dell'area per determinare quali dati mostrare
-    var data;
-    if (areaId === 'imgzone124') {
-        data = [10, 9, 13, 6, 1, 3];
-    } else if (areaId === 'imgzone79') {
-        data = [5, 10, 15, 20, 25, 30];
-    } else if (areaId === 'imgzone3') {
-        data = [4, 10, 33, 20, 25, 30];
-    } else {
-        data = [1, 2, 3, 4, 5, 6];
-    }
-
+    // Get data from table
+    $.getJSON('TOR1.json', function(JsonData) {
+        W = JsonData[areaID].W;
+        console.log('W: ' + W);
+        L = JsonData[areaID].L;
+        console.log('L: ' + L);
+        Vert_0 = JsonData[areaID].Vert_0;
+        console.log('Vert_0: ' + Vert_0);
+        A = JsonData[areaID].A;
+        console.log('A: ' + A);
+        P = JsonData[areaID].P;
+        // Write data to log
+        console.log('successfully parsed from Json W: ' + W + ' L: ' + L + ' Vert_0: ' + Vert_0 + ' A: ' + A);
+        });
+    
+    var data = [W, L, P];
+    console.log(data);
     // Aggiorna il grafico con i nuovi dati
+    myChart.data.datasets[0].label = areaID;
     myChart.data.datasets[0].data = data;
     myChart.update();
-});
+    });
+    
