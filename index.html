@@ -28,10 +28,12 @@
     </style>   
     <!-- JQuery script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Map Resizer script -->
-    <script src="imageMapResizer.min.js"></script>
-    <!-- Script for Chart JS library -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- ### THESE Script was moved in iframe html source -->
+    <!-- ---------------------- -->
+        <!-- Map Resizer script -->
+        <!-- <script src="imageMapResizer.min.js"></script> -->
+        <!-- Script for Chart JS library -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     
     <title>MetPetID</title>
 </head>
@@ -41,7 +43,7 @@
         <h1 class="text-center">Met Pet demo</h1>
     </header>
 
-    <!-- Corpo centrale -->
+    <!-- Center page -->
     <div class="container text-center vh-100 d-flex flex-column">
         <div class="row align-item-start">
             <div class="col-3">
@@ -56,102 +58,18 @@
         </div>
         <div class="row flex-grow-1 align-item-start">
             <div class="col-3 d-flex align-items-stretch">
-               
-                <!-- <iframe allowfullscreen width="640" height="480" loading="lazy" frameborder="0" src="https://p3d.in/e/Gh7xz+nopan+nozoom+shading,dl,share,fs,link-hidden"></iframe>     -->
+               <!-- 3D Data frame -->
                 <iframe loading="lazy" frameborder="0" src="https://p3d.in/e/Gh7xz+nopan+nozoom+shading,dl,share,fs,link-hidden"></iframe>
-              
             </div>
             <div class="col-6 d-flex align-items-stretch">
-                
-                <!-- Mappa -->
+                <!-- Geological map frame -->
                 <div id="map" style="height:100%; width:100%;"></div>
             </div>
             <div class="col-3 align-items-stretch">
-            <!-- <div class="col-3 d-flex align-items-stretch"> -->
-                
-                <!-- Image map -->
-                <iframe src="/data/TOR1_framed.html"></iframe>
-                <!-- Chart test -->
-                &nbsp;
-                <p> % of minerals Chart </p>
-                <canvas id="myChart"></canvas>
-                <!-- script for image map -->
-                <script>
-                    $(document).ready(function() {
-                        $('map').imageMapResize();
-                        $('area').hover(function() {
-                            // Mostra il popup quando il mouse entra nell'area
-                            var title = $(this).attr('title');
-                            $('<p class="popup"></p>')
-                            .text(title)
-                            .appendTo('body')
-                            .fadeIn('slow');
-                        }, function() {
-                            // Nasconde il popup quando il mouse esce dall'area
-                            $('.popup').fadeOut('slow', function() {
-                                $(this).remove();
-                             });
-                        });
-                    });
-                </script>
-                <!-- Script for chart test -->
-                <script> 
-                    var ctx = document.getElementById('myChart').getContext('2d');
-                    var myChart = new Chart(ctx, {
-                        type: 'pie',
-                        data: {
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                            datasets: [{
-                                label: '% of Minerals',
-                                data: [12, 19, 3, 5, 2, 3],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)',
-                                    'rgba(255, 159, 64, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-});
-                    $('area').on('click', function() {
-                        // Ottieni l'ID dell'area cliccata
-                        var areaId = $(this).attr('id');
-
-                        // Usa l'ID dell'area per determinare quali dati mostrare
-                        var data;
-                        if (areaId === 'imgzone1') {
-                            data = [12, 19, 3, 5, 2, 3];
-                        } else if (areaId === 'imgzone2') {
-                            data = [5, 10, 15, 20, 25, 30];
-                        } else if (areaId === 'imgzone3') {
-                            data = [4, 10, 33, 20, 25, 30];
-                        } else {
-                            data = [1, 2, 3, 4, 5, 6];
-                        }
-
-                        // Aggiorna il grafico con i nuovi dati
-                        myChart.data.datasets[0].data = data;
-                        myChart.update();
-                    });
-                </script>
+                <!-- Microdata frame and chart-->
+                <div class="embed-responsive embed-responsive-1by1">
+                    <iframe class="embed-responsive-item" src="data/TOR1.html" height="800"></iframe>
+                </div>
             </div>
         </div>
     </div>
