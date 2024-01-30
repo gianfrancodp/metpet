@@ -91,4 +91,21 @@ function applyMargins() {
     
     applyInitialUIState();
     applyMargins();
+
+    // Search form
+    $('.navbar-form button[type="submit"]').click(function(event){
+      event.preventDefault();
+      var searchInput = $('.navbar-form input[type="text"]').val();
+      console.log('Button clicked, the text is: '+ searchInput);
+      // Geocoding address using Nominatim
+      $.getJSON('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + searchInput, function(data) {
+        var lat = data[0].lat;
+        var lon = data[0].lon;
+        //console.log('Latitude: ' + lat + ' Longitude: ' + lon);
+        // Zoom to location
+        map.getView().animate({center: ol.proj.fromLonLat([lon, lat]), zoom: 15});
+      });
   });
+
+
+});
