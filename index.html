@@ -1,62 +1,163 @@
 <!DOCTYPE html>
-<!-- CC-BY Gianfranco Di Pietro 2023 -->
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSS di Bootstrap 5.1.3 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- JQuery script -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
-    <title>MetPetID</title>
-</head>
-<body class="vh-100">
-    <!-- Header -->
-    <header class="bg-dark text-white p-3">
-        <h1 class="text-center">Met Pet demo</h1>
-    </header>
-    <!-- Center page -->
-    <div class="container text-center vh-100 d-flex flex-column">
-        <div class="row align-item-start">
-            <div class="col-3">
-                <h2>3D Data</h2>
-            </div>
-            <div class="col-6">
-                <h2>Geological map</h2>
-            </div>
-            <div class="col-3">
-                <h2>Microdata</h2>
-            </div>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Map Viewer (3-column layout)</title>
+    <link rel="stylesheet" href="assets/css/ol.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <script type="text/javascript" src="assets/js/ol.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/layout.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Map Viewer Test</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <!-- <li class="active"><a href="#">Link</a></li> -->
+              <!-- <li><a href="#">Link</a></li> -->
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Link</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+            </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
         </div>
-        <div class="row flex-grow-1 align-item-start">
-            <div class="col-3 d-flex align-items-stretch">
-               <!-- 3D Data frame -->
-                <iframe loading="lazy" frameborder="0" src="https://p3d.in/e/Gh7xz+nopan+nozoom+shading,dl,share,fs,link-hidden"></iframe>
-            </div>
-            <div class="col-6 d-flex align-items-stretch">
-                <!-- Geological map frame -->
-                <iframe class="embed-responsive-item" src="data/map/index.html" width=100% height=100%></iframe>
-                <!-- <div id="map" style="height:100%; width:100%;"></div> -->
-            </div>
-            <div class="col-3 align-items-stretch">
-                <!-- Microdata frame and chart-->
-                <div class="embed-responsive embed-responsive-1by1">
-                    <iframe class="embed-responsive-item" src="data/microdata/TOR1.html" height="800"></iframe>
+      </nav>
+      <div class="navbar-offset"></div>
+      <div id="map">
+      </div>
+      <div class="row main-row">
+        <div class="col-sm-4 col-md-3 sidebar sidebar-left pull-left">
+          <div class="panel-group sidebar-body" id="accordion-left">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#layers">
+                    <i class="fa fa-list-alt"></i>
+                    Layers
+                  </a>
+                  <span class="pull-right slide-submenu">
+                    <i class="fa fa-chevron-left"></i>
+                  </span>
+                </h4>
+              </div>
+              <div id="layers" class="panel-collapse collapse in">
+                <div class="panel-body list-group">
+                  <a href="#" class="list-group-item">
+                    <i class="fa fa-globe"></i> Open Street Map
+                  </a>
+                  <!-- <a href="#" class="list-group-item">
+                    <i class="fa fa-globe"></i> Bing
+                  </a> -->
+                  <!-- <a href="#" class="list-group-item">
+                    <i class="fa fa-globe"></i> WMS
+                  </a> -->
                 </div>
+              </div>
             </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#properties">
+                    <i class="fa fa-cube"></i>
+                    3D Data
+                  </a>
+                </h4>
+              </div>
+              <div id="properties" class="panel-collapse collapse in">
+                <div class="panel-body">
+                <!-- 3D Data frame -->
+                <iframe allowfullscreen width="200" height="400" loading="lazy" frameborder="0" src="https://p3d.in/e/QzpQD"></iframe>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <div class="col-sm-4 col-md-6 mid"></div>
+        <div class="col-sm-4 col-md-3 sidebar sidebar-right pull-right">
+          <div class="panel-group sidebar-body" id="accordion-right">
+            <div class="panel panel-default panel-right"> <!-- panel Right -->
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#taskpane">
+                    <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M160 32c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32c17.7 0 32 14.3 32 32V288c0 17.7-14.3 32-32 32c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32zM32 448H320c70.7 0 128-57.3 128-128s-57.3-128-128-128V128c106 0 192 86 192 192c0 49.2-18.5 94-48.9 128H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 32c-17.7 0-32-14.3-32-32s14.3-32 32-32zm80-64H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+                    Microdata
+                  </a>
+                  <span class="pull-right slide-submenu">
+                    <i class="fa fa-chevron-right"></i>
+                  </span>
+                </h4>
+              </div>
+              <div id="taskpane" class="panel-collapse collapse in" style="height: 500px;">
+                <div class="panel-body">
+                  <!-- Microdata -->
+                  <iframe width="450" height="500" style="border: none;" src="assets/microdata/TOR1.html"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mini-submenu mini-submenu-left pull-left">
+        <i class="fa fa-list-alt"></i>
+      </div>
+      <div class="mini-submenu mini-submenu-right pull-right">
+        <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M160 32c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32c17.7 0 32 14.3 32 32V288c0 17.7-14.3 32-32 32c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32zM32 448H320c70.7 0 128-57.3 128-128s-57.3-128-128-128V128c106 0 192 86 192 192c0 49.2-18.5 94-48.9 128H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 32c-17.7 0-32-14.3-32-32s14.3-32 32-32zm80-64H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+      </div>
     </div>
-</div>
-    <!-- Footer -->
-    <footer class="bg-dark text-white p-3 fixed-bottom">
-        <p class="text-center">About</p>
-    </footer>
-    <!-- JavaScript di Bootstrap 5.1.3 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <!-- other script - TODO check for remove not used or old -->
-    <script src="js/Autolinker.min.js"></script>
-    <script src="js/rbush.min.js"></script>
-    <script src="js/labelgun.min.js"></script>
-    <!-- <script src="js/labels.js"></script> -->
-</body>
-</html>
+  </body>
+  <!-- Alert message -->
+  <script>
+    window.onload = function() {
+    alert("Please note: This is an experimental website, under development. Any information is not to be trusted at this time.");
+    };
+    </script>
+  </html>
