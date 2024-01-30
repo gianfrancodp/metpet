@@ -66,5 +66,10 @@ cursor : pointer;
 }
 .panel-right {
     width: 500px;
-    margin-left: -200px;
+    height: 600px;
+    float: right;
+}
+.panel-left {
+    width: 300px;
+    float: left;
 }
