@@ -1,5 +1,6 @@
 
-// Layout scripts and funcionality
+// Layout scripts and functions - map and sidebar
+
 
 function applyMargins() {
     var leftToggler = $(".mini-submenu-left");
@@ -76,18 +77,67 @@ function applyMargins() {
 
 // OpenLayers map
 
-    var map = new ol.Map({
-      target: "map",
-      layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
-        })
-      ],
-      view: new ol.View({
-        center: [0, 0],
-        zoom: 2
+    
+
+
+    // Define the proj4 projection EPSG:32633
+    proj4.defs("EPSG:32633","+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs");
+    // Register the proj4 projection
+    ol.proj.proj4.register(proj4);
+
+    // GeoJson file source and Layer definition
+    var vectorSource = new ol.source.Vector({
+      url: './assets/geodata/test1.geojson',
+      format: new ol.format.GeoJSON({
+        dataProjection: 'EPSG:32633',
+        featureProjection: 'EPSG:3857'
       })
     });
+    var vectorLayer = new ol.layer.Vector({
+      source: vectorSource
+    });
+
+    // Click event on the layer button
+    var LayerButton1 = document.getElementById('LayerButton1');
+    LayerButton1.addEventListener('click', function() {
+      // Ottieni la visibilità corrente del layer
+      var visibility = vectorLayer.getVisible();
+    
+      // Cambia la visibilità del layer
+      vectorLayer.setVisible(!visibility);
+      if (visibility == false) {
+        LayerButton1.style.color = "black";
+      } else {
+        LayerButton1.style.color = "gray";
+      }
+    });
+
+    // Define OpenLayers mapbaselayer
+    var osmbaselayer = new ol.layer.Tile({
+      source: new ol.source.OSM()
+    });
+    //Click event on the base layer button
+    var LayerButton2 = document.getElementById('LayerButton2');
+    LayerButton2.addEventListener('click', function() {
+      var visibility = osmbaselayer.getVisible();
+      osmbaselayer.setVisible(!visibility);
+      if (visibility == false) {
+        LayerButton2.style.color = "black";
+      } else {
+        LayerButton2.style.color = "gray";
+      }
+    });
+
+    var map = new ol.Map({
+      target: "map",
+      layers: [osmbaselayer, vectorLayer],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([15.2442, 38.1923]),
+        zoom: 10
+      })
+    });
+
+    //
     
     applyInitialUIState();
     applyMargins();
