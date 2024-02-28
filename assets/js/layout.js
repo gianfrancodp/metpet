@@ -78,7 +78,7 @@ function applyMargins() {
 // OpenLayers map
 
     
-
+    // ### VECTOR LAYER ###
 
     // Define the proj4 projection EPSG:32633
     proj4.defs("EPSG:32633","+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs");
@@ -96,14 +96,29 @@ function applyMargins() {
     var vectorLayer = new ol.layer.Vector({
       source: vectorSource
     });
-
+    // var popupcontent = document.createElement('popup');
+    // popupcontent.innerHTML = 'This is a popup';
+    // var popup = new ol.Overlay({
+    //   element: popupcontent,
+    //   positioning: 'bottom-center',
+    //   stopEvent: false,
+    //   offset: [0, -50]
+    // });
+    // var popup = new ol.Overlay({
+    //     element: document.getElementById('popup'),
+    //   });
+    //   popup.setPosition(0,0); //coordinate is the clicked point
+    //   console.log('Popup position: ' + popup.getPosition());
+ 
+   
+     
     // Click event on the layer button
     var LayerButton1 = document.getElementById('LayerButton1');
     LayerButton1.addEventListener('click', function() {
       // Ottieni la visibilità corrente del layer
       var visibility = vectorLayer.getVisible();
     
-      // Cambia la visibilità del layer
+      // Set visibility
       vectorLayer.setVisible(!visibility);
       if (visibility == false) {
         LayerButton1.style.color = "black";
@@ -112,6 +127,7 @@ function applyMargins() {
       }
     });
 
+    // ### BASE LAYER ###
     // Define OpenLayers mapbaselayer
     var osmbaselayer = new ol.layer.Tile({
       source: new ol.source.OSM()
@@ -128,21 +144,78 @@ function applyMargins() {
       }
     });
 
+    // ### MAP ###
     var map = new ol.Map({
       target: "map",
       layers: [osmbaselayer, vectorLayer],
       view: new ol.View({
-        center: ol.proj.fromLonLat([15.2442, 38.1923]),
+        center: ol.proj.fromLonLat([15.8584, 38.3806]), // 38.38064548693046, 15.858419054042106
         zoom: 10
       })
     });
+
+    // Add the popup to the map
+    var element = document.getElementById('popup');
+    var popup = new ol.Overlay({
+      element: element,
+      positioning: 'bottom-center',
+      stopEvent: false,
+    });
+    map.addOverlay(popup);
+    let popover;
+    function disposePopover() {
+      if (popover) {
+        popover.dispose();
+        popover = undefined;
+      }
+    }
+    // display popup on click
+    map.on('click', function (evt) {
+      const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
+        return feature;
+      });
+      disposePopover();
+      if (!feature) {
+        return;
+      }
+      popup.setPosition(evt.coordinate);
+      
+      popover = new bs.Popover(element, {
+        placement: 'top',
+        html: true,
+        content: feature.get('sigla'),
+      });
+      popover.show();
+    });
+
+
+    // map.addOverlay(popup);
+    // map.on('click', function(evt) {
+    //   var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+    //     return feature;
+    //   });
+    //   if (feature) {
+    //     var coordinates = feature.getGeometry().getCoordinates();
+    //     popup.setPosition(coordinates);
+    //     console.log('Popup position: ' + popup.getPosition());
+    //     $(element).popover({
+    //       'placement': 'top',
+    //       'html': true,
+    //       'content': feature.get('name')
+    //     });
+    //     $(element).popover('show');
+    //   } else {
+    //     $(element).popover('destroy');
+    //   }
+    // });
 
     //
     
     applyInitialUIState();
     applyMargins();
 
-    // Search form
+    // ### SEARCH FEATURE ###
+
     $('.navbar-form button[type="submit"]').click(function(event){
       event.preventDefault();
       var searchInput = $('.navbar-form input[type="text"]').val();
