@@ -84,6 +84,9 @@ function applyMargins() {
     proj4.defs("EPSG:32633","+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs");
     // Register the proj4 projection
     ol.proj.proj4.register(proj4);
+    // Define projection EPSG:4326
+    proj4.defs("EPSG:4326","+proj=longlat +datum=WGS84 +no_defs");
+    ol.proj.proj4.register(proj4);
 
     // GeoJson file source and Layer definition
     var vectorSource = new ol.source.Vector({
@@ -145,12 +148,23 @@ function applyMargins() {
     });
 
     // ### MAP ###
+    // define map extension
+    minX = 15.750920388815471;
+    minY = 38.244901695888345;
+    maxX = 16.044992248280618;
+    maxY = 38.45893662712136;
+    var mapextension = [minX, minY, maxX, maxY];
+    
+    // Define the map
     var map = new ol.Map({
       target: "map",
       layers: [osmbaselayer, vectorLayer],
       view: new ol.View({
-        center: ol.proj.fromLonLat([15.8584, 38.3806]), // 38.38064548693046, 15.858419054042106
-        zoom: 10
+        center: ol.proj.fromLonLat([15.8584, 38.3806]), 
+        zoom: 17,
+        extent: ol.proj.transformExtent(mapextension, 'EPSG:4326', 'EPSG:3857'),
+        minZoom: 10,
+        maxZoom: 20
       })
     });
 
