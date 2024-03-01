@@ -88,16 +88,30 @@ function applyMargins() {
     proj4.defs("EPSG:4326","+proj=longlat +datum=WGS84 +no_defs");
     ol.proj.proj4.register(proj4);
 
+
+
     // GeoJson file source and Layer definition
+
+    var vectoriconStyle = new ol.style.Style({
+      image: new ol.style.Icon({
+        anchor: [0.5, 0.5],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'fraction',
+        src: './assets/microdata/pal/icon.png',
+        scale: 0.1
+      })
+    });
+
     var vectorSource = new ol.source.Vector({
-      url: './assets/geodata/test1.geojson',
+      url: './assets/microdata/PAL/locations.geojson',
       format: new ol.format.GeoJSON({
-        dataProjection: 'EPSG:32633',
+        dataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857'
       })
     });
     var vectorLayer = new ol.layer.Vector({
-      source: vectorSource
+      source: vectorSource,
+      style: vectoriconStyle
     });
     // var popupcontent = document.createElement('popup');
     // popupcontent.innerHTML = 'This is a popup';
