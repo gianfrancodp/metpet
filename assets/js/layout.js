@@ -97,8 +97,8 @@ function applyMargins() {
         anchor: [0.5, 0.5],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
-        src: './assets/microdata/pal/icon.png',
-        scale: 0.1
+        src: './assets/microdata/pal/icon.png', // icon from https://mapicons.mapsmarker.com/
+        scale: 1
       })
     });
 
@@ -147,7 +147,10 @@ function applyMargins() {
     // ### BASE LAYER ###
     // Define OpenLayers mapbaselayer
     var osmbaselayer = new ol.layer.Tile({
-      source: new ol.source.OSM()
+      source: new ol.source.OSM({
+        attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
+                        ol.source.OSM.ATTRIBUTION]
+      })
     });
     //Click event on the base layer button
     var LayerButton2 = document.getElementById('LayerButton2');
