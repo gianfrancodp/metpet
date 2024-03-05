@@ -43,6 +43,8 @@ var A ='';
 var GSF = '';
 var GSI = '';
 
+
+
 // 	// Click event scripts
 $('area').on('click', function() {
     var areaID = $(this).attr('id'); // get id from html map region
@@ -54,12 +56,11 @@ $('area').on('click', function() {
         A = JsonData[areaID].A;
         GSF = JsonData[areaID].GSF;
         GSI = JsonData[areaID].GSI;
-        });
-    
+        })
     var data = [A, GSI, GSF];
     // Chart update
     myChart.data.datasets[0].label = areaID;
     myChart.data.datasets[0].data = data;
     myChart.update();
-    });
+});
     
