@@ -5,7 +5,7 @@ var myChart = new Chart(ctx, {
     data: {
         labels: ['Grain Area', 'Grain Shape Factor', 'Grain Shape Index'],
         datasets: [{
-            label: 'Grain parameters',
+            label: null,
             data: [0,0,0],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -18,7 +18,17 @@ var myChart = new Chart(ctx, {
                         'rgba(255, 206, 86, 1)'
             ],
             borderWidth: 1
+        }, {
+            type: 'line',
+            label: 'Average',
+            data: [0.5, null, null],
+            fill: true,
+            showLine: false,
+            pointRadius: 10,
+            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+            pointHoverRadius: 10
         }]
+        
     },
     options: {
         scales: {
