@@ -97,7 +97,7 @@ function applyMargins() {
         anchor: [0.5, 0.5],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
-        src: './assets/microdata/pal/icon.png', // icon from https://mapicons.mapsmarker.com/
+        src: 'assets/microdata/pal/icon.png', // icon from https://mapicons.mapsmarker.com/
         scale: 1
       })
     });
