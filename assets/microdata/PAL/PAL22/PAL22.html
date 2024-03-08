@@ -965,18 +965,37 @@
 	<area target="_blank" id="imgzone951" alt="Element #951" title="Element #951" coords="6605,0,6608,3,6606,5,6605,10,6603,13,6604,15,6603,16,6603,22,6605,26,6605,34,6603,36,6598,38,6590,42,6584,42,6581,48,6579,47,6573,50,6572,48,6567,48,6565,51,6559,50,6556,51,6553,48,6551,48,6550,44,6547,42,6546,30,6547,27,6550,24,6550,16,6547,13,6548,12,6548,7,6551,4,6553,4,6555,2,6558,2,6562,1,6602,1" shape="poly">
 </map>
 <!-- Rose Diagrams SVG -->
-<img id="svg1" src="" width=200 height=200>
-<img id="svg2" src="" width=200 height=200>
+<table style="border-collapse: collapse; border: 0; margin-left: auto; margin-right: auto;">
+	<tr>
+	  <td style="border: none;"><img id="svg1" src="blank_diagram.svg" width=100%></td>
+	  <td style="border: none;"><img id="svg2" src="blank_diagram.svg" width=100%></td>
+	</tr>
+  </table>
+
 <script>
+	// function openFullscreen() {
+	// var img = document.getElementById("svg1");
+	// 	if (img.requestFullscreen) {
+	// 		img.requestFullscreen();
+	// 	} else if (img.mozRequestFullScreen) { /* Firefox */
+	// 		img.mozRequestFullScreen();
+	// 	} else if (img.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+	// 		img.webkitRequestFullscreen();
+	// 	} else if (img.msRequestFullscreen) { /* IE/Edge */
+	// 		img.msRequestFullscreen();
+	// 	}
+	// }
+
+	// ImageMapster
 	$(document).ready(function() {
 	 $('map').imageMapResize();
 	}); 
-	// 
+	// Variables
 	var Mineral ='';
 	var SvgURI1= '';
 	var SvgURI2= '';
 
-	// 	// Click event scripts
+	// Click event scripts
 	$('area').on('click', function() {
 		var areaID = $(this).attr('id'); // get id from html map region
 		var areaID = areaID.replace('imgzone', ''); // Remove imgzone from areaID
@@ -995,14 +1014,18 @@
 		var imgElement1 = document.getElementById('svg1');
 		if (imgElement1) {
 			imgElement1.src = SvgURI1;
+			imgElement1.onerror = function() {
+				imgElement1.src = 'blank_diagram.svg';
+			}
 		}
 		var imgElement2 = document.getElementById('svg2');
 		if (imgElement2) {
 			imgElement2.src = SvgURI2;
+			imgElement2.onerror = function() {
+				imgElement2.src = 'blank_diagram.svg';
+			}
 		}
 	});
-    
 </script>
-<!-- <script src="PAL22_chart.js"></script> -->
 </body>
 </html>
