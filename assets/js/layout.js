@@ -103,7 +103,7 @@ function applyMargins() {
     });
 
     var vectorSource = new ol.source.Vector({
-      url: './assets/microdata/PAL/locations.geojson',
+      url: 'assets/microdata/PAL/locations.geojson',
       format: new ol.format.GeoJSON({
         dataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857'
