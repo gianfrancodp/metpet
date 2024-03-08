@@ -91,19 +91,19 @@ function applyMargins() {
 
 
     // GeoJson file source and Layer definition
-
+    
     var vectoriconStyle = new ol.style.Style({
       image: new ol.style.Icon({
         anchor: [0.5, 0.5],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
-        src: '../assets/microdata/pal/icon.png', // icon from https://mapicons.mapsmarker.com/
+        src: 'https://gianfrancodp.github.io/metpet/assets/microdata/PAL/icon.png', // icon from https://mapicons.mapsmarker.com/
         scale: 1
       })
     });
 
     var vectorSource = new ol.source.Vector({
-      url: '../assets/microdata/PAL/locations.geojson',
+      url: 'https://gianfrancodp.github.io/metpet/assets/microdata/PAL/locations.geojson',
       format: new ol.format.GeoJSON({
         dataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857'
