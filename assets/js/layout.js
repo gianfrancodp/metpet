@@ -80,18 +80,52 @@ function applyMargins() {
     
     // ### VECTOR LAYER ###
 
-    // Define the proj4 projection EPSG:32633
+    // Define and register the proj4 projections used 
     proj4.defs("EPSG:32633","+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs");
-    // Register the proj4 projection
     ol.proj.proj4.register(proj4);
-    // Define projection EPSG:4326
     proj4.defs("EPSG:4326","+proj=longlat +datum=WGS84 +no_defs");
     ol.proj.proj4.register(proj4);
 
 
 
     // GeoJson file source and Layer definition
-    
+    // Active Lanslides layer
+    var ActiveLanslidesLayerStyle = function(feature) {
+      var color;
+      switch(feature.get('TIPOLOGIA')) {
+        case 'Crollo': color = '#1a9641'; break;
+        case 'Scorrimento': color = '#77c35c'; break;
+        case 'ZDSL': color = '#c4e687'; break;
+        case 'ZEI' : color = '#ffffc0'; break;
+        case 'ZFP' : color = '#ff7f00'; break;
+        case 'ZFS' : color = '#ff0004'; break;
+
+      } // get the color from the feature
+      return new ol.style.Style({
+          fill: new ol.style.Fill({
+              color: color
+          }),
+          stroke: new ol.style.Stroke({
+              color: color,
+              width: 2
+          })
+      });
+    };
+    var ActiveLanslidesLayerSource = new ol.source.Vector({
+      url: 'https://gianfrancodp.github.io/metpet/assets/geodata/Active_lanslides.geojson',
+      format: new ol.format.GeoJSON({
+        dataProjection: 'EPSG:32633',
+        featureProjection: 'EPSG:3857'
+      })
+    });
+    var ActiveLanslidesLayer = new ol.layer.Vector({
+      source: ActiveLanslidesLayerSource,
+      style: ActiveLanslidesLayerStyle
+    });
+
+
+
+
     var vectoriconStyle = new ol.style.Style({
       image: new ol.style.Icon({
         anchor: [0.5, 0.5],
@@ -175,7 +209,7 @@ function applyMargins() {
     // Define the map
     var map = new ol.Map({
       target: "map",
-      layers: [osmbaselayer, vectorLayer],
+      layers: [osmbaselayer, vectorLayer, ActiveLanslidesLayer],
       view: new ol.View({
         center: ol.proj.fromLonLat([15.8584, 38.3806]), 
         zoom: 17,
