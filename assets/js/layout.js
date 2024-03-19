@@ -99,7 +99,6 @@ function applyMargins() {
       })
     });
 
-
     //Click event on the base layer button 1
     var LayerButton1 = document.getElementById('LayerButton1');
     LayerButton1.addEventListener('click', function() {
@@ -112,16 +111,19 @@ function applyMargins() {
       }
     });
 
-    // Active Landslides layer
+  // ### START OF VECTOR LAYERS ###
+
+    // 1. Active Landslides layer
     var ActiveLandslidesLayerStyle = function(feature) {
+      var alpha = 0.5;
       var color;
       switch(feature.get('TIPOLOGIA')) {
-        case 'Crollo': color = '#1a9641'; break;
-        case 'Scorrimento': color = '#77c35c'; break;
-        case 'ZDSL': color = '#c4e687'; break;
-        case 'ZEI' : color = '#ffffc0'; break;
-        case 'ZFP' : color = '#ff7f00'; break;
-        case 'ZFS' : color = '#ff0004'; break;
+        case 'Crollo': color = `rgba(26, 150, 65, ${alpha}`; break;
+        case 'Scorrimento': color  = `rgba(119, 195, 92, ${alpha})`; break;
+        case 'ZDSL': color = `rgba(196, 230, 135, ${alpha})`; break;
+        case 'ZEI' : color = `rgba(255, 255, 192, ${alpha})`; break;
+        case 'ZFP' : color = `rgba(255, 127, 0, ${alpha})`; break;
+        case 'ZFS' : color = `rgba(255, 0, 0, ${alpha})`; break;
 
       } // get the color from the feature
       return new ol.style.Style({
@@ -171,8 +173,82 @@ function applyMargins() {
       }
     });
      
-    
-    
+    // 2. General Geology layer
+  
+
+    var GeneralGeologyLayerStyle = function(feature) {
+      var alpha = 0.5;
+      var color;
+      switch(feature.get('Litotipo')) {
+        case 'Marine Terraces': color = `rgba(144, 238, 144, ${alpha}`; break;
+        case 'Beaches and alluvial deposits': color = `rgba(0, 128, 0, ${alpha}`; break;
+        case 'Trubi': color = `rgba(34, 139, 34, ${alpha}`; break;
+        case 'Mylonitic Skarn' : color = `rgba(85, 107, 47, ${alpha}`; break;
+        case 'Skarn' : color = `rgba(0, 102, 51, ${alpha}`; break;
+        case 'Evaporitic brecciated limestones' : color = `rgba(102, 205, 170, ${alpha}`; break;
+        case 'Migmatitic paragneiss' : color = `rgba(127, 255, 212, ${alpha}`; break;
+        case 'Debris flow' : color = `rgba(175, 238, 238, ${alpha}`; break;
+        case 'Porites limestones' : color = `rgba(0, 102, 204, ${alpha}`; break;
+        case 'Augen gneiss' : color = `rgba(135, 206, 250, ${alpha}`; break;
+        case 'Siliciclastic arenites' : color = `rgba(15, 82, 186, ${alpha}`; break;
+        case 'Layered tonalites' : color = `rgba(0, 0, 128, ${alpha}`; break;
+        case 'Marly clays' : color = `rgba(10, 10, 20, ${alpha}`; break;
+        case 'Landslides' : color = `rgba(0, 39, 77, ${alpha}`; break;
+        case 'Mylonitic magmatitic paragneiss' : color = `rgba(65, 105, 225, ${alpha}`; break;
+
+      } // get the color from the feature
+      return new ol.style.Style({
+          fill: new ol.style.Fill({
+              color: color
+          }),
+          stroke: new ol.style.Stroke({
+              color: color,
+              width: 2
+          }),
+          text: new ol.style.Text({
+            font: '12px Calibri,sans-serif',
+            fill: new ol.style.Fill({
+              color: '#000'
+            }),
+            stroke: new ol.style.Stroke({
+              color: '#fff',
+              width: 3
+            }),
+            text: feature.get('Litotipo')
+          })
+      });
+    };
+
+    var GeneralGeologyLayerSource = new ol.source.Vector({
+      url: 'https://gianfrancodp.github.io/metpet/assets/geodata/General_Geology.geojson',
+      format: new ol.format.GeoJSON({
+        dataProjection: 'EPSG:32633',
+        featureProjection: 'EPSG:3857'
+      })
+    });
+    console.log('General Geology Layer loaded');
+
+    var GeneralGeologyLayer = new ol.layer.Vector({
+      source: GeneralGeologyLayerSource,
+      style: GeneralGeologyLayerStyle
+    });
+
+
+    var LayerButton3 = document.getElementById('LayerButton3');
+    LayerButton3.addEventListener('click', function() {
+      // get actual visibility
+      var visibility = GeneralGeologyLayer.getVisible();
+      // Set the opposite visibility
+      GeneralGeologyLayer.setVisible(!visibility);
+      // set color of the button
+      if (visibility == false) {
+        LayerButton3.style.color = "black";
+      } else {
+        LayerButton3.style.color = "gray";
+      }
+    });
+
+
     // ### MAP ###
     // define map extension
     minX = 15.750920388815471;
