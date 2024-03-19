@@ -75,10 +75,14 @@ function applyMargins() {
 
     $(window).on("resize", applyMargins);
 
-// OpenLayers map
+// END OF SIDEBAR SCRIPTS
 
-    
-    // ### VECTOR LAYER ###
+////////////////////////
+//START OPENLAYERS MAP SCRIPTS
+//First we define the projections used in the map, then we define the base layer and the vector layers.
+//For each layer we define a style and a source, then we define the layer itself.
+//We also define the buttons to show/hide the layers.
+//Finally we define the map itself and the search feature.
 
     // Define and register the proj4 projections used 
     proj4.defs("EPSG:32633","+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs");
@@ -86,9 +90,28 @@ function applyMargins() {
     proj4.defs("EPSG:4326","+proj=longlat +datum=WGS84 +no_defs");
     ol.proj.proj4.register(proj4);
 
+    // ### BASE LAYER ###
+    // Define OpenLayers mapbaselayer
+    var osmbaselayer = new ol.layer.Tile({
+      source: new ol.source.OSM({
+        attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
+                        ol.source.OSM.ATTRIBUTION]
+      })
+    });
 
 
-    // GeoJson file source and Layer definition
+    //Click event on the base layer button 1
+    var LayerButton1 = document.getElementById('LayerButton1');
+    LayerButton1.addEventListener('click', function() {
+      var visibility = osmbaselayer.getVisible();
+      osmbaselayer.setVisible(!visibility);
+      if (visibility == false) {
+        LayerButton1.style.color = "black";
+      } else {
+        LayerButton1.style.color = "gray";
+      }
+    });
+
     // Active Landslides layer
     var ActiveLandslidesLayerStyle = function(feature) {
       var color;
@@ -108,6 +131,17 @@ function applyMargins() {
           stroke: new ol.style.Stroke({
               color: color,
               width: 2
+          }),
+          text: new ol.style.Text({
+            font: '12px Calibri,sans-serif',
+            fill: new ol.style.Fill({
+              color: '#000'
+            }),
+            stroke: new ol.style.Stroke({
+              color: '#fff',
+              width: 3
+            }),
+            text: feature.get('TIPOLOGIA')
           })
       });
     };
@@ -123,83 +157,22 @@ function applyMargins() {
       style: ActiveLandslidesLayerStyle
     });
 
-
-
-
-    var vectoriconStyle = new ol.style.Style({
-      image: new ol.style.Icon({
-        anchor: [0.5, 0.5],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'fraction',
-        src: 'https://gianfrancodp.github.io/metpet/assets/microdata/PAL/icon.png', // icon from https://mapicons.mapsmarker.com/
-        scale: 1
-      })
-    });
-
-    var vectorSource = new ol.source.Vector({
-      url: 'https://gianfrancodp.github.io/metpet/assets/microdata/PAL/locations.geojson',
-      format: new ol.format.GeoJSON({
-        dataProjection: 'EPSG:4326',
-        featureProjection: 'EPSG:3857'
-      })
-    });
-    var vectorLayer = new ol.layer.Vector({
-      source: vectorSource,
-      style: vectoriconStyle
-    });
-    
-   
-     
-    // Click event on the layers button
-
-
-    var LayerButton1 = document.getElementById('LayerButton1');
-    LayerButton1.addEventListener('click', function() {
-      // get actual visibility
-      var visibility = vectorLayer.getVisible();
-      // Set the opposite visibility
-      vectorLayer.setVisible(!visibility);
-      if (visibility == false) {
-        LayerButton1.style.color = "black";
-      } else {
-        LayerButton1.style.color = "gray";
-      }
-    });
-
-    var LayerButton3 = document.getElementById('LayerButton3');
-    LayerButton3.addEventListener('click', function() {
+    var LayerButton2 = document.getElementById('LayerButton2');
+    LayerButton2.addEventListener('click', function() {
       // get actual visibility
       var visibility = ActiveLandslidesLayer.getVisible();
       // Set the opposite visibility
       ActiveLandslidesLayer.setVisible(!visibility);
-      if (visibility == false) {
-        LayerButton3.style.color = "black";
-      } else {
-        LayerButton3.style.color = "gray";
-      }
-    });
-
-    // ### BASE LAYER ###
-    // Define OpenLayers mapbaselayer
-    var osmbaselayer = new ol.layer.Tile({
-      source: new ol.source.OSM({
-        attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
-                        ol.source.OSM.ATTRIBUTION]
-      })
-    });
-
-    //Click event on the base layer button
-    var LayerButton2 = document.getElementById('LayerButton2');
-    LayerButton2.addEventListener('click', function() {
-      var visibility = osmbaselayer.getVisible();
-      osmbaselayer.setVisible(!visibility);
+      // set color of the button
       if (visibility == false) {
         LayerButton2.style.color = "black";
       } else {
         LayerButton2.style.color = "gray";
       }
     });
-
+     
+    
+    
     // ### MAP ###
     // define map extension
     minX = 15.750920388815471;
@@ -211,7 +184,7 @@ function applyMargins() {
     // Define the map
     var map = new ol.Map({
       target: "map",
-      layers: [osmbaselayer, vectorLayer, ActiveLandslidesLayer],
+      layers: [osmbaselayer, ActiveLandslidesLayer],
       view: new ol.View({
         center: ol.proj.fromLonLat([15.8584, 38.3806]), 
         zoom: 17,
@@ -221,39 +194,39 @@ function applyMargins() {
       })
     });
 
-    // Add the popup to the map
-    var element = document.getElementById('popup');
-    var popup = new ol.Overlay({
-      element: element,
-      positioning: 'bottom-center',
-      stopEvent: false,
-    });
-    map.addOverlay(popup);
-    let popover;
-    function disposePopover() {
-      if (popover) {
-        popover.dispose();
-        popover = undefined;
-      }
-    }
-    // display popup on click
-    map.on('click', function (evt) {
-      const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
-        return feature;
-      });
-      disposePopover();
-      if (!feature) {
-        return;
-      }
-      popup.setPosition(evt.coordinate);
+    // // Add the popup to the map
+    // var element = document.getElementById('popup');
+    // var popup = new ol.Overlay({
+    //   element: element,
+    //   positioning: 'bottom-center',
+    //   stopEvent: false,
+    // });
+    // map.addOverlay(popup);
+    // let popover;
+    // function disposePopover() {
+    //   if (popover) {
+    //     popover.dispose();
+    //     popover = undefined;
+    //   }
+    // }
+    // // display popup on click
+    // map.on('click', function (evt) {
+    //   const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
+    //     return feature;
+    //   });
+    //   disposePopover();
+    //   if (!feature) {
+    //     return;
+    //   }
+    //   popup.setPosition(evt.coordinate);
       
-      popover = new bs.Popover(element, {
-        placement: 'top',
-        html: true,
-        content: feature.get('sigla'),
-      });
-      popover.show();
-    });
+    //   popover = new bs.Popover(element, {
+    //     placement: 'top',
+    //     html: true,
+    //     content: feature.get('sigla'),
+    //   });
+    //   popover.show();
+    // });
 
 
     // map.addOverlay(popup);
