@@ -11,8 +11,10 @@
 <body>
 <div style="position: relative;">
 <img src="PAL22.jpg" usemap="#image-map" style="width: 100%; height: auto;">
-<img id="Amph" src="mask/Amph.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none;">
-<!-- <img src="sovrapposta.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: auto;"> -->
+<!-- Overlay masks, in style="pointer-event: none;" for disable all mouse/pointer event -->
+<img id="Amph" src="mask/Amph.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: none; filter: saturate(1000%)">
+<img id="Amph" src="mask/Ep.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: none; filter: saturate(1000%)">
+
 </div>
 <map name="image-map">
 	<area target="_blank" id="imgzone1" alt="Element #1" title="Element #1" coords="2875,4162,2880,4162,2884,4164,2886,4162,2894,4162,2899,4164,2904,4162,2911,4156,2918,4160,2930,4160,2932,4160,2936,4164,2941,4164,2945,4162,2949,4162,2954,4164,2954,4172,2955,4174,2956,4182,2963,4190,2959,4192,2956,4192,2955,4194,2844,4194,2839,4191,2835,4188,2835,4182,2838,4176,2838,4172,2841,4170,2844,4168,2848,4172,2855,4172,2858,4166,2858,4164,2860,4162,2860,4160,2865,4158,2868,4154" shape="poly">
@@ -1028,13 +1030,23 @@
 				imgElement2.src = 'blank_diagram.svg';
 			}
 		}
+
 		 // If Mineral is 'Amph', hide the overlay image
 		if (Mineral === 'Amph') {
             var overlayImage = document.getElementById('Amph'); // replace with the id of your overlay image
-            if (overlayImage) {
-                overlayImage.style.display = 'none';
-            }
+            if (overlayImage.style.display ==='none') {
+                overlayImage.style.display = 'inline';
+            } else {
+				overlayImage.style.display = 'none';}
         }
+
+		if (Mineral === 'Ep') {
+			var overlayImage = document.getElementById('Ep'); // replace with the id of your overlay image
+			if (overlayImage.style.display ==='none') {
+				overlayImage.style.display = 'inline';
+			} else {
+				overlayImage.style.display = 'none';}
+		}
 	});
 </script>
 </body>
