@@ -90,7 +90,7 @@ function applyMargins() {
     proj4.defs("EPSG:4326","+proj=longlat +datum=WGS84 +no_defs");
     ol.proj.proj4.register(proj4);
 
-    // ### BASE LAYER ###
+    // 1. ### BASE LAYER ###
     // Define OpenLayers mapbaselayer
     var osmbaselayer = new ol.layer.Tile({
       source: new ol.source.OSM({
@@ -113,7 +113,7 @@ function applyMargins() {
 
   // ### START OF VECTOR LAYERS ###
 
-    // 1. Active Landslides layer
+    // 2. Active Landslides layer
     var ActiveLandslidesLayerStyle = function(feature) {
       var alpha = 0.5;
       var color;
@@ -173,7 +173,9 @@ function applyMargins() {
       }
     });
      
-    // 2. General Geology layer
+
+
+    // 3. General Geology layer
   
 
     var GeneralGeologyLayerStyle = function(feature) {
@@ -248,6 +250,39 @@ function applyMargins() {
       }
     });
 
+    // 4. Contour lines layer 10 m
+    var ContourLines10mLayerStyle = new ol.style.Style({
+      stroke: new ol.style.Stroke({
+        color: 'blue',
+        width: 1
+      })
+    });
+    var ContourLines10mLayerSource = new ol.source.Vector({
+      url: 'https://gianfrancodp.github.io/metpet/assets/geodata/contour_10_smooth.geojson',
+      format: new ol.format.GeoJSON({
+        dataProjection: 'EPSG:32633',
+        featureProjection: 'EPSG:3857'
+      })
+    });
+    var ContourLines10mLayer = new ol.layer.Vector({
+      source: ContourLines10mLayerSource,
+      style: ContourLines10mLayerStyle
+    });
+
+    var LayerButton4 = document.getElementById('LayerButton4');
+    LayerButton4.addEventListener('click', function() {
+      // get actual visibility
+      var visibility = ContourLines10mLayer.getVisible();
+      // Set the opposite visibility
+      ContourLines10mLayer.setVisible(!visibility);
+      // set color of the button
+      if (visibility == false) {
+        LayerButton4.style.color = "black";
+      } else {
+        LayerButton4.style.color = "gray";
+      }
+    });
+
 
     // ### MAP ###
     // define map extension
@@ -260,7 +295,7 @@ function applyMargins() {
     // Define the map
     var map = new ol.Map({
       target: "map",
-      layers: [osmbaselayer, ActiveLandslidesLayer],
+      layers: [osmbaselayer, ActiveLandslidesLayer, GeneralGeologyLayer, ContourLines10mLayer],
       view: new ol.View({
         center: ol.proj.fromLonLat([15.8584, 38.3806]), 
         zoom: 17,
