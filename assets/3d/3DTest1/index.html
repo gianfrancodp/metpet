@@ -50,25 +50,22 @@
 					scene.add( kmz.scene );
 					render();
 
-				// Crea la geometria del cubo
+				// Arrow Geometry
+				// step 1 add box
+
 				var geometry = new THREE.BoxGeometry(0.5, 0.5, 10);
-
-				// Crea il materiale del cubo
 				var material = new THREE.MeshBasicMaterial({color: 0x8B0000});
-
-				// Crea il cubo
 				var cube = new THREE.Mesh(geometry, material);
 				cube.position.set(10,10,10)
-
+				scene.add(cube);
+				
+				// step 2 add arrow
 				var geometry2 = new THREE.CylinderGeometry( 1, 0.5, 0.5, 3 );
 				var material2 = new THREE.MeshBasicMaterial( {color: 0x8B0000} );
 				var prism = new THREE.Mesh( geometry2, material2 );
 				prism.position.set(10,10,15)
 				scene.add( prism );
-
-				// Aggiungi il cubo alla scena
-				scene.add(cube);
-
+			
 				} );
 
 				const controls = new OrbitControls( camera, renderer.domElement );
