@@ -5,16 +5,32 @@
 	<meta charset="utf-8">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
-	<!-- Script for Chart JS library -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 </head>
 <body>
-<div style="position: relative;">
-<img src="PAL22.jpg" usemap="#image-map" style="width: 100%; height: auto;">
-<!-- Overlay masks, in style="pointer-event: none;" for disable all mouse/pointer event -->
-<img id="Amph" src="mask/Amph.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: none; filter: saturate(1000%)">
-<img id="Amph" src="mask/Ep.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: none; filter: saturate(1000%)">
+	<!-- after testing move styles in separate css sheets -->
+<div style="display: flex; justify-content: center;">
+	<table>
+		<tr>
+			<td><img src="mask/Amph_legend.svg" style="width: 80px;" id="Amph_legend"></td>
+			<td><img src="mask/Ep_legend.svg" style="width: 80px;" id="Ep_legend"></td>
+			<td><img src="mask/Ap_legend.svg" style="width: 80px;" id="Ap_legend"></td>
+			<td><img src="mask/Kfs_legend.svg" style="width: 80px;" id="Kfs_legend"></td>
+		</tr>
+		<tr>
+			<td><img src="mask/Ol_legend.svg" style="width: 80px;" id="Ol_legend"></td>
+			<td><img src="mask/Pl_legend.svg" style="width: 80px;" id="Pl_legend"></td>
+			<td><img src="mask/Px_legend.svg" style="width: 80px;" id="Px_legend"></td>
+			<td><img src="mask/Qtz_legend.svg" style="width: 80px;" id="Qtz_legend"></td>
+		</tr>
+	</table>
+</div>
 
+<div style="position: relative;">
+	<!-- Main image -->
+	<img src="PAL22.jpg" usemap="#image-map" style="width: 100%; height: auto; opacity: 1;">
+	<!-- Overlay masks, in style="pointer-event: none;" for disable all mouse/pointer event -->
+	<img id="Amph" src="mask/Amph.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: none; filter: saturate(1000%)">
+	<img id="Ep" src="mask/Ep.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: none; filter: saturate(1000%)">
 </div>
 <map name="image-map">
 	<area target="_blank" id="imgzone1" alt="Element #1" title="Element #1" coords="2875,4162,2880,4162,2884,4164,2886,4162,2894,4162,2899,4164,2904,4162,2911,4156,2918,4160,2930,4160,2932,4160,2936,4164,2941,4164,2945,4162,2949,4162,2954,4164,2954,4172,2955,4174,2956,4182,2963,4190,2959,4192,2956,4192,2955,4194,2844,4194,2839,4191,2835,4188,2835,4182,2838,4176,2838,4172,2841,4170,2844,4168,2848,4172,2855,4172,2858,4166,2858,4164,2860,4162,2860,4160,2865,4158,2868,4154" shape="poly">
@@ -978,23 +994,14 @@
   </table>
 
 <script>
-	// function openFullscreen() {
-	// var img = document.getElementById("svg1");
-	// 	if (img.requestFullscreen) {
-	// 		img.requestFullscreen();
-	// 	} else if (img.mozRequestFullScreen) { /* Firefox */
-	// 		img.mozRequestFullScreen();
-	// 	} else if (img.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-	// 		img.webkitRequestFullscreen();
-	// 	} else if (img.msRequestFullscreen) { /* IE/Edge */
-	// 		img.msRequestFullscreen();
-	// 	}
-	// }
 
-	// ImageMapster
+
+	// Image Map resizer launch
 	$(document).ready(function() {
-	 $('map').imageMapResize();
+	 $('map').imageMapResize(); //resize 'map' element in html <img>
 	}); 
+
+
 	// Variables
 	var Mineral ='';
 	var SvgURI1= '';
