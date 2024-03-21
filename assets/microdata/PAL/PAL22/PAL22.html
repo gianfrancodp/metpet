@@ -11,16 +11,16 @@
 <div style="display: flex; justify-content: center;">
 	<table>
 		<tr>
-			<td><img src="mask/Amph_legend.svg" style="width: 80px;" id="Amph_legend"></td>
-			<td><img src="mask/Ep_legend.svg" style="width: 80px;" id="Ep_legend"></td>
-			<td><img src="mask/Ap_legend.svg" style="width: 80px;" id="Ap_legend"></td>
-			<td><img src="mask/Kfs_legend.svg" style="width: 80px;" id="Kfs_legend"></td>
+			<td><img src="mask/Amph_legend.svg" style="width: 80px; filter: grayscale(0);" id="Amph_legend" onclick="legendClick('Amph')"></td>
+			<td><img src="mask/Ep_legend.svg" style="width: 80px; filter: grayscale(0);" id="Ep_legend" onclick="legendClick('Ep')"></td>
+			<td><img src="mask/Ap_legend.svg" style="width: 80px; filter: grayscale(0);" id="Ap_legend" onclick="legendClick('Ap')"></td>
+			<td><img src="mask/Kfs_legend.svg" style="width: 80px; filter: grayscale(0);" id="Kfs_legend" onclick="legendClick('Kfs')"></td>
 		</tr>
 		<tr>
-			<td><img src="mask/Ol_legend.svg" style="width: 80px;" id="Ol_legend"></td>
-			<td><img src="mask/Pl_legend.svg" style="width: 80px;" id="Pl_legend"></td>
-			<td><img src="mask/Px_legend.svg" style="width: 80px;" id="Px_legend"></td>
-			<td><img src="mask/Qtz_legend.svg" style="width: 80px;" id="Qtz_legend"></td>
+			<td><img src="mask/Ol_legend.svg" style="width: 80px; filter: grayscale(0);" id="Ol_legend" onclick="legendClick('Ol')"></td>
+			<td><img src="mask/Pl_legend.svg" style="width: 80px; filter: grayscale(0);" id="Pl_legend" onclick="legendClick('Pl')"></td>
+			<td><img src="mask/Px_legend.svg" style="width: 80px; filter: grayscale(0);" id="Px_legend" onclick="legendClick('Px')"></td>
+			<td><img src="mask/Qtz_legend.svg" style="width: 80px; filter: grayscale(0);" id="Qtz_legend" onclick="legendClick('Qtz_mask')"></td>
 		</tr>
 	</table>
 </div>
@@ -29,8 +29,15 @@
 	<!-- Main image -->
 	<img src="PAL22.jpg" usemap="#image-map" style="width: 100%; height: auto; opacity: 1;">
 	<!-- Overlay masks, in style="pointer-event: none;" for disable all mouse/pointer event -->
-	<img id="Amph" src="mask/Amph.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: none; filter: saturate(1000%)">
-	<img id="Ep" src="mask/Ep.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: none; filter: saturate(1000%)">
+	<img id="Amph_mask" src="mask/Amph.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: inline; filter: saturate(1000%)">
+	<img id="Ep_mask" src="mask/Ep.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: inline; filter: saturate(1000%)">
+	<img id="Kfs_mask" src="mask/Kfs.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: inline; filter: saturate(1000%)">
+	<img id="Ol_mask" src="mask/Ol.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: inline; filter: saturate(1000%)">
+	<img id="Oth_mask" src="mask/Oth.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: inline; filter: saturate(1000%)">
+	<img id="Pl_mask" src="mask/Pl.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: inline; filter: saturate(1000%)">
+	<img id="Px_mask" src="mask/Px.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: inline; filter: saturate(1000%)">
+	<img id="Otz_mask" src="mask/Otz.png" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; display: inline; filter: saturate(1000%)">
+
 </div>
 <map name="image-map">
 	<area target="_blank" id="imgzone1" alt="Element #1" title="Element #1" coords="2875,4162,2880,4162,2884,4164,2886,4162,2894,4162,2899,4164,2904,4162,2911,4156,2918,4160,2930,4160,2932,4160,2936,4164,2941,4164,2945,4162,2949,4162,2954,4164,2954,4172,2955,4174,2956,4182,2963,4190,2959,4192,2956,4192,2955,4194,2844,4194,2839,4191,2835,4188,2835,4182,2838,4176,2838,4172,2841,4170,2844,4168,2848,4172,2855,4172,2858,4166,2858,4164,2860,4162,2860,4160,2865,4158,2868,4154" shape="poly">
@@ -994,6 +1001,7 @@
   </table>
 
 <script>
+	// TODO make separate script JS file
 
 
 	// Image Map resizer launch
@@ -1001,21 +1009,61 @@
 	 $('map').imageMapResize(); //resize 'map' element in html <img>
 	}); 
 
+	// click on legend event scripts
 
+	function legendClick(id) {
+		// Create the id of the mask
+		idMask = id + '_mask';
+		// Create the id of the legend symbol
+		idLegend = id + '_legend';
+	
+		// get id of element to change
+		var mask = document.getElementById(idMask);
+		// Get the current visibility
+		var visibility = mask.style.display;
+		// Set the opposite visibility
+		if (visibility == 'none') {
+			mask.style.display = 'inline';
+		} else {
+			mask.style.display = 'none';
+		}
+
+		// get visibility of the legend symbol
+		var legend = document.getElementById(idLegend);
+		// Get the current grayscale filter
+		var grayscaleFilter = legend.style.filter;
+		if (grayscaleFilter == 'grayscale(1)') {
+			legend.style.filter = 'grayscale(0)';
+		} else {
+			legend.style.filter = 'grayscale(1)';
+		}
+	}
+	
+		
+
+	// Interaction between main image and rose diagrams
 	// Variables
 	var Mineral ='';
 	var SvgURI1= '';
 	var SvgURI2= '';
 
-	// Click event scripts
+
+	// Click on main image event scripts
 	$('area').on('click', function() {
-		var areaID = $(this).attr('id'); // get id from html map region
+		var areaID = $(this).attr('id')
+		// var areaID = $(this).attr('id'); // get id from html map region
+
 		var areaID = areaID.replace('imgzone', ''); // Remove imgzone from areaID
 		var areaID = parseInt(areaID); // Convert areaID to integer
 
 		// Get data from Json file
 		$.getJSON('PAL22.json', function(JsonData) {
-			Mineral = JsonData[areaID].Mineral;
+			
+			var objId = JsonData[areaID].OBJECTID;
+			console.log('parser: ' + objId);
+			Mineral = JsonData[objId].Mineral;
+			console.log('mineral data: ' + Mineral);
+			// Mineral = JsonData[areaID].Mineral;
 			})
 		
 		// Update SVG URI
@@ -1038,22 +1086,6 @@
 			}
 		}
 
-		 // If Mineral is 'Amph', hide the overlay image
-		if (Mineral === 'Amph') {
-            var overlayImage = document.getElementById('Amph'); // replace with the id of your overlay image
-            if (overlayImage.style.display ==='none') {
-                overlayImage.style.display = 'inline';
-            } else {
-				overlayImage.style.display = 'none';}
-        }
-
-		if (Mineral === 'Ep') {
-			var overlayImage = document.getElementById('Ep'); // replace with the id of your overlay image
-			if (overlayImage.style.display ==='none') {
-				overlayImage.style.display = 'inline';
-			} else {
-				overlayImage.style.display = 'none';}
-		}
 	});
 </script>
 </body>
