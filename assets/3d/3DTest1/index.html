@@ -1,3 +1,4 @@
+<!--  -->
 <script type="importmap">
 	{
 		"imports": {
@@ -7,7 +8,25 @@
 	}
 </script>
 <script type="module">
-
+	// Loading image
+	var loadingImage = document.createElement('img');
+	loadingImage.src = 'loading.gif';
+	loadingImage.id = 'loadingImage';
+	loadingImage.style.position = 'fixed';
+	loadingImage.style.top = '0';
+	loadingImage.style.left = '0';
+	loadingImage.style.width = '100vw';
+	loadingImage.style.height = '100vh';
+	loadingImage.style.objectFit = 'cover';
+	loadingImage.style.zIndex = '9999';
+	document.body.appendChild(loadingImage);
+	setTimeout(function(){
+		// Remove loading image after 10 seconds
+		var loadingImage = document.getElementById('loadingImage');
+    	loadingImage.parentNode.removeChild(loadingImage);
+		}, 10000);
+	
+		// Importing Three.js
     import * as THREE from 'three';
 
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -73,7 +92,8 @@
 				controls.update();
 
 				window.addEventListener( 'resize', onWindowResize );
-
+				
+				
 			}
 
 			function onWindowResize() {
@@ -92,7 +112,7 @@
 				renderer.render( scene, camera );
 
 			}
-
+			
 
 </script>
 <style>
