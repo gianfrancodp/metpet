@@ -11,7 +11,7 @@
 	integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
 	crossorigin=""></script>
 	<!-- import GeoJSon Variable using JavaScript -->
-	<script src="PAL22_polygon.js"></script>
+	<script src="PAL22_polygon_min_porphy.geojson.js"></script>
 	<style type="text/css">
 		/* body {
 			margin: 0;
@@ -30,17 +30,21 @@
 <div style="display: flex; justify-content: center;">
 	<table>
 		<tr>
+			<td><img src="mask/ShowAll.svg" style="width: 80px; filter: grayscale(0);" id="ShowAll" onclick="legendClick('ShowAll')"></td>
 			<td><img src="mask/Amph_legend.svg" style="width: 80px; filter: grayscale(0);" id="Amph_legend" onclick="legendClick('Amph')"></td>
 			<td><img src="mask/Ep_legend.svg" style="width: 80px; filter: grayscale(0);" id="Ep_legend" onclick="legendClick('Ep')"></td>
 			<td><img src="mask/Ap_legend.svg" style="width: 80px; filter: grayscale(0);" id="Ap_legend" onclick="legendClick('Ap')"></td>
 			<td><img src="mask/Kfs_legend.svg" style="width: 80px; filter: grayscale(0);" id="Kfs_legend" onclick="legendClick('Kfs')"></td>
 		</tr>
 		<tr>
+			<td><img src="mask/HideAll.svg" style="width: 80px; filter: grayscale(0);" id="HideAll" onclick="legendClick('HideAll')"></td>
 			<td><img src="mask/Ol_legend.svg" style="width: 80px; filter: grayscale(0);" id="Ol_legend" onclick="legendClick('Ol')"></td>
 			<td><img src="mask/Pl_legend.svg" style="width: 80px; filter: grayscale(0);" id="Pl_legend" onclick="legendClick('Pl')"></td>
 			<td><img src="mask/Px_legend.svg" style="width: 80px; filter: grayscale(0);" id="Px_legend" onclick="legendClick('Px')"></td>
 			<td><img src="mask/Qtz_legend.svg" style="width: 80px; filter: grayscale(0);" id="Qtz_legend" onclick="legendClick('Qtz')"></td>
+			
 		</tr>
+
 	</table>
 </div>
 
@@ -60,12 +64,12 @@
 <script>
 	// Leaflet map
 		// create map
-	var map = L.map('micromap').setView([-0.02122159541859717, 0.03552883336733477], 15.0);
+	var map = L.map('micromap').setView([-0.02122159541859717, 0.03552883336733477], 14.0);
 			L.tileLayer('https://metpetools.s3.eu-central-1.amazonaws.com/PAL11/{z}/{x}/{y}.png', {
 				minZoom: 14,
 				maxZoom: 18,
 				tms: false,
-				attribution: 'PAL11'
+				attribution: 'PAL22'
 			}).addTo(map);
 
 			
@@ -81,28 +85,54 @@
 			map.boxZoom.disable();
 
 			// add GeoJSON layer
-			L.geoJSON(json_PAL22_polygon).addTo(map);
+			// TODO Remove 
 			
+			
+			var poligons;
+
+	// Function Layer add and remove
+
+	function addFilter(Mineral) {
+		if (map.hasLayer(poligons)) {
+			map.removeLayer(poligons);
+		
+		}
+		if (Mineral == 'HideAll') {
+			return;
+		}
+		if (Mineral == 'ShowAll') {
+			poligons = L.geoJSON(json_PAL22_polygon).addTo(map);
+			return;
+		}
+		poligons = L.geoJSON(json_PAL22_polygon,{
+			filter: function(feature) {
+				return feature.properties.Mineral === Mineral;
+			}
+		}).addTo(map);
+	}
+
+	addFilter('');
 
 	// click on legend event scripts
 
-	function legendClick(id) {
+	function legendClick(mineral) {
 
-		idLegend = id + '_legend';
+		idLegend = mineral + '_legend';
+		addFilter(mineral);
 	
 		// get visibility of the legend symbol
 		var legend = document.getElementById(idLegend);
 		// Get the current grayscale filter
-		var grayscaleFilter = legend.style.filter;
-		if (grayscaleFilter == 'grayscale(1)') {
-			legend.style.filter = 'grayscale(0)';
-		} else {
-			legend.style.filter = 'grayscale(1)';
-		}
+		// var grayscaleFilter = legend.style.filter;
+		// if (grayscaleFilter == 'grayscale(1)') {
+		// 	legend.style.filter = 'grayscale(0)';
+		// } else {
+		// 	legend.style.filter = 'grayscale(1)';
+		// }
 
 		// Update SVG URI
-		SvgURI1	= 'PAL22_'+ id + '_1.svg';
-		SvgURI2 = 'PAL22_'+ id + '_2.svg';
+		SvgURI1	= 'PAL22_'+ mineral + '_1.svg';
+		SvgURI2 = 'PAL22_'+ mineral + '_2.svg';
 		
 		// Update SVG images
 		var imgElement1 = document.getElementById('svg1');
