@@ -1,6 +1,7 @@
 
 // Layout scripts and functions - map and sidebar
 
+// from 'geodata/General_Geology_olStyle.js import General_Geology_olStyle
 
 function applyMargins() {
     var leftToggler = $(".mini-submenu-left");
@@ -113,40 +114,7 @@ function applyMargins() {
 
   // ### START OF VECTOR LAYERS ###
 
-    // 2. Active Landslides layer
-    var ActiveLandslidesLayerStyle = function(feature) {
-      var alpha = 0.5;
-      var color;
-      switch(feature.get('TIPOLOGIA')) {
-        case 'Crollo': color = `rgba(26, 150, 65, ${alpha}`; break;
-        case 'Scorrimento': color  = `rgba(119, 195, 92, ${alpha})`; break;
-        case 'ZDSL': color = `rgba(196, 230, 135, ${alpha})`; break;
-        case 'ZEI' : color = `rgba(255, 255, 192, ${alpha})`; break;
-        case 'ZFP' : color = `rgba(255, 127, 0, ${alpha})`; break;
-        case 'ZFS' : color = `rgba(255, 0, 0, ${alpha})`; break;
-
-      } // get the color from the feature
-      return new ol.style.Style({
-          fill: new ol.style.Fill({
-              color: color
-          }),
-          stroke: new ol.style.Stroke({
-              color: color,
-              width: 2
-          }),
-          text: new ol.style.Text({
-            font: '12px Calibri,sans-serif',
-            fill: new ol.style.Fill({
-              color: '#000'
-            }),
-            stroke: new ol.style.Stroke({
-              color: '#fff',
-              width: 3
-            }),
-            text: feature.get('TIPOLOGIA')
-          })
-      });
-    };
+    
     var ActiveLandslidesLayerSource = new ol.source.Vector({
       url: 'https://gianfrancodp.github.io/metpet/assets/geodata/Active_landslides.geojson',
       format: new ol.format.GeoJSON({
@@ -177,70 +145,9 @@ function applyMargins() {
 
     // 3. General Geology layer
   
-  // TODO
-  // For more layer styles poligon are filled with raster images patterns
-  // data of patter are stored in .qml file at: <Option name="imageFile" type="QString" value="base64: ....."/>
-  // Manually or in a same script way, there is a need  to extract these images and pass in style LayerStyle
-  // For example:
-  // var cnv = document.createElement('canvas');
-  // var ctx = cnv.getContext('2d');
-  // var img = new Image();
-  // img.src = ' data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAABUCAYAAAAs5wHgAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABH0lEQVR4nO3VsQ3CMAAF0Zj5WIUqc1AxIB1rhAoRROVrEPCuS2SdosinP9brti2YZtyOy9SPO1+ex9fTeHn3eP4H13DjGodPf8C38pbq/prumb3uv+6SakSqEasaXVKNSDViVaNLqhGpRqxqdEk1ItWIVY0uqUakGrGq0SXViFQjVjW6pBqRasSqRpdUI1KNWNXokmpEqhGrGl1SjUg1YlWjS6oRqUasanRJNSLViFWNLqlGpBqxqtEl1YhUI1Y1uqQakWrEqkaXVCNSjVjV6JJqRKoRqxpdUo1INWJVo0uqEalGrGp0STUi1YhVjS6pRqQasarRJdWIVCNWNbqkGpFqxKpGl1QjUo1Y1eiSakSqEasaXVKNSDViVaNLqpE71JuV+mIv/AEAAAAASUVORK5CYII=';
 
-  // img.onload = function(){
-  //   var pattern = ctx.createPattern(img, 'repeat');
+
     
-  //   featurePoly.setStyle(new ol.style.Style({
-  //     fill: new ol.style.Fill({
-  //       color: pattern
-  //     })
-  //   }));
-  // };
-  // this is a little test: https://jsfiddle.net/6bn1c9wz/
-
-    var GeneralGeologyLayerStyle = function(feature) {
-      var alpha = 0.5;
-      var color;
-      switch(feature.get('Litotipo')) {
-        case 'Marine Terraces': color = `rgba(144, 238, 144, ${alpha}`; break;
-        case 'Beaches and alluvial deposits': color = `rgba(0, 128, 0, ${alpha}`; break;
-        case 'Trubi': color = `rgba(34, 139, 34, ${alpha}`; break;
-        case 'Mylonitic Skarn' : color = `rgba(85, 107, 47, ${alpha}`; break;
-        case 'Skarn' : color = `rgba(0, 102, 51, ${alpha}`; break;
-        case 'Evaporitic brecciated limestones' : color = `rgba(102, 205, 170, ${alpha}`; break;
-        case 'Migmatitic paragneiss' : color = `rgba(127, 255, 212, ${alpha}`; break;
-        case 'Debris flow' : color = `rgba(175, 238, 238, ${alpha}`; break;
-        case 'Porites limestones' : color = `rgba(0, 102, 204, ${alpha}`; break;
-        case 'Augen gneiss' : color = `rgba(135, 206, 250, ${alpha}`; break;
-        case 'Siliciclastic arenites' : color = `rgba(15, 82, 186, ${alpha}`; break;
-        case 'Layered tonalites' : color = `rgba(0, 0, 128, ${alpha}`; break;
-        case 'Marly clays' : color = `rgba(10, 10, 20, ${alpha}`; break;
-        case 'Landslides' : color = `rgba(0, 39, 77, ${alpha}`; break;
-        case 'Mylonitic magmatitic paragneiss' : color = `rgba(65, 105, 225, ${alpha}`; break;
-
-      } // get the color from the feature
-      return new ol.style.Style({
-          fill: new ol.style.Fill({
-              color: color
-          }),
-          stroke: new ol.style.Stroke({
-              color: color,
-              width: 2
-          }),
-          text: new ol.style.Text({
-            font: '12px Calibri,sans-serif',
-            fill: new ol.style.Fill({
-              color: '#000'
-            }),
-            stroke: new ol.style.Stroke({
-              color: '#fff',
-              width: 3
-            }),
-            text: feature.get('Litotipo')
-          })
-      });
-    };
-
     var GeneralGeologyLayerSource = new ol.source.Vector({
       url: 'https://gianfrancodp.github.io/metpet/assets/geodata/General_Geology.geojson',
       format: new ol.format.GeoJSON({
@@ -248,11 +155,11 @@ function applyMargins() {
         featureProjection: 'EPSG:3857'
       })
     });
-    console.log('General Geology Layer loaded');
+
 
     var GeneralGeologyLayer = new ol.layer.Vector({
       source: GeneralGeologyLayerSource,
-      style: GeneralGeologyLayerStyle
+      style: General_Geology_olStyle // try General_Geology_olStyle from General_Geology_olStyle.js
     });
 
 
