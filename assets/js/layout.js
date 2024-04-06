@@ -177,6 +177,26 @@ function applyMargins() {
 
     // 3. General Geology layer
   
+  // TODO
+  // For more layer styles poligon are filled with raster images patterns
+  // data of patter are stored in .qml file at: <Option name="imageFile" type="QString" value="base64: ....."/>
+  // Manually or in a same script way, there is a need  to extract these images and pass in style LayerStyle
+  // For example:
+  // var cnv = document.createElement('canvas');
+  // var ctx = cnv.getContext('2d');
+  // var img = new Image();
+  // img.src = ' data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAABUCAYAAAAs5wHgAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABH0lEQVR4nO3VsQ3CMAAF0Zj5WIUqc1AxIB1rhAoRROVrEPCuS2SdosinP9brti2YZtyOy9SPO1+ex9fTeHn3eP4H13DjGodPf8C38pbq/prumb3uv+6SakSqEasaXVKNSDViVaNLqhGpRqxqdEk1ItWIVY0uqUakGrGq0SXViFQjVjW6pBqRasSqRpdUI1KNWNXokmpEqhGrGl1SjUg1YlWjS6oRqUasanRJNSLViFWNLqlGpBqxqtEl1YhUI1Y1uqQakWrEqkaXVCNSjVjV6JJqRKoRqxpdUo1INWJVo0uqEalGrGp0STUi1YhVjS6pRqQasarRJdWIVCNWNbqkGpFqxKpGl1QjUo1Y1eiSakSqEasaXVKNSDViVaNLqpE71JuV+mIv/AEAAAAASUVORK5CYII=';
+
+  // img.onload = function(){
+  //   var pattern = ctx.createPattern(img, 'repeat');
+    
+  //   featurePoly.setStyle(new ol.style.Style({
+  //     fill: new ol.style.Fill({
+  //       color: pattern
+  //     })
+  //   }));
+  // };
+  // this is a little test: https://jsfiddle.net/6bn1c9wz/
 
     var GeneralGeologyLayerStyle = function(feature) {
       var alpha = 0.5;
