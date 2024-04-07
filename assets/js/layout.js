@@ -1,8 +1,6 @@
 
 // Layout scripts and functions - map and sidebar
 
-// from 'geodata/General_Geology_olStyle.js import General_Geology_olStyle
-
 function applyMargins() {
     var leftToggler = $(".mini-submenu-left");
     var rightToggler = $(".mini-submenu-right");
@@ -119,13 +117,16 @@ function applyMargins() {
 
     // 1. ### BASE LAYER ###
     // Define OpenLayers mapbaselayer
+
+    // TODO move attribtions to a separate region of frame
+
     var osmbaselayer = new ol.layer.Tile({
       source: new ol.source.OSM({
         attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
                         ol.source.OSM.ATTRIBUTION]
       })   
     });
-    osmbaselayer.setVisible(true);
+    osmbaselayer.setVisible(false);
 
     var LayerButton1 = document.getElementById('LayerButton1');
     LayerButton1.addEventListener('load', setColorButtonLayer(LayerButton1, osmbaselayer));
@@ -235,6 +236,15 @@ function applyMargins() {
       clickButtonLayer(LayerButton6, OrtofotoTileLayer);
     });
 
+   
+    var LayerOrder = new ol.Collection([
+          osmbaselayer, 
+          ActiveLandslidesLayer, 
+          GeneralGeologyLayer, 
+          ContourLines10mLayer, 
+          HDStructuralFeatureLayer, 
+          OrtofotoTileLayer
+        ]);
 
     // ### MAP ###
     // define map extension
@@ -247,7 +257,7 @@ function applyMargins() {
     // Define the map
     var map = new ol.Map({
       target: "map",
-      layers: [osmbaselayer, ActiveLandslidesLayer, GeneralGeologyLayer, ContourLines10mLayer, HDStructuralFeatureLayer, OrtofotoTileLayer],
+      layers: LayerOrder,
       view: new ol.View({
         center: ol.proj.fromLonLat([15.8584, 38.3806]), 
         zoom: 17,
@@ -256,6 +266,18 @@ function applyMargins() {
         maxZoom: 20
       })
     });
+    
+    // var map = new ol.Map({
+    //   target: "map",
+    //   layers: [osmbaselayer, ActiveLandslidesLayer, GeneralGeologyLayer, ContourLines10mLayer, HDStructuralFeatureLayer, OrtofotoTileLayer],
+    //   view: new ol.View({
+    //     center: ol.proj.fromLonLat([15.8584, 38.3806]), 
+    //     zoom: 17,
+    //     extent: ol.proj.transformExtent(mapextension, 'EPSG:4326', 'EPSG:3857'),
+    //     minZoom: 10,
+    //     maxZoom: 20
+    //   })
+    // });
 
     // // Add the popup to the map
     // var element = document.getElementById('popup');
