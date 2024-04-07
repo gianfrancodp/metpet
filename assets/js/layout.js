@@ -211,6 +211,33 @@ function applyMargins() {
       }
     });
 
+    // 5. HD Structural Features
+    var HDStructuralFeatureSource = new ol.source.Vector({
+      url: '../assets/geodata/HD_Structural_Features.geojson',
+      format: new ol.format.GeoJSON({
+        dataProjection: 'EPSG:32633',
+        featureProjection: 'EPSG:3857'
+      })
+    });
+    var HDStructuralFeatureLayer = new ol.layer.Vector({
+      source: HDStructuralFeatureSource,
+      style: HDStructuralFeaturesStyle
+    });
+
+    var LayerButton5 = document.getElementById('LayerButton5');
+    LayerButton5.addEventListener('click', function() {
+      // get actual visibility
+      var visibility = HDStructuralFeatureLayer.getVisible();
+      // Set the opposite visibility
+      HDStructuralFeatureLayer.setVisible(!visibility);
+      // set color of the button
+      if (visibility == false) {
+        LayerButton5.style.color = "black";
+      } else {
+        LayerButton5.style.color = "gray";
+      }
+    });
+
 
     // ### MAP ###
     // define map extension

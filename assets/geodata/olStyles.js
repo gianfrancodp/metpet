@@ -1,10 +1,10 @@
 
 
-// GENERAL GEOLOGY STYLE
+// A. GENERAL GEOLOGY STYLE
 var General_Geology_olStyle;
 
-// 1. CREATE PATTERNS
-// 1.1. Debris flow
+// A. 1. CREATE PATTERNS
+// A.1.1. Debris flow
 var cnv1 = document.createElement('canvas');
 var ctx1 = cnv1.getContext('2d');
 var pattern1;
@@ -13,7 +13,7 @@ var patternimage1 = new Image();
 patternimage1.src = 'data:image/png;base64,' + patternimage1base64string;
 patternimage1.onload = function() {pattern1 = ctx1.createPattern(patternimage1, 'repeat');};
 
-// 1.2 Landslides
+// A.1.2 Landslides
 var cnv2 = document.createElement('canvas');
 var ctx2 = cnv2.getContext('2d');
 var pattern2;
@@ -22,7 +22,7 @@ var patternimage2 = new Image();
 patternimage2.src = 'data:image/png;base64,' + patternimage2base64string;
 patternimage2.onload = function() {pattern2 = ctx2.createPattern(patternimage2, 'repeat');};
  
-// 1.3 Beaches and alluvial deposits
+// A.1.3 Beaches and alluvial deposits
 var cnv3 = document.createElement('canvas');
 var ctx3 = cnv3.getContext('2d');
 var pattern3;
@@ -31,7 +31,7 @@ var patternimage3 = new Image();
 patternimage3.src = 'data:image/png;base64,' + patternimage3base64string;
 patternimage3.onload = function() {pattern3 = ctx3.createPattern(patternimage3, 'repeat');};
 
-// 1.4 Marine Terraces
+// A.1.4 Marine Terraces
 
 
 var cnv4 = document.createElement('canvas');
@@ -43,7 +43,7 @@ patternimage4.src = 'data:image/png;base64,' + patternimage4base64string;
 patternimage4.onload = function() {pattern4 = ctx4.createPattern(patternimage4, 'repeat');};
 
 
-// 1.5 Marly clays, Pliocene inf
+// A.1.5 Marly clays, Pliocene inf
 var cnv5 = document.createElement('canvas');
 var ctx5 = cnv5.getContext('2d');
 var pattern5;
@@ -52,14 +52,14 @@ var patternimage5 = new Image();
 patternimage5.src = 'data:image/png;base64,' + patternimage5base64string;
 patternimage5.onload = function() {pattern5 = ctx5.createPattern(patternimage5, 'repeat');};
 
-// 1.6 Trubi
+// A.1.6 Trubi
 // fill with rgb (0,112,255)
 var cnv6 = document.createElement('canvas');
 var ctx6 = cnv6.getContext('2d');
 ctx6.fillStyle = 'rgb(0,112,255)';
 var pattern6 = ctx6.fillStyle;
 
-// 1.7 Evaporitic brecciated limestones
+// A.1.7 Evaporitic brecciated limestones
 var cnv7 = document.createElement('canvas');
 var ctx7 = cnv7.getContext('2d');
 var pattern7;
@@ -68,7 +68,7 @@ var patternimage7 = new Image();
 patternimage7.src = 'data:image/png;base64,' + patternimage7base64string;
 patternimage7.onload = function() {pattern7 = ctx7.createPattern(patternimage7, 'repeat');};
 
-// 1.8 Porites limestones, Messinian
+// A.1.8 Porites limestones, Messinian
 var cnv8 = document.createElement('canvas');
 var ctx8 = cnv8.getContext('2d');
 var pattern8;
@@ -77,7 +77,7 @@ var patternimage8 = new Image();
 patternimage8.src = 'data:image/png;base64,' + patternimage8base64string;
 patternimage8.onload = function() {pattern8 = ctx8.createPattern(patternimage8, 'repeat');};
 
-// 1.9 Siliciclastic arenites, Tortoniano
+// A.1.9 Siliciclastic arenites, Tortoniano
 var cnv9 = document.createElement('canvas');
 var ctx9 = cnv9.getContext('2d');
 var pattern9;
@@ -86,7 +86,7 @@ var patternimage9 = new Image();
 patternimage9.src = 'data:image/png;base64,' + patternimage9base64string;
 patternimage9.onload = function() {pattern9 = ctx9.createPattern(patternimage9, 'repeat');};
 
-// 1.10 Mylonitic Skarn, Early Eocene
+// A.1.10 Mylonitic Skarn, Early Eocene
 var cnv10 = document.createElement('canvas');
 var ctx10 = cnv10.getContext('2d');
 var pattern10;
@@ -95,7 +95,7 @@ var patternimage10 = new Image();
 patternimage10.src = 'data:image/png;base64,' + patternimage10base64string;
 patternimage10.onload = function() {pattern10 = ctx10.createPattern(patternimage10, 'repeat');};
 
-// 1.11 Mylonitic migmatitic paragneiss, Early Eocene
+// A.1.11 Mylonitic migmatitic paragneiss, Early Eocene
 var cnv11 = document.createElement('canvas');
 var ctx11 = cnv11.getContext('2d');
 var pattern11;
@@ -104,21 +104,21 @@ var patternimage11 = new Image();
 patternimage11.src = 'data:image/png;base64,' + patternimage11base64string;
 patternimage11.onload = function() {pattern11 = ctx11.createPattern(patternimage11, 'repeat');};
 
-// 1.12 Skarn
+// A.1.12 Skarn
 // fill with rgb(0,197,255)
 var cnv12 = document.createElement('canvas');
 var ctx12 = cnv12.getContext('2d');
 ctx12.fillStyle = 'rgb(0,197,255)';
 var pattern12 = ctx12.fillStyle;
 
-// 1.13 Layered tonalites, Upper Carboniferous
+// A.1.13 Layered tonalites, Upper Carboniferous
 // fill with rgb(255,0,0)
 var cnv13 = document.createElement('canvas');
 var ctx13 = cnv13.getContext('2d');
 var pattern13 = ctx13.fillStyle = 'rgb(255,0,0)';
 
 
-// 1.14 Augen gneiss, Upper Carboniferous (marine)
+// A.1.14 Augen gneiss, Upper Carboniferous (marine)
 var cnv14 = document.createElement('canvas');
 var ctx14 = cnv14.getContext('2d');
 var pattern14;
@@ -127,16 +127,16 @@ var patternimage14 = new Image();
 patternimage14.src = 'data:image/png;base64,' + patternimage14base64string;
 patternimage14.onload = function() {pattern14 = ctx14.createPattern(patternimage14, 'repeat');};
 
-// 1.15 Migmatitic paragneiss, Carboniferous
+// A.1.15 Migmatitic paragneiss, Carboniferous
 // fill with rgb(168,0,132)
 var cnv15 = document.createElement('canvas');
 var ctx15 = cnv15.getContext('2d');
 var pattern15 = ctx15.fillStyle = 'rgb(168,0,132)';
 
 
-// 2. CREATE STYLE FUNCTION
+// A.2. CREATE STYLE FUNCTION
 
-
+//
 var General_Geology_olStyle = function(feature) {
     var alpha = 0.5;
     var color;
@@ -183,6 +183,8 @@ var General_Geology_olStyle = function(feature) {
     });
   };
 
+  // B. CREATE STYLE FUNCTION FOR ACTIVE LANDSLIDES
+
 var ActiveLandslidesLayerStyle = function(feature) {
   var alpha = 0.5;
   var color;
@@ -214,5 +216,30 @@ var ActiveLandslidesLayerStyle = function(feature) {
         }),
         text: feature.get('TIPOLOGIA')
       })
-  });
-};
+    });
+  };
+
+
+  // C. HD STRUCTURAL FEATURES
+
+  var HDStructuralFeaturesStyle = function(feature) {
+    return new ol.style.Style({
+      image: new ol.style.Circle({
+        radius: 5,
+        fill: new ol.style.Fill({
+          color: 'rgba(255, 178, 0, 1)'
+        })
+      }),
+      text: new ol.style.Text({
+        font: '12px "ESRI_Geology", sans-serif',
+        text: 'É',
+        fill: new ol.style.Fill({
+          color: 'rgba(255, 178, 0, 1)'
+        }),
+        stroke: new ol.style.Stroke({
+          color: '#fff',
+          width: 3
+        })
+      })
+    });
+  };
