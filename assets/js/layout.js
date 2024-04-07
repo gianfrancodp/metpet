@@ -147,6 +147,8 @@ function applyMargins() {
       style: ActiveLandslidesLayerStyle
     });
 
+    // frist load visibility
+    ActiveLandslidesLayer.setVisible(false);
     var LayerButton2 = document.getElementById('LayerButton2');
     LayerButton2.addEventListener('load', setColorButtonLayer(LayerButton2, ActiveLandslidesLayer));
     LayerButton2.addEventListener('click', function() {
@@ -170,8 +172,8 @@ function applyMargins() {
       style: General_Geology_olStyle,
       opacity: 0.8
     });
-
-
+    // Frist load visibility
+    GeneralGeologyLayer.setVisible(true);
     var LayerButton3 = document.getElementById('LayerButton3');
     LayerButton3.addEventListener('load', setColorButtonLayer(LayerButton3, GeneralGeologyLayer));
     LayerButton3.addEventListener('click', function() {
@@ -191,6 +193,8 @@ function applyMargins() {
       source: ContourLines10mLayerSource,
       style: ContourLines10mLayerStyle
     });
+    // Friest load visibility
+    ContourLines10mLayer.setVisible(false);
 
     var LayerButton4 = document.getElementById('LayerButton4');
     LayerButton4.addEventListener('load', setColorButtonLayer(LayerButton4, ContourLines10mLayer));
@@ -210,11 +214,25 @@ function applyMargins() {
       source: HDStructuralFeatureSource,
       style: HDStructuralFeaturesStyle
     });
-
+    // Frist load visibility
+    HDStructuralFeatureLayer.setVisible(false);
     var LayerButton5 = document.getElementById('LayerButton5');
     LayerButton5.addEventListener('load', setColorButtonLayer(LayerButton5, HDStructuralFeatureLayer));
     LayerButton5.addEventListener('click', function() {
       clickButtonLayer(LayerButton5, HDStructuralFeatureLayer);
+    });
+
+    // 6. Ortofoto tile-layer
+    var OrtofotoTileLayer = new ol.layer.Tile({
+      source: new ol.source.XYZ({
+        url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ortofoto/{z}/{x}/{y}.png'
+      })
+    });
+    OrtofotoTileLayer.setVisible(true);
+    var LayerButton6 = document.getElementById('LayerButton6');
+    LayerButton6.addEventListener('load', setColorButtonLayer(LayerButton6, OrtofotoTileLayer));
+    LayerButton6.addEventListener('click', function() {
+      clickButtonLayer(LayerButton6, OrtofotoTileLayer);
     });
 
 
@@ -229,7 +247,7 @@ function applyMargins() {
     // Define the map
     var map = new ol.Map({
       target: "map",
-      layers: [osmbaselayer, ActiveLandslidesLayer, GeneralGeologyLayer, ContourLines10mLayer, HDStructuralFeatureLayer],
+      layers: [osmbaselayer, ActiveLandslidesLayer, GeneralGeologyLayer, ContourLines10mLayer, HDStructuralFeatureLayer, OrtofotoTileLayer],
       view: new ol.View({
         center: ol.proj.fromLonLat([15.8584, 38.3806]), 
         zoom: 17,
