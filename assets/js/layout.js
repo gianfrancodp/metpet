@@ -213,7 +213,7 @@ function applyMargins() {
 
     // 5. HD Structural Features
     var HDStructuralFeatureSource = new ol.source.Vector({
-      url: '../assets/geodata/HD_Structural_Features.geojson',
+      url: 'https://gianfrancodp.github.io/metpet/assets/geodata/HD_Structural_Features.geojson',
       format: new ol.format.GeoJSON({
         dataProjection: 'EPSG:32633',
         featureProjection: 'EPSG:3857'
@@ -250,7 +250,7 @@ function applyMargins() {
     // Define the map
     var map = new ol.Map({
       target: "map",
-      layers: [osmbaselayer, ActiveLandslidesLayer, GeneralGeologyLayer, ContourLines10mLayer],
+      layers: [osmbaselayer, ActiveLandslidesLayer, GeneralGeologyLayer, ContourLines10mLayer, HDStructuralFeatureLayer],
       view: new ol.View({
         center: ol.proj.fromLonLat([15.8584, 38.3806]), 
         zoom: 17,

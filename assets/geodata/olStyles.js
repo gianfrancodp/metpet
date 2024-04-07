@@ -222,24 +222,41 @@ var ActiveLandslidesLayerStyle = function(feature) {
 
   // C. HD STRUCTURAL FEATURES
 
-  var HDStructuralFeaturesStyle = function(feature) {
-    return new ol.style.Style({
-      image: new ol.style.Circle({
-        radius: 5,
-        fill: new ol.style.Fill({
-          color: 'rgba(255, 178, 0, 1)'
-        })
+ // C.1 Prepare Point style for each type of feature
+ // C.1.1  "featureTyp": "JOINT" or "FAULT" 
+ var HDSF_1 = new ol.style.Style({
+    text: new ol.style.Text({
+      font: '17px "ESRI_Geology", sans-serif',
+      text: 'É',
+      fill: new ol.style.Fill({
+        color: 'rgba(229,182,54)'
       }),
-      text: new ol.style.Text({
-        font: '12px "ESRI_Geology", sans-serif',
-        text: 'É',
-        fill: new ol.style.Fill({
-          color: 'rgba(255, 178, 0, 1)'
-        }),
-        stroke: new ol.style.Stroke({
-          color: '#fff',
-          width: 3
-        })
-      })
-    });
-  };
+      stroke: new ol.style.Stroke({
+        color: '#fff',
+        width: 3
+      }),
+      rotation: 0
+    })
+  });
+
+  // C.2 Create style function for HD Structural Features
+
+var HDStructuralFeaturesStyle = function(feature) {
+  var style;
+  var dipDirecti = feature.get('dipDirecti'); // get rotation font from geojson field "dipDirecti"
+  switch(feature.get('featureTyp')) {
+    case 'JOINT': 
+      style = HDSF_1; 
+      if (dipDirecti !== undefined) {
+        style.getText().setRotation(dipDirecti * Math.PI / 180); //set rotation font from geojson data
+      }
+      break;
+    case 'FAULT':
+      style = HDSF_1; 
+      if (dipDirecti !== undefined) {
+        style.getText().setRotation(dipDirecti * Math.PI / 180); //set rotation font from geojson data
+      }
+      break;
+  }
+  return style;
+};
