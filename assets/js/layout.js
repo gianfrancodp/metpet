@@ -179,12 +179,7 @@ function applyMargins() {
     });
 
     // 4. Contour lines layer 10 m
-    var ContourLines10mLayerStyle = new ol.style.Style({
-      stroke: new ol.style.Stroke({
-        color : 'rgba(0, 0, 0,0.5)',
-        width: 0.5
-      })
-    });
+    
     var ContourLines10mLayerSource = new ol.source.Vector({
       url: 'https://gianfrancodp.github.io/metpet/assets/geodata/contour_10_smooth.geojson',
       format: new ol.format.GeoJSON({

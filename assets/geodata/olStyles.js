@@ -189,12 +189,12 @@ var ActiveLandslidesLayerStyle = function(feature) {
   var alpha = 0.5;
   var color;
   switch(feature.get('TIPOLOGIA')) {
-    case 'Crollo': color = `rgba(26, 150, 65, ${alpha}`; break;
-    case 'Scorrimento': color  = `rgba(119, 195, 92, ${alpha})`; break;
-    case 'ZDSL': color = `rgba(196, 230, 135, ${alpha})`; break;
-    case 'ZEI' : color = `rgba(255, 255, 192, ${alpha})`; break;
-    case 'ZFP' : color = `rgba(255, 127, 0, ${alpha})`; break;
-    case 'ZFS' : color = `rgba(255, 0, 0, ${alpha})`; break;
+    case 'Crollo': color = `rgba(40, 95, 24, ${alpha}`; break;
+    case 'Scorrimento': color  = `rgba(110, 151, 45, ${alpha})`; break;
+    case 'ZDSL': color = `rgba(202, 217, 70, ${alpha})`; break;
+    case 'ZEI' : color = `rgba(250, 219, 74, ${alpha})`; break;
+    case 'ZFP' : color = `rgba(240, 139, 52, ${alpha})`; break;
+    case 'ZFS' : color = `rgba(235, 63, 37, ${alpha})`; break;
 
   } // get the color from the feature
   return new ol.style.Style({
@@ -260,3 +260,12 @@ var HDStructuralFeaturesStyle = function(feature) {
   }
   return style;
 };
+
+// D CONTOUR LINES Syles
+
+var ContourLines10mLayerStyle = new ol.style.Style({
+  stroke: new ol.style.Stroke({
+    color : 'rgba(0, 0, 0,0.5)',
+    width: 0.5
+  })
+});
