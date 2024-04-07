@@ -91,30 +91,35 @@ function applyMargins() {
     proj4.defs("EPSG:4326","+proj=longlat +datum=WGS84 +no_defs");
     ol.proj.proj4.register(proj4);
 
+    // function to change gray/black color to layer buttons
+
+    function clickButtonLayer(button, layer) {
+      var visibility = layer.getVisible();
+      layer.setVisible(!visibility);
+      if (visibility == false) {
+        button.style.color = "black";
+      } else {
+        button.style.color = "gray";
+      }
+    };
+
+
     // 1. ### BASE LAYER ###
     // Define OpenLayers mapbaselayer
     var osmbaselayer = new ol.layer.Tile({
       source: new ol.source.OSM({
         attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
                         ol.source.OSM.ATTRIBUTION]
-      })
+      })   
     });
 
-    //Click event on the base layer button 1
     var LayerButton1 = document.getElementById('LayerButton1');
     LayerButton1.addEventListener('click', function() {
-      var visibility = osmbaselayer.getVisible();
-      osmbaselayer.setVisible(!visibility);
-      if (visibility == false) {
-        LayerButton1.style.color = "black";
-      } else {
-        LayerButton1.style.color = "gray";
-      }
+      clickButtonLayer(LayerButton1, osmbaselayer);
     });
 
-  // ### START OF VECTOR LAYERS ###
 
-    
+  // ### START OF VECTOR LAYERS ###
     var ActiveLandslidesLayerSource = new ol.source.Vector({
       url: 'https://gianfrancodp.github.io/metpet/assets/geodata/Active_landslides.geojson',
       format: new ol.format.GeoJSON({
@@ -129,25 +134,12 @@ function applyMargins() {
 
     var LayerButton2 = document.getElementById('LayerButton2');
     LayerButton2.addEventListener('click', function() {
-      // get actual visibility
-      var visibility = ActiveLandslidesLayer.getVisible();
-      // Set the opposite visibility
-      ActiveLandslidesLayer.setVisible(!visibility);
-      // set color of the button
-      if (visibility == false) {
-        LayerButton2.style.color = "black";
-      } else {
-        LayerButton2.style.color = "gray";
-      }
+      clickButtonLayer(LayerButton2, ActiveLandslidesLayer);
     });
      
 
 
     // 3. General Geology layer
-  
-
-
-    
     var GeneralGeologyLayerSource = new ol.source.Vector({
       url: 'https://gianfrancodp.github.io/metpet/assets/geodata/General_Geology.geojson',
       format: new ol.format.GeoJSON({
@@ -159,23 +151,14 @@ function applyMargins() {
 
     var GeneralGeologyLayer = new ol.layer.Vector({
       source: GeneralGeologyLayerSource,
-      style: General_Geology_olStyle, // try General_Geology_olStyle from General_Geology_olStyle.js
+      style: General_Geology_olStyle,
       opacity: 0.8
     });
 
 
     var LayerButton3 = document.getElementById('LayerButton3');
     LayerButton3.addEventListener('click', function() {
-      // get actual visibility
-      var visibility = GeneralGeologyLayer.getVisible();
-      // Set the opposite visibility
-      GeneralGeologyLayer.setVisible(!visibility);
-      // set color of the button
-      if (visibility == false) {
-        LayerButton3.style.color = "black";
-      } else {
-        LayerButton3.style.color = "gray";
-      }
+      clickButtonLayer(LayerButton3, GeneralGeologyLayer);
     });
 
     // 4. Contour lines layer 10 m
@@ -194,16 +177,7 @@ function applyMargins() {
 
     var LayerButton4 = document.getElementById('LayerButton4');
     LayerButton4.addEventListener('click', function() {
-      // get actual visibility
-      var visibility = ContourLines10mLayer.getVisible();
-      // Set the opposite visibility
-      ContourLines10mLayer.setVisible(!visibility);
-      // set color of the button
-      if (visibility == false) {
-        LayerButton4.style.color = "black";
-      } else {
-        LayerButton4.style.color = "gray";
-      }
+      clickButtonLayer(LayerButton4, ContourLines10mLayer);
     });
 
     // 5. HD Structural Features
@@ -221,16 +195,7 @@ function applyMargins() {
 
     var LayerButton5 = document.getElementById('LayerButton5');
     LayerButton5.addEventListener('click', function() {
-      // get actual visibility
-      var visibility = HDStructuralFeatureLayer.getVisible();
-      // Set the opposite visibility
-      HDStructuralFeatureLayer.setVisible(!visibility);
-      // set color of the button
-      if (visibility == false) {
-        LayerButton5.style.color = "black";
-      } else {
-        LayerButton5.style.color = "gray";
-      }
+      clickButtonLayer(LayerButton5, HDStructuralFeatureLayer);
     });
 
 
@@ -316,6 +281,7 @@ function applyMargins() {
     applyMargins();
 
     // ### SEARCH FEATURE ###
+    // todo: remove it
 
     $('.navbar-form button[type="submit"]').click(function(event){
       event.preventDefault();
