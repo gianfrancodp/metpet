@@ -91,7 +91,18 @@ function applyMargins() {
     proj4.defs("EPSG:4326","+proj=longlat +datum=WGS84 +no_defs");
     ol.proj.proj4.register(proj4);
 
+    // define the color of button when layer is visible
+    function setColorButtonLayer(button, layer) {
+      var visibility = layer.getVisible();
+      if (visibility == false) {
+        button.style.color = "gray";
+      } else {
+        button.style.color = "black";
+      }
+    };
+
     // function to change gray/black color to layer buttons
+    // and invert visibility of the layer
 
     function clickButtonLayer(button, layer) {
       var visibility = layer.getVisible();
@@ -103,6 +114,8 @@ function applyMargins() {
       }
     };
 
+    
+
 
     // 1. ### BASE LAYER ###
     // Define OpenLayers mapbaselayer
@@ -112,8 +125,10 @@ function applyMargins() {
                         ol.source.OSM.ATTRIBUTION]
       })   
     });
+    osmbaselayer.setVisible(true);
 
     var LayerButton1 = document.getElementById('LayerButton1');
+    LayerButton1.addEventListener('load', setColorButtonLayer(LayerButton1, osmbaselayer));
     LayerButton1.addEventListener('click', function() {
       clickButtonLayer(LayerButton1, osmbaselayer);
     });
@@ -133,6 +148,7 @@ function applyMargins() {
     });
 
     var LayerButton2 = document.getElementById('LayerButton2');
+    LayerButton2.addEventListener('load', setColorButtonLayer(LayerButton2, ActiveLandslidesLayer));
     LayerButton2.addEventListener('click', function() {
       clickButtonLayer(LayerButton2, ActiveLandslidesLayer);
     });
@@ -157,6 +173,7 @@ function applyMargins() {
 
 
     var LayerButton3 = document.getElementById('LayerButton3');
+    LayerButton3.addEventListener('load', setColorButtonLayer(LayerButton3, GeneralGeologyLayer));
     LayerButton3.addEventListener('click', function() {
       clickButtonLayer(LayerButton3, GeneralGeologyLayer);
     });
@@ -176,6 +193,7 @@ function applyMargins() {
     });
 
     var LayerButton4 = document.getElementById('LayerButton4');
+    LayerButton4.addEventListener('load', setColorButtonLayer(LayerButton4, ContourLines10mLayer));
     LayerButton4.addEventListener('click', function() {
       clickButtonLayer(LayerButton4, ContourLines10mLayer);
     });
@@ -194,6 +212,7 @@ function applyMargins() {
     });
 
     var LayerButton5 = document.getElementById('LayerButton5');
+    LayerButton5.addEventListener('load', setColorButtonLayer(LayerButton5, HDStructuralFeatureLayer));
     LayerButton5.addEventListener('click', function() {
       clickButtonLayer(LayerButton5, HDStructuralFeatureLayer);
     });
