@@ -233,7 +233,70 @@ var ActiveLandslidesLayerStyle = function(feature) {
       }),
       stroke: new ol.style.Stroke({
         color: '#fff',
-        width: 3
+        width: 2
+      }),
+      rotation: 0
+    })
+  });
+
+  // C.1.2  "featureTyp": "FOLDAXIALPLANE"
+  var HDSF_2 = new ol.style.Style({
+    text: new ol.style.Text({
+      font: '17px "ESRI_Geology", sans-serif',
+      text: '»',
+      fill: new ol.style.Fill({
+        color: '#005ce6'   
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#fff',
+        width: 2
+      }),
+      rotation: 0
+    })
+  });
+  // C.1.3 "featureTyp": "FOLDAXIS"
+  var HDSF_3 = new ol.style.Style({
+    text: new ol.style.Text({
+      font: '17px "ESRI_Geology", sans-serif',
+      text: 'Ö',
+      fill: new ol.style.Fill({
+        color: '#005ce6'   
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#fff',
+        width: 2
+      }),
+      rotation: 0
+    })
+  });
+
+  // C.1.4 "featureTyp": "L1" and "STRETCHING"
+  var HDSF_4 = new ol.style.Style({
+    text: new ol.style.Text({
+      font: '17px "ESRI_Geology", sans-serif',
+      text: 'Ü',
+      fill: new ol.style.Fill({
+        color: '#e60000'   
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#fff',
+        width: 2
+      }),
+      rotation: 0
+    })
+  });
+
+  // C.1.5 "featureTyp": "S0" and "SQUESTION"
+  var HDSF_5 = new ol.style.Style({
+    text: new ol.style.Text({
+      font: '17px "ESRI_Geology", sans-serif',
+      text: 'j',
+      fill: new ol.style.Fill({
+        color: '#ff0000'   
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#fff',
+        width: 2
       }),
       rotation: 0
     })
@@ -254,7 +317,43 @@ var HDStructuralFeaturesStyle = function(feature) {
     case 'FAULT':
       style = HDSF_1; 
       if (dipDirecti !== undefined) {
-        style.getText().setRotation(dipDirecti * Math.PI / 180); //set rotation font from geojson data
+        style.getText().setRotation(dipDirecti * Math.PI / 180); 
+      }
+      break;
+    case 'FOLDAXIALPLANE':
+      style = HDSF_2;
+      if (dipDirecti !== undefined) {
+        style.getText().setRotation(dipDirecti * Math.PI / 180); 
+      }
+      break;
+    case 'FOLDAXIS':
+      style = HDSF_3;
+      if (dipDirecti !== undefined) {
+        style.getText().setRotation(dipDirecti * Math.PI / 180); 
+      }
+      break;
+    case 'L1':
+      style = HDSF_4;
+      if (dipDirecti !== undefined) {
+        style.getText().setRotation(dipDirecti * Math.PI / 180); 
+      }
+      break;
+    case 'STRETCHING':
+      style = HDSF_4;
+      if (dipDirecti !== undefined) {
+        style.getText().setRotation(dipDirecti * Math.PI / 180); 
+      }
+      break;
+    case 'S0':
+      style = HDSF_5;
+      if (dipDirecti !== undefined) {
+        style.getText().setRotation(dipDirecti * Math.PI / 180); 
+      }
+      break;
+    case 'SQUESTION':
+      style = HDSF_5;
+      if (dipDirecti !== undefined) {
+        style.getText().setRotation(dipDirecti * Math.PI / 180); 
       }
       break;
   }
