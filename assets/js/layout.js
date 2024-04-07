@@ -159,7 +159,8 @@ function applyMargins() {
 
     var GeneralGeologyLayer = new ol.layer.Vector({
       source: GeneralGeologyLayerSource,
-      style: General_Geology_olStyle // try General_Geology_olStyle from General_Geology_olStyle.js
+      style: General_Geology_olStyle, // try General_Geology_olStyle from General_Geology_olStyle.js
+      opacity: 0.8
     });
 
 
@@ -180,8 +181,8 @@ function applyMargins() {
     // 4. Contour lines layer 10 m
     var ContourLines10mLayerStyle = new ol.style.Style({
       stroke: new ol.style.Stroke({
-        color: 'blue',
-        width: 1
+        color : 'rgba(0, 0, 0,0.5)',
+        width: 0.5
       })
     });
     var ContourLines10mLayerSource = new ol.source.Vector({
