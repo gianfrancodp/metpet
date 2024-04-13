@@ -133,12 +133,16 @@ function applyMargins() {
 
     // Function for frist load and visibility of layers after load
     function LayerFristLoad (ButtonID, layer, fristvisibility ) {
+      // Set visibility
       layer.setVisible(fristvisibility);
+      // Load eventListener for button
       var button = document.getElementById(ButtonID);
       button.addEventListener('load', setColorButtonLayer(button, layer));
       button.addEventListener('click', function() {
         clickButtonLayer(button, layer);
       });
+      // Set button layer html text
+      button.innerHTML = layer.getProperties().name;
     };
       
 
@@ -154,7 +158,8 @@ function applyMargins() {
       source: new ol.source.OSM({
         attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
                         ol.source.OSM.ATTRIBUTION]
-      })   
+      }),
+      properties : {'name': '<i class="fa fa-globe"></i> Open Street Map', 'faIcon' : 'fa fa-globe'} 
     });
     
 
@@ -169,7 +174,8 @@ function applyMargins() {
     });
     var ActiveLandslidesLayer = new ol.layer.Vector({
       source: ActiveLandslidesLayerSource,
-      style: ActiveLandslidesLayerStyle
+      style: ActiveLandslidesLayerStyle,
+      properties : {'name': '<i class="fa fa-linux"></i> Active Landslides', 'faIcon' : 'fa fa-linux'}
     });
     
      
@@ -188,7 +194,8 @@ function applyMargins() {
     var GeneralGeologyLayer = new ol.layer.Vector({
       source: GeneralGeologyLayerSource,
       style: General_Geology_olStyle,
-      opacity: 0.8
+      opacity: 0.8,
+      properties : {'name': 'General Geology', 'faIcon' : 'fa fa-globe'}
     });
 
     // 4. Contour lines layer 10 m
@@ -202,7 +209,8 @@ function applyMargins() {
     });
     var ContourLines10mLayer = new ol.layer.Vector({
       source: ContourLines10mLayerSource,
-      style: ContourLines10mLayerStyle
+      style: ContourLines10mLayerStyle,
+      properties : {'name': 'Contour Lines 10 m', 'faIcon' : 'fa fa-globe'}
     });
     
 
@@ -216,14 +224,16 @@ function applyMargins() {
     });
     var HDStructuralFeatureLayer = new ol.layer.Vector({
       source: HDStructuralFeatureSource,
-      style: HDStructuralFeaturesStyle
+      style: HDStructuralFeaturesStyle,
+      properties : {'name': 'HD Structural Features', 'faIcon' : 'fa fa-globe'}
     });
 
     // 6. Ortofoto tile-layer
     var OrtofotoTileLayer = new ol.layer.Tile({
       source: new ol.source.XYZ({
         url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ortofoto/{z}/{x}/{y}.png'
-      })
+      }),
+      properties : {'name': 'Ortofoto', 'faIcon' : 'fa fa-globe'}
     });
 
     
@@ -235,12 +245,12 @@ function applyMargins() {
     
     // Frist load and visibility of layers
 
-  LayerFristLoad('LayerButton1', osmbaselayer, true);
-  LayerFristLoad('LayerButton2', ActiveLandslidesLayer, false);
-  LayerFristLoad('LayerButton3', GeneralGeologyLayer, true);
-  LayerFristLoad('LayerButton4', ContourLines10mLayer, false);
-  LayerFristLoad('LayerButton5', HDStructuralFeatureLayer, false);
-  LayerFristLoad('LayerButton6', OrtofotoTileLayer, false);
+  LayerFristLoad('LayerButton1', osmbaselayer, true, 'LayerButtonIcon1');
+  LayerFristLoad('LayerButton2', ActiveLandslidesLayer, false, 'LayerButtonIcon2');
+  LayerFristLoad('LayerButton3', GeneralGeologyLayer, true, 'LayerButtonIcon3');
+  LayerFristLoad('LayerButton4', ContourLines10mLayer, false, 'LayerButtonIcon4');
+  LayerFristLoad('LayerButton5', HDStructuralFeatureLayer, false, 'LayerButtonIcon5');
+  LayerFristLoad('LayerButton6', OrtofotoTileLayer, false, 'LayerButtonIcon6');
 
     // ### LAYER ORDER ###
 
