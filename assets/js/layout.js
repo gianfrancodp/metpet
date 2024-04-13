@@ -89,7 +89,8 @@ function applyMargins() {
     proj4.defs("EPSG:4326","+proj=longlat +datum=WGS84 +no_defs");
     ol.proj.proj4.register(proj4);
 
-    // define the color of button when layer is visible
+    // define the color of button if layer is visible or not
+
     function setColorButtonLayer(button, layer) {
       var visibility = layer.getVisible();
       if (visibility == false) {
@@ -100,7 +101,7 @@ function applyMargins() {
     };
 
     // function to change gray/black color to layer buttons
-    // and invert visibility of the layer
+    // and invert visibility of the layer, due click on button layer event
 
     function clickButtonLayer(button, layer) {
       var visibility = layer.getVisible();
@@ -112,13 +113,42 @@ function applyMargins() {
       }
     };
 
-    
+    // Function to turn on a layer for other events
+    function LayerTurnOn(button, layer) {
+      var visibility = layer.getVisible();
+      if (visibility == false) {
+        layer.setVisible(true);
+        button.style.color = "black";
+      }
+    };
 
+    // Function to turn off a layer for other events
+    function LayerTurnOff(button, layer) {
+      var visibility = layer.getVisible();
+      if (visibility == true) {
+        layer.setVisible(false);
+        button.style.color = "gray";
+      }
+    };
+
+    // Function for frist load and visibility of layers after load
+    function LayerFristLoad (ButtonID, layer, fristvisibility ) {
+      layer.setVisible(fristvisibility);
+      var button = document.getElementById(ButtonID);
+      button.addEventListener('load', setColorButtonLayer(button, layer));
+      button.addEventListener('click', function() {
+        clickButtonLayer(button, layer);
+      });
+    };
+      
+
+    // ### STYLE DEFINITIONS ##
+    // TODO: Reorder layer list and id #
 
     // 1. ### BASE LAYER ###
     // Define OpenLayers mapbaselayer
 
-    // TODO move attribtions to a separate region of frame
+    // TODO: move attribtions to a separate region of frame
 
     var osmbaselayer = new ol.layer.Tile({
       source: new ol.source.OSM({
@@ -126,13 +156,7 @@ function applyMargins() {
                         ol.source.OSM.ATTRIBUTION]
       })   
     });
-    osmbaselayer.setVisible(false);
-
-    var LayerButton1 = document.getElementById('LayerButton1');
-    LayerButton1.addEventListener('load', setColorButtonLayer(LayerButton1, osmbaselayer));
-    LayerButton1.addEventListener('click', function() {
-      clickButtonLayer(LayerButton1, osmbaselayer);
-    });
+    
 
 
   // ### START OF VECTOR LAYERS ###
@@ -147,14 +171,7 @@ function applyMargins() {
       source: ActiveLandslidesLayerSource,
       style: ActiveLandslidesLayerStyle
     });
-
-    // frist load visibility
-    ActiveLandslidesLayer.setVisible(false);
-    var LayerButton2 = document.getElementById('LayerButton2');
-    LayerButton2.addEventListener('load', setColorButtonLayer(LayerButton2, ActiveLandslidesLayer));
-    LayerButton2.addEventListener('click', function() {
-      clickButtonLayer(LayerButton2, ActiveLandslidesLayer);
-    });
+    
      
 
 
@@ -173,13 +190,6 @@ function applyMargins() {
       style: General_Geology_olStyle,
       opacity: 0.8
     });
-    // Frist load visibility
-    GeneralGeologyLayer.setVisible(true);
-    var LayerButton3 = document.getElementById('LayerButton3');
-    LayerButton3.addEventListener('load', setColorButtonLayer(LayerButton3, GeneralGeologyLayer));
-    LayerButton3.addEventListener('click', function() {
-      clickButtonLayer(LayerButton3, GeneralGeologyLayer);
-    });
 
     // 4. Contour lines layer 10 m
     
@@ -194,14 +204,7 @@ function applyMargins() {
       source: ContourLines10mLayerSource,
       style: ContourLines10mLayerStyle
     });
-    // Friest load visibility
-    ContourLines10mLayer.setVisible(false);
-
-    var LayerButton4 = document.getElementById('LayerButton4');
-    LayerButton4.addEventListener('load', setColorButtonLayer(LayerButton4, ContourLines10mLayer));
-    LayerButton4.addEventListener('click', function() {
-      clickButtonLayer(LayerButton4, ContourLines10mLayer);
-    });
+    
 
     // 5. HD Structural Features
     var HDStructuralFeatureSource = new ol.source.Vector({
@@ -215,13 +218,6 @@ function applyMargins() {
       source: HDStructuralFeatureSource,
       style: HDStructuralFeaturesStyle
     });
-    // Frist load visibility
-    HDStructuralFeatureLayer.setVisible(false);
-    var LayerButton5 = document.getElementById('LayerButton5');
-    LayerButton5.addEventListener('load', setColorButtonLayer(LayerButton5, HDStructuralFeatureLayer));
-    LayerButton5.addEventListener('click', function() {
-      clickButtonLayer(LayerButton5, HDStructuralFeatureLayer);
-    });
 
     // 6. Ortofoto tile-layer
     var OrtofotoTileLayer = new ol.layer.Tile({
@@ -229,18 +225,26 @@ function applyMargins() {
         url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ortofoto/{z}/{x}/{y}.png'
       })
     });
-    OrtofotoTileLayer.setVisible(true);
-    var LayerButton6 = document.getElementById('LayerButton6');
-    LayerButton6.addEventListener('load', setColorButtonLayer(LayerButton6, OrtofotoTileLayer));
-    LayerButton6.addEventListener('click', function() {
-      clickButtonLayer(LayerButton6, OrtofotoTileLayer);
-    });
 
-    // TODO create 2 separate layer collection
+    
+
+    // TODO: create 2 separate layer collection
     // HDareaLayerCollection
     // LDareaLayerCollection
     // aggregate button to show/hide all layers inside the collection
     
+    // Frist load and visibility of layers
+
+  LayerFristLoad('LayerButton1', osmbaselayer, true);
+  LayerFristLoad('LayerButton2', ActiveLandslidesLayer, false);
+  LayerFristLoad('LayerButton3', GeneralGeologyLayer, true);
+  LayerFristLoad('LayerButton4', ContourLines10mLayer, false);
+  LayerFristLoad('LayerButton5', HDStructuralFeatureLayer, false);
+  LayerFristLoad('LayerButton6', OrtofotoTileLayer, false);
+
+    // ### LAYER ORDER ###
+
+
     var LayerOrder = new ol.Collection([
           osmbaselayer,
           OrtofotoTileLayer,
