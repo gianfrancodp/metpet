@@ -236,14 +236,18 @@ function applyMargins() {
       clickButtonLayer(LayerButton6, OrtofotoTileLayer);
     });
 
-   
+    // TODO create 2 separate layer collection
+    // HDareaLayerCollection
+    // LDareaLayerCollection
+    // aggregate button to show/hide all layers inside the collection
+    
     var LayerOrder = new ol.Collection([
-          osmbaselayer, 
+          osmbaselayer,
+          OrtofotoTileLayer,
           ActiveLandslidesLayer, 
           GeneralGeologyLayer, 
           ContourLines10mLayer, 
-          HDStructuralFeatureLayer, 
-          OrtofotoTileLayer
+          HDStructuralFeatureLayer,
         ]);
 
     // ### MAP ###
@@ -267,82 +271,14 @@ function applyMargins() {
       })
     });
     
-    // var map = new ol.Map({
-    //   target: "map",
-    //   layers: [osmbaselayer, ActiveLandslidesLayer, GeneralGeologyLayer, ContourLines10mLayer, HDStructuralFeatureLayer, OrtofotoTileLayer],
-    //   view: new ol.View({
-    //     center: ol.proj.fromLonLat([15.8584, 38.3806]), 
-    //     zoom: 17,
-    //     extent: ol.proj.transformExtent(mapextension, 'EPSG:4326', 'EPSG:3857'),
-    //     minZoom: 10,
-    //     maxZoom: 20
-    //   })
-    // });
-
-    // // Add the popup to the map
-    // var element = document.getElementById('popup');
-    // var popup = new ol.Overlay({
-    //   element: element,
-    //   positioning: 'bottom-center',
-    //   stopEvent: false,
-    // });
-    // map.addOverlay(popup);
-    // let popover;
-    // function disposePopover() {
-    //   if (popover) {
-    //     popover.dispose();
-    //     popover = undefined;
-    //   }
-    // }
-    // // display popup on click
-    // map.on('click', function (evt) {
-    //   const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
-    //     return feature;
-    //   });
-    //   disposePopover();
-    //   if (!feature) {
-    //     return;
-    //   }
-    //   popup.setPosition(evt.coordinate);
-      
-    //   popover = new bs.Popover(element, {
-    //     placement: 'top',
-    //     html: true,
-    //     content: feature.get('sigla'),
-    //   });
-    //   popover.show();
-    // });
-
-
-    // map.addOverlay(popup);
-    // map.on('click', function(evt) {
-    //   var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
-    //     return feature;
-    //   });
-    //   if (feature) {
-    //     var coordinates = feature.getGeometry().getCoordinates();
-    //     popup.setPosition(coordinates);
-    //     console.log('Popup position: ' + popup.getPosition());
-    //     $(element).popover({
-    //       'placement': 'top',
-    //       'html': true,
-    //       'content': feature.get('name')
-    //     });
-    //     $(element).popover('show');
-    //   } else {
-    //     $(element).popover('destroy');
-    //   }
-    // });
-
-    //
     
     applyInitialUIState();
     applyMargins();
 
     // ### SEARCH FEATURE ###
-    // todo: remove it
+    // to activate 
 
-    $('.navbar-form button[type="submit"]').click(function(event){
+  $('.navbar-form button[type="submit"]').click(function(event){
       event.preventDefault();
       var searchInput = $('.navbar-form input[type="text"]').val();
       console.log('Button clicked, the text is: '+ searchInput);
