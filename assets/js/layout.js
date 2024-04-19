@@ -100,16 +100,51 @@ function applyMargins() {
       }
     };
 
+    // function to switch on/off layer visibility
+    function layerswitcher(button, layer) {
+      var visibility = layer.getVisible();
+      layer.setVisible(!visibility);
+        if (visibility == false) {
+          button.style.color = "black";
+        } else {
+          button.style.color = "gray";
+        }
+      }
+
+
     // function to change gray/black color to layer buttons
     // and invert visibility of the layer, due click on button layer event
 
     function clickButtonLayer(button, layer) {
-      var visibility = layer.getVisible();
-      layer.setVisible(!visibility);
-      if (visibility == false) {
-        button.style.color = "black";
-      } else {
-        button.style.color = "gray";
+      // switch on/off of layer
+      layerswitcher(button, layer);
+      // check if layer is base layer
+      isBaseL = layer.getProperties().isBaseLayer;
+
+      if(isBaseL == true) {
+
+        // if layer is base layer, turn off all other base layers
+        
+        for (var i = 0; i < LayerOrder.getLength(); i++) {
+          
+          var layeriterated = LayerOrder.item(i);
+          
+          if (isBaseL == true) {
+
+          // if layeriterated is not the same layer, turn off
+            
+            if (layeriterated != layer) {
+                var ButtonID = layeriterated.get('buttonid');
+                var buttoniterated = document.getElementById(ButtonID);
+                layerswitcher(buttoniterated, layeriterated);
+                //LayerTurnOff(buttoniterated, layeriterated)
+              }
+              else {
+                // if layeriterated is the same layer, turn on
+              // none
+              }
+            }
+        }
       }
     };
 
@@ -132,20 +167,28 @@ function applyMargins() {
     };
 
     // Function for frist load and visibility of layers after load
-    function LayerFristLoad (ButtonID, layer, fristvisibility ) {
+    function LayerFristLoad (ButtonID, layer, fristvisibility) {
+      isBaseLayer = layer.getProperties().isBaseLayer;
       // Set visibility
       layer.setVisible(fristvisibility);
       // Load eventListener for button
       var button = document.getElementById(ButtonID);
+      button.setAttribute('isBaseLayer', isBaseLayer);
       button.addEventListener('load', setColorButtonLayer(button, layer));
       button.addEventListener('click', function() {
         clickButtonLayer(button, layer);
       });
+      
       // Set button layer html text
       button.innerHTML = layer.getProperties().name;
+      // seti buttonID property to layer
+      layer.set('buttonid', ButtonID);
     };
-      
 
+
+
+
+        
     // ### STYLE DEFINITIONS ##
     // TODO: Reorder layer list and id #
 
@@ -159,7 +202,7 @@ function applyMargins() {
         attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
                         ol.source.OSM.ATTRIBUTION]
       }),
-      properties : {'name': '<i class="fa fa-globe"></i> Open Street Map', 'faIcon' : 'fa fa-globe'} 
+      properties : {'name': '<i class="fa fa-globe"></i> Open Street Map', 'faIcon' : 'fa fa-globe', 'isBaseLayer': true} 
     });
     
 
@@ -175,7 +218,7 @@ function applyMargins() {
     var ActiveLandslidesLayer = new ol.layer.Vector({
       source: ActiveLandslidesLayerSource,
       style: ActiveLandslidesLayerStyle,
-      properties : {'name': '<i class="fa fa-linux"></i> Active Landslides', 'faIcon' : 'fa fa-linux'}
+      properties : {'name': '<i class="fa fa-linux"></i> Active Landslides', 'faIcon' : 'fa fa-linux',  'isBaseLayer': false}
     });
     
      
@@ -195,7 +238,7 @@ function applyMargins() {
       source: GeneralGeologyLayerSource,
       style: General_Geology_olStyle,
       opacity: 0.8,
-      properties : {'name': 'General Geology', 'faIcon' : 'fa fa-globe'}
+      properties : {'name': 'General Geology', 'faIcon' : 'fa fa-globe', 'isBaseLayer': false}
     });
 
     // 4. Contour lines layer 10 m
@@ -210,7 +253,7 @@ function applyMargins() {
     var ContourLines10mLayer = new ol.layer.Vector({
       source: ContourLines10mLayerSource,
       style: ContourLines10mLayerStyle,
-      properties : {'name': 'Contour Lines 10 m', 'faIcon' : 'fa fa-globe'}
+      properties : {'name': 'Contour Lines 10 m', 'faIcon' : 'fa fa-globe', 'isBaseLayer': false}
     });
     
 
@@ -225,7 +268,7 @@ function applyMargins() {
     var HDStructuralFeatureLayer = new ol.layer.Vector({
       source: HDStructuralFeatureSource,
       style: HDStructuralFeaturesStyle,
-      properties : {'name': 'HD Structural Features', 'faIcon' : 'fa fa-globe'}
+      properties : {'name': 'HD Structural Features', 'faIcon' : 'fa fa-globe', 'isBaseLayer': false}
     });
 
     // 6. Ortofoto tile-layer
@@ -233,7 +276,7 @@ function applyMargins() {
       source: new ol.source.XYZ({
         url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ortofoto/{z}/{x}/{y}.png'
       }),
-      properties : {'name': 'Ortofoto', 'faIcon' : 'fa fa-globe'}
+      properties : {'name': 'Ortofoto', 'faIcon' : 'fa fa-globe', 'isBaseLayer': true}
     });
 
     
@@ -246,11 +289,17 @@ function applyMargins() {
     // Frist load and visibility of layers
 
   LayerFristLoad('LayerButton1', osmbaselayer, true, 'LayerButtonIcon1');
-  LayerFristLoad('LayerButton2', ActiveLandslidesLayer, false, 'LayerButtonIcon2');
+  
+  LayerFristLoad('LayerButton2', OrtofotoTileLayer, false, 'LayerButtonIcon2');
+  // LayerFristLoad('LayerButton2', ActiveLandslidesLayer, false, 'LayerButtonIcon2');
+  //
+  // Function to change visibily of layer1 and layer2 when button is clicked
+  
+
   LayerFristLoad('LayerButton3', GeneralGeologyLayer, true, 'LayerButtonIcon3');
   LayerFristLoad('LayerButton4', ContourLines10mLayer, false, 'LayerButtonIcon4');
   LayerFristLoad('LayerButton5', HDStructuralFeatureLayer, false, 'LayerButtonIcon5');
-  LayerFristLoad('LayerButton6', OrtofotoTileLayer, false, 'LayerButtonIcon6');
+  LayerFristLoad('LayerButton6', ActiveLandslidesLayer, false, 'LayerButtonIcon6');
 
     // ### LAYER ORDER ###
 
