@@ -116,35 +116,47 @@ function applyMargins() {
     // and invert visibility of the layer, due click on button layer event
 
     function clickButtonLayer(button, layer) {
+      if (layer.getProperties().isBaseLayer == false) {
       // switch on/off of layer
       layerswitcher(button, layer);
       // check if layer is base layer
-      isBaseL = layer.getProperties().isBaseLayer;
+      } 
+      else {
 
-      if(isBaseL == true) {
+        // if turned ON leave ON
+        if (layer.getVisible() == true) {
+          // none
+        }
+        else {
+          // 1. turn On
+          LayerTurnOn(button, layer);
+         // turn OFF all other base layers
 
         // if layer is base layer, turn off all other base layers
         
-        for (var i = 0; i < LayerOrder.getLength(); i++) {
-          
-          var layeriterated = LayerOrder.item(i);
-          
-          if (isBaseL == true) {
+            for (var i = 0; i < LayerOrder.getLength(); i++) {
+              
+              var layeriterated = LayerOrder.item(i);
+              var isBASELAYERiterated = layeriterated.getProperties().isBaseLayer;
+              
+              if (isBASELAYERiterated == true) {
 
-          // if layeriterated is not the same layer, turn off
-            
-            if (layeriterated != layer) {
-                var ButtonID = layeriterated.get('buttonid');
-                var buttoniterated = document.getElementById(ButtonID);
-                layerswitcher(buttoniterated, layeriterated);
-                //LayerTurnOff(buttoniterated, layeriterated)
-              }
-              else {
-                // if layeriterated is the same layer, turn on
-              // none
-              }
+              // if layeriterated is not the same layer, turn off
+                
+                if (layeriterated != layer) {
+
+                    var ButtonID = layeriterated.get('buttonid');
+                    var buttoniterated = document.getElementById(ButtonID);
+                    LayerTurnOff(buttoniterated, layeriterated);
+                    
+                  }
+                  else {
+                  // if layeriterated is the same layer, leave ON
+                  // none
+                  }
+                }
             }
-        }
+          }
       }
     };
 
@@ -279,7 +291,14 @@ function applyMargins() {
       properties : {'name': 'Ortofoto', 'faIcon' : 'fa fa-globe', 'isBaseLayer': true}
     });
 
-    
+    // Touring Club tile-layer
+    var TouringClubTileLayer = new ol.layer.Tile({
+      source: new ol.source.XYZ({
+        url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ReggioCAL2/{z}/{x}/{y}.png'
+      }),
+      properties : {'name': 'Touring Club Map', 'faIcon' : 'fa fa-globe', 'isBaseLayer': true}
+    });
+
 
     // TODO: create 2 separate layer collection
     // HDareaLayerCollection
@@ -289,28 +308,24 @@ function applyMargins() {
     // Frist load and visibility of layers
 
   LayerFristLoad('LayerButton1', osmbaselayer, true, 'LayerButtonIcon1');
-  
   LayerFristLoad('LayerButton2', OrtofotoTileLayer, false, 'LayerButtonIcon2');
-  // LayerFristLoad('LayerButton2', ActiveLandslidesLayer, false, 'LayerButtonIcon2');
-  //
-  // Function to change visibily of layer1 and layer2 when button is clicked
-  
-
-  LayerFristLoad('LayerButton3', GeneralGeologyLayer, true, 'LayerButtonIcon3');
-  LayerFristLoad('LayerButton4', ContourLines10mLayer, false, 'LayerButtonIcon4');
-  LayerFristLoad('LayerButton5', HDStructuralFeatureLayer, false, 'LayerButtonIcon5');
-  LayerFristLoad('LayerButton6', ActiveLandslidesLayer, false, 'LayerButtonIcon6');
+  LayerFristLoad('LayerButton3', TouringClubTileLayer, false, 'LayerButtonIcon3')
+  LayerFristLoad('LayerButton4', GeneralGeologyLayer, true, 'LayerButtonIcon4');
+  LayerFristLoad('LayerButton5', ContourLines10mLayer, false, 'LayerButtonIcon5');
+  LayerFristLoad('LayerButton6', HDStructuralFeatureLayer, false, 'LayerButtonIcon6');
+  LayerFristLoad('LayerButton7', ActiveLandslidesLayer, false, 'LayerButtonIcon7');
 
     // ### LAYER ORDER ###
 
 
     var LayerOrder = new ol.Collection([
+          TouringClubTileLayer,
           osmbaselayer,
           OrtofotoTileLayer,
           ActiveLandslidesLayer, 
           GeneralGeologyLayer, 
           ContourLines10mLayer, 
-          HDStructuralFeatureLayer,
+          HDStructuralFeatureLayer
         ]);
 
     // ### MAP ###
