@@ -111,7 +111,6 @@ function applyMargins() {
         }
       }
 
-
     // function to change gray/black color to layer buttons
     // and invert visibility of the layer, due click on button layer event
 
@@ -214,7 +213,7 @@ function applyMargins() {
         attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
                         ol.source.OSM.ATTRIBUTION]
       }),
-      properties : {'name': '<i class="fa fa-globe"></i> Open Street Map', 'faIcon' : 'fa fa-globe', 'isBaseLayer': true} 
+      properties : {'name': '<i class="fa-solid fa-signs-post"></i>', 'isBaseLayer': true} 
     });
     
 
@@ -230,7 +229,7 @@ function applyMargins() {
     var ActiveLandslidesLayer = new ol.layer.Vector({
       source: ActiveLandslidesLayerSource,
       style: ActiveLandslidesLayerStyle,
-      properties : {'name': '<i class="fa fa-linux"></i> Active Landslides', 'faIcon' : 'fa fa-linux',  'isBaseLayer': false}
+      properties : {'name': '<i class="fa fa-linux"></i> Active Landslides',  'isBaseLayer': false}
     });
     
      
@@ -250,7 +249,7 @@ function applyMargins() {
       source: GeneralGeologyLayerSource,
       style: General_Geology_olStyle,
       opacity: 0.8,
-      properties : {'name': 'General Geology', 'faIcon' : 'fa fa-globe', 'isBaseLayer': false}
+      properties : {'name': 'General Geology', 'isBaseLayer': false}
     });
 
     // 4. Contour lines layer 10 m
@@ -265,7 +264,7 @@ function applyMargins() {
     var ContourLines10mLayer = new ol.layer.Vector({
       source: ContourLines10mLayerSource,
       style: ContourLines10mLayerStyle,
-      properties : {'name': 'Contour Lines 10 m', 'faIcon' : 'fa fa-globe', 'isBaseLayer': false}
+      properties : {'name': 'Contour Lines 10 m', 'isBaseLayer': false}
     });
     
 
@@ -280,7 +279,7 @@ function applyMargins() {
     var HDStructuralFeatureLayer = new ol.layer.Vector({
       source: HDStructuralFeatureSource,
       style: HDStructuralFeaturesStyle,
-      properties : {'name': 'HD Structural Features', 'faIcon' : 'fa fa-globe', 'isBaseLayer': false}
+      properties : {'name': 'HD Structural Features', 'isBaseLayer': false}
     });
 
     // 6. Ortofoto tile-layer
@@ -288,7 +287,7 @@ function applyMargins() {
       source: new ol.source.XYZ({
         url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ortofoto/{z}/{x}/{y}.png'
       }),
-      properties : {'name': 'Ortofoto', 'faIcon' : 'fa fa-globe', 'isBaseLayer': true}
+      properties : {'name': '<i class="fa-solid fa-map"></i>', 'isBaseLayer': true}
     });
 
     // Touring Club tile-layer
@@ -296,7 +295,7 @@ function applyMargins() {
       source: new ol.source.XYZ({
         url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ReggioCAL2/{z}/{x}/{y}.png'
       }),
-      properties : {'name': 'Touring Club Map', 'faIcon' : 'fa fa-globe', 'isBaseLayer': true}
+      properties : {'name': '<i class="fa-solid fa-route"></i>', 'isBaseLayer': true}
     });
 
 

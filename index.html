@@ -22,7 +22,10 @@
     <title>MetPet viewer</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/3a8bf5a7a0.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" /> -->
+    
     <link rel="stylesheet" href="assets/css/layout.css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.10.0/proj4.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ol@v8.2.0/dist/ol.js"></script>
@@ -104,8 +107,7 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a data-toggle="collapse" href="#layers">
-                    <i class="fa fa-list-alt"></i>
-                    Layers
+                    <i class="fa fa-layer-group"></i> Layers
                   </a>
                   <span class="pull-right slide-submenu">
                     <i class="fa fa-chevron-left"></i>
@@ -114,10 +116,8 @@
               </div>
               <div id="layers" class="panel-collapse collapse in">
                 <div class="panel-body list-group">
-                  Base Layers:
-                  <a id="LayerButton1" class="list-group-item"></a>
-                  <a id="LayerButton2" class="list-group-item"></a>
-                  <a id="LayerButton3" class="list-group-item"></a>
+                  
+                  <div class="list-group-item"> Baselayer: <a id="LayerButton1" title="Layer1"></a> | <a id="LayerButton2"></a> | <a id="LayerButton3"></a> </div>
                   Other Layers:
                   <a id="LayerButton4" class="list-group-item"></a>
                   <a id="LayerButton5" class="list-group-item"></a>
@@ -179,7 +179,7 @@
         </div>
       </div>
       <div class="mini-submenu mini-submenu-left pull-left">
-        <i class="fa fa-list-alt"></i>
+        <i class="fa fa-layer-group"> </i>
       </div>
       <div class="mini-submenu mini-submenu-right pull-right">
         <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M160 32c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32c17.7 0 32 14.3 32 32V288c0 17.7-14.3 32-32 32c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32zM32 448H320c70.7 0 128-57.3 128-128s-57.3-128-128-128V128c106 0 192 86 192 192c0 49.2-18.5 94-48.9 128H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 32c-17.7 0-32-14.3-32-32s14.3-32 32-32zm80-64H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
