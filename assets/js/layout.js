@@ -211,7 +211,7 @@ function applyMargins() {
 
     var baseLayerOff = new ol.layer.Vector({
       source: new ol.source.Vector({dataProjection: 'EPSG:3857'}),
-      properties: {'name': '<img title="Open Street Map" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/off-svgrepo-com.svg" height="13px">', 'isBaseLayer': true}
+      properties: {'name': '<img title="Off" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/off-svgrepo-com.svg" height="13px">', 'isBaseLayer': true}
     });
 
     var osmbaselayer = new ol.layer.Tile({
