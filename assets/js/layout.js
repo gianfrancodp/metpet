@@ -119,6 +119,7 @@ function applyMargins() {
       // switch on/off of layer
       layerswitcher(button, layer);
       // check if layer is base layer
+      console.log('click on'+ layer.getProperties().name + ' button');
       } 
       else {
 
@@ -208,8 +209,8 @@ function applyMargins() {
 
     // TODO: move attribtions to a separate region of frame
 
-    var baseLayerOff = new ol.layer.Tile({
-      source: new ol.source.Vector(),
+    var baseLayerOff = new ol.layer.Vector({
+      source: new ol.source.Vector({dataProjection: 'EPSG:3857'}),
       properties: {'name': '<img title="Open Street Map" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/off-svgrepo-com.svg" height="13px">', 'isBaseLayer': true}
     });
 
