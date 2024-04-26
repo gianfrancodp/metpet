@@ -176,8 +176,7 @@ function applyMargins() {
       var visibility = layer.getVisible();
       if (visibility == true) {
         layer.setVisible(false);
-        button.style.color = "gray";
-        
+        button.style.color = "gray";  
         button.style.borderStyle =  "none";
       }
     };
@@ -206,19 +205,33 @@ function applyMargins() {
 
         
     // ### STYLE DEFINITIONS ##
-
+    // 
+    // general layout parameter and path
     var iconLayerHeight = "22px"; // a parameter to define all icons height in layer menù
+    // icon URIs
+    var iconFolderPath = 'https://gianfrancodp.github.io/metpet/assets/geodata/icons/';
+    // 
+    var baseLayerOffIconPath = iconFolderPath + 'off-svgrepo-com.svg';
+    var osmbaselayerIconPath = iconFolderPath + 'openstreetmap-svgrepo-com.svg';
+    var OrtofotoTileLayerIconPath = iconFolderPath + 'photogrammetry-svgrepo-com.svg';
+    var TouringClubTileLayerIconPath = iconFolderPath + 'magnify-map-svgrepo-com.svg';
+    var GeneralGeologyLayerIconPath = iconFolderPath + 'geology-svgrepo-com.svg';
+    var ContourLines10mLayerIconPath = iconFolderPath + 'mountain-mountaineering-landscape-svgrepo-com.svg';
+    var HDStructuralFeatureLayerIconPath = iconFolderPath + 'feature-request-device-svgrepo-com.svg';
+    var ActiveLandslidesLayerIconPath = iconFolderPath + 'steep-slope-failure-landslide-svgrepo-com.svg';
+
 
     // TODO: Reorder layer list and id #
 
     // 1. ### BASE LAYER ###
-    // Define OpenLayers mapbaselayer
+
 
     // TODO: move attribtions to a separate region of frame
 
+    // this is a base layer to turn off all other baselayers
     var baseLayerOff = new ol.layer.Vector({
-      source: new ol.source.Vector({dataProjection: 'EPSG:3857'}),
-      properties: {'name': `<img title="Off" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/off-svgrepo-com.svg" height="${iconLayerHeight}">`, 'isBaseLayer': true}
+      source: new ol.source.Vector(),
+      properties: {'name': `<img title="Off" src ="${baseLayerOffIconPath}" height="${iconLayerHeight}">`, 'isBaseLayer': true}
     });
 
     var osmbaselayer = new ol.layer.Tile({
@@ -226,7 +239,7 @@ function applyMargins() {
         attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
                         ol.source.OSM.ATTRIBUTION]
       }),
-      properties : {'name': `<img title="Open Street Map" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/openstreetmap-svgrepo-com.svg" height="${iconLayerHeight}">`, 'isBaseLayer': true} 
+      properties : {'name': `<img title="Open Street Map" src ="${osmbaselayerIconPath}" height="${iconLayerHeight}">`, 'isBaseLayer': true} 
     });
     
 
@@ -242,7 +255,7 @@ function applyMargins() {
     var ActiveLandslidesLayer = new ol.layer.Vector({
       source: ActiveLandslidesLayerSource,
       style: ActiveLandslidesLayerStyle,
-      properties : {'name': `<img src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/steep-slope-failure-landslide-svgrepo-com.svg" height="${iconLayerHeight}"> Active Landslides`,  'isBaseLayer': false}
+      properties : {'name': `<img src ="${ActiveLandslidesLayerIconPath}" height="${iconLayerHeight}"> Active Landslides`,  'isBaseLayer': false}
     });
     
      
@@ -262,7 +275,7 @@ function applyMargins() {
       source: GeneralGeologyLayerSource,
       style: General_Geology_olStyle,
       opacity: 0.8,
-      properties : {'name': `<img src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/geology-svgrepo-com.svg" height="${iconLayerHeight}"> General Geology`, 'isBaseLayer': false}
+      properties : {'name': `<img src ="${GeneralGeologyLayerIconPath}" height="${iconLayerHeight}"> General Geology`, 'isBaseLayer': false}
     });
 
     // 4. Contour lines layer 10 m
@@ -277,7 +290,7 @@ function applyMargins() {
     var ContourLines10mLayer = new ol.layer.Vector({
       source: ContourLines10mLayerSource,
       style: ContourLines10mLayerStyle,
-      properties : {'name': `<img src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/mountain-mountaineering-landscape-svgrepo-com.svg" height="${iconLayerHeight}"> Contour Lines 10 m`, 'isBaseLayer': false}
+      properties : {'name': `<img src ="${ContourLines10mLayerIconPath}" height="${iconLayerHeight}"> Contour Lines 10 m`, 'isBaseLayer': false}
     });
     
 
@@ -292,7 +305,7 @@ function applyMargins() {
     var HDStructuralFeatureLayer = new ol.layer.Vector({
       source: HDStructuralFeatureSource,
       style: HDStructuralFeaturesStyle,
-      properties : {'name': `<img src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/feature-request-device-svgrepo-com.svg" height="${iconLayerHeight}"> HD Structural Features`, 'isBaseLayer': false}
+      properties : {'name': `<img src ="${HDStructuralFeatureLayerIconPath}" height="${iconLayerHeight}"> HD Structural Features`, 'isBaseLayer': false}
     });
 
     // 6. Ortofoto tile-layer
@@ -300,7 +313,7 @@ function applyMargins() {
       source: new ol.source.XYZ({
         url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ortofoto/{z}/{x}/{y}.png'
       }),
-      properties : {'name': `<img title="Ortofoto" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/photogrammetry-svgrepo-com.svg" height="${iconLayerHeight}">`, 'isBaseLayer': true}
+      properties : {'name': `<img title="Ortofoto" src ="${OrtofotoTileLayerIconPath}" height="${iconLayerHeight}">`, 'isBaseLayer': true}
     });
 
     // Touring Club tile-layer
@@ -308,7 +321,7 @@ function applyMargins() {
       source: new ol.source.XYZ({
         url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ReggioCAL2/{z}/{x}/{y}.png'
       }),
-      properties : {'name': `<img title="Touring Club Map" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/magnify-map-svgrepo-com.svg" height="${iconLayerHeight}">`, 'isBaseLayer': true}
+      properties : {'name': `<img title="Touring Club Map" src ="${TouringClubTileLayerIconPath}" height="${iconLayerHeight}">`, 'isBaseLayer': true}
     });
 
 
