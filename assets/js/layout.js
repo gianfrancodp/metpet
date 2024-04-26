@@ -229,7 +229,7 @@ function applyMargins() {
     var ActiveLandslidesLayer = new ol.layer.Vector({
       source: ActiveLandslidesLayerSource,
       style: ActiveLandslidesLayerStyle,
-      properties : {'name': '<i class="fa fa-linux"></i> Active Landslides',  'isBaseLayer': false}
+      properties : {'name': '<img src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/steep-slope-failure-landslide-svgrepo-com.svg" height="13px"> Active Landslides',  'isBaseLayer': false}
     });
     
      
@@ -249,7 +249,7 @@ function applyMargins() {
       source: GeneralGeologyLayerSource,
       style: General_Geology_olStyle,
       opacity: 0.8,
-      properties : {'name': 'General Geology', 'isBaseLayer': false}
+      properties : {'name': '<img src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/geology-svgrepo-com.svg" height="13px"> General Geology', 'isBaseLayer': false}
     });
 
     // 4. Contour lines layer 10 m
