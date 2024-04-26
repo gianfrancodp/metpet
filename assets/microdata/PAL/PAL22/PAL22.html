@@ -76,7 +76,7 @@
 			map.setMaxBounds([[-0.0345, 0.00000], [0.00, 0.075]]);
 			map.maxZoom = 18;
 			map.minZoom = 14;
-			map.setView([-0.02122159541859717, 0.03552883336733477], 15.0);
+			map.setView([-0.02122159541859717, 0.03552883336733477], 14.0);
 			map.addControl(new L.Control.Pan());
 			map.dragging.disable();
 			map.touchZoom.disable();
@@ -109,34 +109,37 @@
 		poligons = L.geoJSON(json_PAL22_polygon,{
 			filter: function(feature) {
 				return feature.properties.Mineral === Mineral;
+			}, // end filter
+			// popup
+			onEachFeature: function (feature, layer) {
+				popupContent = '<b> Mineral: ' + feature.properties.Mineral + '</b>';
+				popupContent += '<br> L = ' + feature.properties.L;
+				popupContent += '<br> W = ' + feature.properties.W;
+				popupContent += '<br> O = ' + feature.properties.O;
+				popupContent += '<br> AR = ' + feature.properties.AR;
+				popupContent += '<br> AsR = ' + feature.properties.AsR;
+				popupContent += '<br> A = ' + feature.properties.A;
+				popupContent += '<br> E = ' + feature.properties.E;
+				popupContent += '<br> R = ' + feature.properties.R;
+				popupContent += '<br> P = ' + feature.properties.P;
+				popupContent += '<br> C = ' + feature.properties.C;
+				popupContent += '<br> Cp = ' + feature.properties.Cp;
+				popupContent += '<br> GSI = ' + feature.properties.GSI;
+				popupContent += '<br> GSF = ' + feature.properties.GSF;
+				popupContent += '<br> S = ' + feature.properties.S;
+				popupContent += '<br> EQPC = ' + feature.properties.EQPC;
+				popupContent += '<br> El = ' + feature.properties.El;
+				layer.bindPopup(popupContent);
 			}
 		}).addTo(map);
 	}
 
-	addFilter('');
+	// Fucntion to Update the SVG images and the legend filter
 
-	// click on legend event scripts
-
-	function legendClick(mineral) {
-
-		idLegend = mineral + '_legend';
-		addFilter(mineral);
-	
-		// get visibility of the legend symbol
-		var legend = document.getElementById(idLegend);
-		// Get the current grayscale filter
-		// var grayscaleFilter = legend.style.filter;
-		// if (grayscaleFilter == 'grayscale(1)') {
-		// 	legend.style.filter = 'grayscale(0)';
-		// } else {
-		// 	legend.style.filter = 'grayscale(1)';
-		// }
-
-		// Update SVG URI
+	function updateSVG(mineral) {
 		SvgURI1	= 'PAL22_'+ mineral + '_1.svg';
 		SvgURI2 = 'PAL22_'+ mineral + '_2.svg';
-		
-		// Update SVG images
+
 		var imgElement1 = document.getElementById('svg1');
 		if (imgElement1) {
 			imgElement1.src = SvgURI1;
@@ -152,9 +155,34 @@
 			}
 		}
 	}
-	
-		
 
+
+	// Startup with no mineral filter
+
+	addFilter('');
+
+
+	// click on legend event scripts
+
+	function legendClick(mineral) {
+
+		idLegend = mineral + '_legend';
+		addFilter(mineral);
+		updateSVG(mineral);
+		
+		// TODO add turnON and turnOFF the grayscale filter
+
+		// get visibility of the legend symbol
+		// var legend = document.getElementById(idLegend);
+		// Get the current grayscale filter
+		// var grayscaleFilter = legend.style.filter;
+		// if (grayscaleFilter == 'grayscale(1)') {
+		// 	legend.style.filter = 'grayscale(0)';
+		// } else {
+		// 	legend.style.filter = 'grayscale(1)';
+		// }
+
+	}
 
 
 
