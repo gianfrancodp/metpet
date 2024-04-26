@@ -208,12 +208,17 @@ function applyMargins() {
 
     // TODO: move attribtions to a separate region of frame
 
+    var baseLayerOff = new ol.layer.Tile({
+      source: new ol.source.Vector(),
+      properties: {'name': '<img title="Open Street Map" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/off-svgrepo-com.svg" height="13px">', 'isBaseLayer': true}
+    });
+
     var osmbaselayer = new ol.layer.Tile({
       source: new ol.source.OSM({
         attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
                         ol.source.OSM.ATTRIBUTION]
       }),
-      properties : {'name': '<i class="fa-solid fa-signs-post"></i>', 'isBaseLayer': true} 
+      properties : {'name': '<img title="Open Street Map" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/openstreetmap-svgrepo-com.svg" height="13px">', 'isBaseLayer': true} 
     });
     
 
@@ -264,7 +269,7 @@ function applyMargins() {
     var ContourLines10mLayer = new ol.layer.Vector({
       source: ContourLines10mLayerSource,
       style: ContourLines10mLayerStyle,
-      properties : {'name': 'Contour Lines 10 m', 'isBaseLayer': false}
+      properties : {'name': '<img src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/mountain-mountaineering-landscape-svgrepo-com.svg" height="13px"> Contour Lines 10 m', 'isBaseLayer': false}
     });
     
 
@@ -279,7 +284,7 @@ function applyMargins() {
     var HDStructuralFeatureLayer = new ol.layer.Vector({
       source: HDStructuralFeatureSource,
       style: HDStructuralFeaturesStyle,
-      properties : {'name': 'HD Structural Features', 'isBaseLayer': false}
+      properties : {'name': '<img src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/feature-request-device-svgrepo-com.svg" height="13px"> HD Structural Features', 'isBaseLayer': false}
     });
 
     // 6. Ortofoto tile-layer
@@ -287,7 +292,7 @@ function applyMargins() {
       source: new ol.source.XYZ({
         url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ortofoto/{z}/{x}/{y}.png'
       }),
-      properties : {'name': '<i class="fa-solid fa-map"></i>', 'isBaseLayer': true}
+      properties : {'name': '<img title="Ortofoto" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/photogrammetry-svgrepo-com.svg" height="13px">', 'isBaseLayer': true}
     });
 
     // Touring Club tile-layer
@@ -295,7 +300,7 @@ function applyMargins() {
       source: new ol.source.XYZ({
         url: 'https://metpetools.s3.eu-central-1.amazonaws.com/ReggioCAL2/{z}/{x}/{y}.png'
       }),
-      properties : {'name': '<i class="fa-solid fa-route"></i>', 'isBaseLayer': true}
+      properties : {'name': '<img title="Touring Club Map" src ="https://gianfrancodp.github.io/metpet/assets/geodata/icons/magnify-map-svgrepo-com.svg" height="13px">', 'isBaseLayer': true}
     });
 
 
@@ -305,7 +310,7 @@ function applyMargins() {
     // aggregate button to show/hide all layers inside the collection
     
     // Frist load and visibility of layers
-
+  LayerFristLoad('LayerButton0', baseLayerOff, false, 'LayerButtonIcon0');
   LayerFristLoad('LayerButton1', osmbaselayer, true, 'LayerButtonIcon1');
   LayerFristLoad('LayerButton2', OrtofotoTileLayer, false, 'LayerButtonIcon2');
   LayerFristLoad('LayerButton3', TouringClubTileLayer, false, 'LayerButtonIcon3')
@@ -318,6 +323,7 @@ function applyMargins() {
 
 
     var LayerOrder = new ol.Collection([
+          baseLayerOff,
           TouringClubTileLayer,
           osmbaselayer,
           OrtofotoTileLayer,
@@ -353,21 +359,21 @@ function applyMargins() {
     applyMargins();
 
     // ### SEARCH FEATURE ###
-    // to activate 
+    // to activate uncomment this section and the search form in the html file
 
-  $('.navbar-form button[type="submit"]').click(function(event){
-      event.preventDefault();
-      var searchInput = $('.navbar-form input[type="text"]').val();
-      console.log('Button clicked, the text is: '+ searchInput);
-      // Geocoding address using Nominatim
-      $.getJSON('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + searchInput, function(data) {
-        var lat = data[0].lat;
-        var lon = data[0].lon;
-        //console.log('Latitude: ' + lat + ' Longitude: ' + lon);
-        // Zoom to location
-        map.getView().animate({center: ol.proj.fromLonLat([lon, lat]), zoom: 15});
-      });
-  });
+  // $('.navbar-form button[type="submit"]').click(function(event){
+  //     event.preventDefault();
+  //     var searchInput = $('.navbar-form input[type="text"]').val();
+  //     console.log('Button clicked, the text is: '+ searchInput);
+  //     // Geocoding address using Nominatim
+  //     $.getJSON('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + searchInput, function(data) {
+  //       var lat = data[0].lat;
+  //       var lon = data[0].lon;
+  //       //console.log('Latitude: ' + lat + ' Longitude: ' + lon);
+  //       // Zoom to location
+  //       map.getView().animate({center: ol.proj.fromLonLat([lon, lat]), zoom: 15});
+  //     });
+  // });
 
 
 });
