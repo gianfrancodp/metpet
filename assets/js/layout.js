@@ -119,7 +119,7 @@ function applyMargins() {
       // switch on/off of layer
       layerswitcher(button, layer);
       // check if layer is base layer
-      console.log('click on'+ layer.getProperties().name + ' button');
+      // console.log('click on'+ layer.getProperties().name + ' button');
       } 
       else {
 
@@ -393,6 +393,19 @@ function applyMargins() {
         minZoom: 10,
         maxZoom: 20
       })
+    });
+
+    // Layers eventListener
+    map.on('click', function(evt) {
+      map.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+        if (layer === SamplesLayer) {
+          var properties = feature.getProperties();
+          var microdataID = properties["Nome"];
+          var microdataframesource = 'assets/microdata/PAL/' + microdataID + '/' + microdataID + '.html';
+          var microdataframe = document.getElementById('microdataFrame');
+          microdataframe.src = microdataframesource;
+        }
+      });
     });
     
     
