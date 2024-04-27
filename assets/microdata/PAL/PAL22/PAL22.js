@@ -3,7 +3,7 @@
 // Leaflet map
 // create map
 var map = L.map('micromap').setView([-0.02122159541859717, 0.03552883336733477], 14.0);
-L.tileLayer('https://metpetools.s3.eu-central-1.amazonaws.com/PAL11/{z}/{x}/{y}.png', {
+L.tileLayer('https://metpetools.s3.eu-central-1.amazonaws.com/PAL22/{z}/{x}/{y}.png', {
     minZoom: 13,
     maxZoom: 18,
     tms: false,
