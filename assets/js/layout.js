@@ -204,8 +204,9 @@ function applyMargins() {
 
 
         
-    // ### STYLE DEFINITIONS ##
-    // 
+    // ### Layer DEFINITIONS ##
+    // Style are defined in the olStyle.js file
+    //
     // general layout parameter and path
     var iconLayerHeight = "22px"; // a parameter to define all icons height in layer menù
     // icon URIs
@@ -219,6 +220,7 @@ function applyMargins() {
     var ContourLines10mLayerIconPath = iconFolderPath + 'mountain-mountaineering-landscape-svgrepo-com.svg';
     var HDStructuralFeatureLayerIconPath = iconFolderPath + 'feature-request-device-svgrepo-com.svg';
     var ActiveLandslidesLayerIconPath = iconFolderPath + 'steep-slope-failure-landslide-svgrepo-com.svg';
+    var SamplesLayerIconPath = iconFolderPath + 'microscope-laboratory-science-experiment-lab-svgrepo-com.svg';
 
 
     // TODO: Reorder layer list and id #
@@ -324,6 +326,21 @@ function applyMargins() {
       properties : {'name': `<img title="Touring Club Map" src ="${TouringClubTileLayerIconPath}" height="${iconLayerHeight}">`, 'isBaseLayer': true}
     });
 
+    // Samples points layer
+    var SamplesSource = new ol.source.Vector({
+      url: 'https://gianfrancodp.github.io/metpet/assets/geodata/Samples.geojson',
+      format: new ol.format.GeoJSON({
+        dataProjection: 'EPSG:32633',
+        featureProjection: 'EPSG:3857'
+      })
+    });
+    var SamplesLayer = new ol.layer.Vector({
+      source: SamplesSource,
+      style: SamplesStyle,
+      properties : {'name': `<img src ="${SamplesLayerIconPath}" height="${iconLayerHeight}"> Samples`, 'isBaseLayer': false}
+    });
+
+
 
     // TODO: create 2 separate layer collection
     // HDareaLayerCollection
@@ -339,6 +356,7 @@ function applyMargins() {
   LayerFristLoad('LayerButton5', ContourLines10mLayer, false, 'LayerButtonIcon5');
   LayerFristLoad('LayerButton6', HDStructuralFeatureLayer, false, 'LayerButtonIcon6');
   LayerFristLoad('LayerButton7', ActiveLandslidesLayer, false, 'LayerButtonIcon7');
+  LayerFristLoad('LayerButton8', SamplesLayer, false, 'LayerButtonIcon8');
 
     // ### LAYER ORDER ###
 
@@ -351,7 +369,8 @@ function applyMargins() {
           ActiveLandslidesLayer, 
           GeneralGeologyLayer, 
           ContourLines10mLayer, 
-          HDStructuralFeatureLayer
+          HDStructuralFeatureLayer,
+          SamplesLayer
         ]);
 
     // ### MAP ###

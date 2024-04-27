@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "Samples",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32633" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 1, "Nome": "PAL11" }, "geometry": { "type": "Point", "coordinates": [ 575257.540129732224159, 4248411.026424126699567 ] } },
+{ "type": "Feature", "properties": { "Id": 2, "Nome": "PAL22" }, "geometry": { "type": "Point", "coordinates": [ 574945.61629709135741, 4248389.042468287050724 ] } },
+{ "type": "Feature", "properties": { "Id": 3, "Nome": "PAL12a" }, "geometry": { "type": "Point", "coordinates": [ 575012.770519470446743, 4248418.554164186120033 ] } }
+]
+}

@@ -368,3 +368,31 @@ var ContourLines10mLayerStyle = new ol.style.Style({
     width: 0.5
   })
 });
+
+// E Samples Styles
+
+var SamplesStyle = function(feature) { 
+  return new ol.style.Style({
+  image: new ol.style.Circle({
+      radius: 5,
+      fill: new ol.style.Fill({
+        color: 'rgba(255, 0, 0, 0.5)'
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#fff',
+        width: 2
+      })
+    }),
+  text: new ol.style.Text({
+      font: '12px Calibri,sans-serif',
+      fill: new ol.style.Fill({
+        color: '#000'
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#fff',
+        width: 3
+      }),
+      text: feature.get('Nome')
+    })
+  });
+};
