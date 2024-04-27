@@ -373,16 +373,20 @@ var ContourLines10mLayerStyle = new ol.style.Style({
 
 var SamplesStyle = function(feature) { 
   return new ol.style.Style({
-  image: new ol.style.Circle({
-      radius: 5,
-      fill: new ol.style.Fill({
-        color: 'rgba(255, 0, 0, 0.5)'
-      }),
-      stroke: new ol.style.Stroke({
-        color: '#fff',
-        width: 2
-      })
-    }),
+  // image: new ol.style.Circle({
+  //     radius: 9,
+  //     fill: new ol.style.Fill({
+  //       color: 'rgba(255, 0, 0, 0.5)'
+  //     }),
+  //     stroke: new ol.style.Stroke({
+  //       color: '#fff',
+  //       width: 2
+  //     })
+  //   }),
+  image: new ol.style.Icon({
+    src: 'assets/geodata/icons/samples-map-icon.png',
+    scale: 0.8
+  }),
   text: new ol.style.Text({
       font: '12px Calibri,sans-serif',
       fill: new ol.style.Fill({
@@ -392,7 +396,9 @@ var SamplesStyle = function(feature) {
         color: '#fff',
         width: 3
       }),
-      text: feature.get('Nome')
+      text: feature.get('Nome'),
+      offsetX: 25, 
+      offsetY: -13
     })
   });
 };
