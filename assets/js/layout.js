@@ -399,11 +399,14 @@ function applyMargins() {
     map.on('click', function(evt) {
       map.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
         if (layer === SamplesLayer) {
+          var microdataFullScreen = document.getElementById('microdataFullScreenButton');
+          var microdataframe = document.getElementById('microdataFrame');
+          //---> Change the microdata source in the iframe and in the "FullScreen button"
           var properties = feature.getProperties();
           var microdataID = properties["Nome"];
           var microdataframesource = 'assets/microdata/PAL/' + microdataID + '/' + microdataID + '.html';
-          var microdataframe = document.getElementById('microdataFrame');
           microdataframe.src = microdataframesource;
+          microdataFullScreen.setAttribute('href', microdataframesource);
         }
       });
     });
