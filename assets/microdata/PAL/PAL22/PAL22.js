@@ -11,62 +11,16 @@ L.tileLayer('https://metpetools.s3.eu-central-1.amazonaws.com/PAL22/{z}/{x}/{y}.
 }).addTo(map);
 
 
-map.setMaxBounds([[-0.0345, 0.00000], [0.00, 0.075]]);
+
+map.setMaxBounds([[-0.08, -0.0200], [0.02, 0.08]]);
 map.setView([-0.02122159541859717, 0.03552883336733477], 13.0);
 map.addControl(new L.Control.Pan());
-map.dragging.disable();
+map.dragging.enable();
 map.touchZoom.disable();
 map.doubleClickZoom.disable();
-map.scrollWheelZoom.disable();
+map.scrollWheelZoom.enable();
 map.boxZoom.disable();
 
-// add GeoJSON layer
-// TODO Remove 
-
-        
-var poligons;
-
-// Function Layer add and remove
-// 
-function addFilter(Mineral) {
-    if (map.hasLayer(poligons)) {
-        map.removeLayer(poligons);
-    
-    }
-    if (Mineral == 'HideAll') {
-        return;
-    }
-    if (Mineral == 'ShowAll') {
-        poligons = L.geoJSON(json_PAL22_polygon).addTo(map);
-        return;
-    }
-    poligons = L.geoJSON(json_PAL22_polygon,{
-        filter: function(feature) {
-            return feature.properties.Mineral === Mineral;
-        }, // end filter
-        // popup
-        onEachFeature: function (feature, layer) {
-            popupContent = '<b> Mineral: ' + feature.properties.Mineral + '</b>';
-            popupContent += '<br> L = ' + feature.properties.L;
-            popupContent += '<br> W = ' + feature.properties.W;
-            popupContent += '<br> O = ' + feature.properties.O;
-            popupContent += '<br> AR = ' + feature.properties.AR;
-            popupContent += '<br> AsR = ' + feature.properties.AsR;
-            popupContent += '<br> A = ' + feature.properties.A;
-            popupContent += '<br> E = ' + feature.properties.E;
-            popupContent += '<br> R = ' + feature.properties.R;
-            popupContent += '<br> P = ' + feature.properties.P;
-            popupContent += '<br> C = ' + feature.properties.C;
-            popupContent += '<br> Cp = ' + feature.properties.Cp;
-            popupContent += '<br> GSI = ' + feature.properties.GSI;
-            popupContent += '<br> GSF = ' + feature.properties.GSF;
-            popupContent += '<br> S = ' + feature.properties.S;
-            popupContent += '<br> EQPC = ' + feature.properties.EQPC;
-            popupContent += '<br> El = ' + feature.properties.El;
-            layer.bindPopup(popupContent);
-        }
-    }).addTo(map);
-}
 
 // Fucntion to Update the SVG images and the legend filter
 
@@ -91,6 +45,86 @@ function updateSVG(mineral) {
 }
 
 
+        
+var poligons;
+var popupContent;
+
+
+
+// Function to get full name of mineral in database
+function getMineralName(mineral) {
+    switch (mineral) {
+        case 'Amph': return 'Amphibole';
+        case 'Ep': return 'Epidote';
+        case 'Ap': return 'Apatite';
+        case 'Kfs': return 'K-Feldspar';
+        case 'Ol': return 'Olivine';
+        case 'Pl': return 'Plagioclase';
+        case 'Px': return 'Pyroxene';
+        case 'Qtz': return 'Quartz';
+    }
+}
+
+// Function for PopUp Content
+function PopUpContent(feature, layer) {
+    mineral = feature.properties.Mineral;
+    popupContent = '<b> Mineral: ' + getMineralName(feature.properties.Mineral) + '</b>';
+    // popupContent += '<br> L = ' + feature.properties.L;
+    // popupContent += '<br> W = ' + feature.properties.W;
+    popupContent += '<br> Orientation = ' + String(feature.properties.O).substring(0, 5);
+    // popupContent += '<br> AR = ' + feature.properties.AR;
+    popupContent += '<br> Aspect Ratio = ' + String(feature.properties.AsR).substring(0, 5);
+    popupContent += '<br> Area = ' + String(feature.properties.A).substring(0, 5);
+    // popupContent += '<br> E = ' + feature.properties.E;
+    // popupContent += '<br> R = ' + feature.properties.R;
+    // popupContent += '<br> P = ' + feature.properties.P;
+    // popupContent += '<br> C = ' + feature.properties.C;
+    // popupContent += '<br> Cp = ' + feature.properties.Cp;
+    popupContent += '<br> Grain Shape Index = ' + String(feature.properties.GSI).substring(0, 5);
+    // popupContent += '<br> GSF = ' + feature.properties.GSF;
+    // popupContent += '<br> S = ' + feature.properties.S;
+    // popupContent += '<br> EQPC = ' + feature.properties.EQPC;
+    // popupContent += '<br> El = ' + feature.properties.El;
+    layer.bindPopup(popupContent);
+}
+
+
+
+// Function Layer add and remove
+
+// 
+function addFilter(Mineral) {
+    if (map.hasLayer(poligons)) {
+        map.removeLayer(poligons);
+    
+    }
+    if (Mineral == 'HideAll') {
+        return;
+    }
+    if (Mineral == 'ShowAll') {
+        poligons = L.geoJSON(json_PAL22_polygon,{
+            // popup
+            onEachFeature: function(feature, layer) {
+            PopUpContent(feature, layer);
+            }
+        }       
+        ).addTo(map);
+        
+        return;
+    }
+    poligons = L.geoJSON(json_PAL22_polygon,{
+        filter: function(feature) {
+            return feature.properties.Mineral === Mineral;
+        }, // end filter
+        // popup
+        onEachFeature: function(feature, layer) {
+        PopUpContent(feature, layer);
+        }
+    }).addTo(map);  
+}
+
+
+
 // Startup with no mineral filter
 
 addFilter('');
@@ -100,7 +134,7 @@ addFilter('');
 
 function legendClick(mineral) {
 
-    idLegend = mineral + '_legend';
+    // idLegend = mineral + '_legend';
     addFilter(mineral);
     updateSVG(mineral);
     
