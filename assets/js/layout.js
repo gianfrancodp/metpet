@@ -210,7 +210,8 @@ function applyMargins() {
     // general layout parameter and path
     var iconLayerHeight = "22px"; // a parameter to define all icons height in layer menù
     // icon URIs
-    var iconFolderPath = 'https://gianfrancodp.github.io/metpet/assets/geodata/icons/';
+  
+    var iconFolderPath = 'assets/geodata/icons/';
     // 
     var baseLayerOffIconPath = iconFolderPath + 'off-svgrepo-com.svg';
     var osmbaselayerIconPath = iconFolderPath + 'openstreetmap-svgrepo-com.svg';
@@ -248,7 +249,7 @@ function applyMargins() {
 
   // ### START OF VECTOR LAYERS ###
     var ActiveLandslidesLayerSource = new ol.source.Vector({
-      url: 'https://gianfrancodp.github.io/metpet/assets/geodata/Active_landslides.geojson',
+      url: 'assets/geodata/Active_landslides.geojson',
       format: new ol.format.GeoJSON({
         dataProjection: 'EPSG:32633',
         featureProjection: 'EPSG:3857'
@@ -265,7 +266,7 @@ function applyMargins() {
 
     // 3. General Geology layer
     var GeneralGeologyLayerSource = new ol.source.Vector({
-      url: 'https://gianfrancodp.github.io/metpet/assets/geodata/General_Geology.geojson',
+      url: 'assets/geodata/General_Geology.geojson',
       format: new ol.format.GeoJSON({
         dataProjection: 'EPSG:32633',
         featureProjection: 'EPSG:3857'
@@ -283,7 +284,7 @@ function applyMargins() {
     // 4. Contour lines layer 10 m
     
     var ContourLines10mLayerSource = new ol.source.Vector({
-      url: 'https://gianfrancodp.github.io/metpet/assets/geodata/contour_10_smooth.geojson',
+      url: 'assets/geodata/contour_10_smooth.geojson',
       format: new ol.format.GeoJSON({
         dataProjection: 'EPSG:32633',
         featureProjection: 'EPSG:3857'
@@ -298,7 +299,7 @@ function applyMargins() {
 
     // 5. HD Structural Features
     var HDStructuralFeatureSource = new ol.source.Vector({
-      url: 'https://gianfrancodp.github.io/metpet/assets/geodata/HD_Structural_Features.geojson',
+      url: 'geodata/HD_Structural_Features.geojson',
       format: new ol.format.GeoJSON({
         dataProjection: 'EPSG:32633',
         featureProjection: 'EPSG:3857'
@@ -328,7 +329,7 @@ function applyMargins() {
 
     // Samples points layer
     var SamplesSource = new ol.source.Vector({
-      url: 'https://gianfrancodp.github.io/metpet/assets/geodata/Samples.geojson',
+      url: 'assets/geodata/Samples.geojson',
       format: new ol.format.GeoJSON({
         dataProjection: 'EPSG:32633',
         featureProjection: 'EPSG:3857'
