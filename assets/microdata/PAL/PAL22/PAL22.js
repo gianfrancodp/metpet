@@ -96,20 +96,24 @@ function PopUpContent(feature, layer) {
 function addFilter(Mineral) {
     if (map.hasLayer(poligons)) {
         map.removeLayer(poligons);
-    
     }
     if (Mineral == 'HideAll') {
         return;
     }
     if (Mineral == 'ShowAll') {
         poligons = L.geoJSON(json_PAL22_polygon,{
-            // popup
             onEachFeature: function(feature, layer) {
-            PopUpContent(feature, layer);
-            }
-        }       
+                PopUpContent(feature, layer);
+                }
+            }       
         ).addTo(map);
-        
+        poligons.on('popupopen', function(e) {
+            //get clicked layer
+            var layer = e.popup._source;
+            Mineral = layer.feature.properties.Mineral;
+            updateSVG(Mineral);
+
+        });        
         return;
     }
     poligons = L.geoJSON(json_PAL22_polygon,{
@@ -118,7 +122,7 @@ function addFilter(Mineral) {
         }, // end filter
         // popup
         onEachFeature: function(feature, layer) {
-        PopUpContent(feature, layer);
+            PopUpContent(feature, layer);
         }
     }).addTo(map);  
 }
