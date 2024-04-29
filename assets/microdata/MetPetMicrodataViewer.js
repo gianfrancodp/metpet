@@ -41,6 +41,10 @@ function getMineralName(mineral) {
         case 'Pl': return 'Plagioclase';
         case 'Px': return 'Pyroxene';
         case 'Qtz': return 'Quartz';
+        case 'Cal': return 'Calcite';
+        case 'Ca-Si min': return 'Calc-Silicate Mineral';
+        case 'Scap (aggr)': return 'Scapolite (aggregate)';
+        case 'Scap': return 'Scapolite';
         case 'Oth': return 'Other';
     }
 }

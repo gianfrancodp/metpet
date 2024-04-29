@@ -1,5 +1,5 @@
 // Scripts for file PAL11.html
-var SampleName = 'PAL11';
+var SampleName = 'PAL12a';
 var tileLayerURI = 'https://metpetools.s3.eu-central-1.amazonaws.com/PAL12a/{z}/{x}/{y}.png';
 var polygonLayer = json_PAL12a_polygon; // make sure for correct name called from main html
 
@@ -23,3 +23,4 @@ map.touchZoom.disable();
 map.doubleClickZoom.disable();
 map.scrollWheelZoom.enable();
 map.boxZoom.disable();
+
