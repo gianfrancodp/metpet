@@ -4,7 +4,6 @@ var tileLayerURI = 'https://metpetools.s3.eu-central-1.amazonaws.com/PAL22/{z}/{
 
 
 // Leaflet map
-//
 
 var map = L.map('micromap').setView([-0.02122159541859717, 0.03552883336733477], 14.0);
 L.tileLayer(tileLayerURI, {
@@ -23,5 +22,3 @@ map.touchZoom.disable();
 map.doubleClickZoom.disable();
 map.scrollWheelZoom.enable();
 map.boxZoom.disable();
-
-
