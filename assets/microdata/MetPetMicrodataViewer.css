@@ -1,0 +1,12 @@
+/* Custom Style for microdata viewer */
+html, body, #micromap{
+    width: 500px;
+    height: 250px;
+    
+}
+/* fix width when large than 300 px */
+@media (max-width: 500px) {
+    html, body, #micromap {
+        width: auto;
+    }
+}

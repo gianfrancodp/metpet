@@ -1,7 +1,12 @@
 
+// Global Variables
+
+var poligons; // GeoJSON layer with polygons overlay
+
+var popupContent; // Content of the popup
 
 
-// Function to Update the SVG images of RoseDiagram
+// Function to Update the SVG images of RoseDiagrams (1) and (2)
 // Svg rose diagram are stored in the same folder of .html file
 
 function updateSVG(mineral) {
