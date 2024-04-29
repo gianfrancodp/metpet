@@ -62,6 +62,7 @@ function getMineralName(mineral) {
         case 'Pl': return 'Plagioclase';
         case 'Px': return 'Pyroxene';
         case 'Qtz': return 'Quartz';
+        case 'Oth': return 'Other';    
     }
 }
 
