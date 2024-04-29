@@ -1,4 +1,10 @@
-<!--  -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>3D viewer - Site2 Palmi</title>
+	</head>
+	<div id="3dModel"></div>
+</html>
 <script type="importmap">
 	{
 		"imports": {
@@ -93,7 +99,7 @@
 
 				// add to scene
 				scene.add( arrowHelper );
-				
+
 
 				const controls = new OrbitControls( camera, renderer.domElement );
 				controls.addEventListener( 'change', render );
