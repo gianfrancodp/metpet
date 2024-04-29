@@ -10,3 +10,14 @@ html, body, #micromap{
         width: auto;
     }
 }
+
+#legendbar{
+    display: flex; 
+    justify-content: center;
+}
+
+/* legend icons */
+#ShowAll, #Amph_legend, #Ep_legend, #Ap_legend, #Kfs_legend, #HideAll, #Ol_legend, #Pl_legend, #Px_legend, #Qtz_legend   {
+    width: 80px; 
+    filter: grayscale(0);
+}
