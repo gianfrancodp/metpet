@@ -21,3 +21,11 @@ html, body, #micromap{
     width: 80px; 
     filter: grayscale(0);
 }
+
+#RoseDiagramsTable {
+    border-collapse: collapse; 
+    border: 0; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
