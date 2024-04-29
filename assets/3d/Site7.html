@@ -56,12 +56,15 @@
 
 				camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 500 );
 
-				camera.position.y = 5;
-				camera.position.z = 10;
-				camera.rotation.z = Math.PI/4;
-				camera.updateProjectionMatrix();
+				camera.position.x = -20;
+				camera.position.y = 52;
+				camera.position.z = -20;
+				
+			
+				
 
-				scene.add( camera );
+
+
 
 				const grid = new THREE.GridHelper( 50, 50, 0xffffff, 0x7b7b7b );
 				scene.add( grid );
@@ -105,6 +108,7 @@
 
 				const controls = new OrbitControls( camera, renderer.domElement );
 				controls.addEventListener( 'change', render );
+				controls.target.set(20, 5, 20);
 				controls.update();
 
 				window.addEventListener( 'resize', onWindowResize );
@@ -120,6 +124,8 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
 				render();
+				console.log("Posizione della telecamera: ", camera.position);
+				console.log("Rotazione della telecamera: ", camera.rotation);
 
 			}
 
