@@ -357,7 +357,7 @@ function applyMargins() {
   LayerFristLoad('LayerButton5', ContourLines10mLayer, false, 'LayerButtonIcon5');
   LayerFristLoad('LayerButton6', HDStructuralFeatureLayer, false, 'LayerButtonIcon6');
   LayerFristLoad('LayerButton7', ActiveLandslidesLayer, false, 'LayerButtonIcon7');
-  LayerFristLoad('LayerButton8', SamplesLayer, false, 'LayerButtonIcon8');
+  LayerFristLoad('LayerButton8', SamplesLayer, true, 'LayerButtonIcon8');
 
     // ### LAYER ORDER ###
 
@@ -407,6 +407,9 @@ function applyMargins() {
           var microdataframesource = 'assets/microdata/PAL/' + microdataID + '/' + microdataID + '.html';
           microdataframe.src = microdataframesource;
           microdataFullScreen.setAttribute('href', microdataframesource);
+          // Set a new center view
+          var coordinates = feature.getGeometry().getCoordinates();
+          map.getView().animate({center: coordinates, zoom: 19});
         }
       });
     });
