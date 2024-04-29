@@ -1,4 +1,6 @@
 // Scripts for file PAL22.html
+var SampleName = "PAL22";
+
 
 // Leaflet map
 // create map
@@ -7,7 +9,7 @@ L.tileLayer('https://metpetools.s3.eu-central-1.amazonaws.com/PAL22/{z}/{x}/{y}.
     minZoom: 13,
     maxZoom: 18,
     tms: false,
-    attribution: 'PAL22'
+    attribution: SampleName
 }).addTo(map);
 
 
@@ -22,27 +24,27 @@ map.scrollWheelZoom.enable();
 map.boxZoom.disable();
 
 
-// Fucntion to Update the SVG images and the legend filter
+// // Fucntion to Update the SVG images and the legend filter
 
-function updateSVG(mineral) {
-    SvgURI1	= 'PAL22_'+ mineral + '_1.svg';
-    SvgURI2 = 'PAL22_'+ mineral + '_2.svg';
+// function updateSVG(mineral) {
+//     SvgURI1	= SampleName + '_' + mineral + '_1.svg';
+//     SvgURI2 = SampleName + '_' +mineral + '_2.svg';
 
-    var imgElement1 = document.getElementById('svg1');
-    if (imgElement1) {
-        imgElement1.src = SvgURI1;
-        imgElement1.onerror = function() {
-            imgElement1.src = 'blank_diagram.svg';
-        }
-    }
-    var imgElement2 = document.getElementById('svg2');
-    if (imgElement2) {
-        imgElement2.src = SvgURI2;
-        imgElement2.onerror = function() {
-            imgElement2.src = 'blank_diagram.svg';
-        }
-    }
-}
+//     var imgElement1 = document.getElementById('svg1');
+//     if (imgElement1) {
+//         imgElement1.src = SvgURI1;
+//         imgElement1.onerror = function() {
+//             imgElement1.src = 'blank_diagram.svg';
+//         }
+//     }
+//     var imgElement2 = document.getElementById('svg2');
+//     if (imgElement2) {
+//         imgElement2.src = SvgURI2;
+//         imgElement2.onerror = function() {
+//             imgElement2.src = 'blank_diagram.svg';
+//         }
+//     }
+// }
 
 
         
@@ -51,20 +53,20 @@ var popupContent;
 
 
 
-// Function to get full name of mineral in database
-function getMineralName(mineral) {
-    switch (mineral) {
-        case 'Amph': return 'Amphibole';
-        case 'Ep': return 'Epidote';
-        case 'Ap': return 'Apatite';
-        case 'Kfs': return 'K-Feldspar';
-        case 'Ol': return 'Olivine';
-        case 'Pl': return 'Plagioclase';
-        case 'Px': return 'Pyroxene';
-        case 'Qtz': return 'Quartz';
-        case 'Oth': return 'Other';    
-    }
-}
+// // Function to get full name of mineral in database
+// function getMineralName(mineral) {
+//     switch (mineral) {
+//         case 'Amph': return 'Amphibole';
+//         case 'Ep': return 'Epidote';
+//         case 'Ap': return 'Apatite';
+//         case 'Kfs': return 'K-Feldspar';
+//         case 'Ol': return 'Olivine';
+//         case 'Pl': return 'Plagioclase';
+//         case 'Px': return 'Pyroxene';
+//         case 'Qtz': return 'Quartz';
+//         case 'Oth': return 'Other';    
+//     }
+// }
 
 // Function for PopUp Content
 function PopUpContent(feature, layer) {
