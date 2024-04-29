@@ -350,8 +350,8 @@ function applyMargins() {
     
     // Frist load and visibility of layers
   LayerFristLoad('LayerButton0', baseLayerOff, false, 'LayerButtonIcon0');
-  LayerFristLoad('LayerButton1', osmbaselayer, true, 'LayerButtonIcon1');
-  LayerFristLoad('LayerButton2', OrtofotoTileLayer, false, 'LayerButtonIcon2');
+  LayerFristLoad('LayerButton1', osmbaselayer, false, 'LayerButtonIcon1');
+  LayerFristLoad('LayerButton2', OrtofotoTileLayer, true, 'LayerButtonIcon2');
   LayerFristLoad('LayerButton3', TouringClubTileLayer, false, 'LayerButtonIcon3')
   LayerFristLoad('LayerButton4', GeneralGeologyLayer, true, 'LayerButtonIcon4');
   LayerFristLoad('LayerButton5', ContourLines10mLayer, false, 'LayerButtonIcon5');
