@@ -1,5 +1,5 @@
 // Scripts for file PAL11.html
-var SampleName = 'PAL12a';
+var SampleName = 'PAL12A';
 var tileLayerURI = 'https://metpetools.s3.eu-central-1.amazonaws.com/PAL12a/{z}/{x}/{y}.png';
 var polygonLayer = json_PAL12a_polygon; // make sure for correct name called from main html
 
