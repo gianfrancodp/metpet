@@ -71,12 +71,12 @@ function PopUpContent(feature, layer) {
     popupContent = '<b> Mineral: ' + getMineralName(feature.properties.Mineral) + '</b>';
     // popupContent += '<br> L = ' + feature.properties.L;
     // popupContent += '<br> W = ' + feature.properties.W;
-    popupContent += '<br> Orientation = ' + String(feature.properties.O).substring(0, 5);
+    popupContent += '<br> Orientation = ' + String(feature.properties.O).substring(0, 5) + '°';
     // popupContent += '<br> AR = ' + feature.properties.AR;
     popupContent += '<br> Aspect Ratio = ' + String(feature.properties.AsR).substring(0, 5);
-    popupContent += '<br> Area = ' + String(feature.properties.A).substring(0, 5);
+    popupContent += '<br> Area = ' + String(feature.properties.A).substring(0, 5) + ' mm²';
     // popupContent += '<br> E = ' + feature.properties.E;
-    // popupContent += '<br> R = ' + feature.properties.R;
+    popupContent += '<br> Roundness = ' + String(feature.properties.R).substring(0, 5);
     // popupContent += '<br> P = ' + feature.properties.P;
     // popupContent += '<br> C = ' + feature.properties.C;
     // popupContent += '<br> Cp = ' + feature.properties.Cp;

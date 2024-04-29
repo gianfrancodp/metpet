@@ -14,8 +14,14 @@
 	<script src="PAL22_polygon_min_porphy-2.geojson.js"></script>
 	<style type="text/css">
 		html, body, #micromap{
-			width: auto;
+			width: 500px;
 			height: 250px;
+			
+		}
+		@media (max-width: 300px) {
+			html, body, #micromap {
+				width: auto;
+			}
 		}
 	</style>
 	<link rel="stylesheet" href="Lpancontrol/L.Control.Pan.css" />
