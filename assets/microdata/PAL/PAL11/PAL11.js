@@ -1,7 +1,7 @@
-// Scripts for file PAL22.html
-var SampleName = 'PAL22';
-var tileLayerURI = 'https://metpetools.s3.eu-central-1.amazonaws.com/PAL22/{z}/{x}/{y}.png';
-var polygonLayer = json_PAL22_polygon;
+// Scripts for file PAL11.html
+var SampleName = 'PAL11';
+var tileLayerURI = 'https://metpetools.s3.eu-central-1.amazonaws.com/PAL11/{z}/{x}/{y}.png';
+var polygonLayer = json_PAL11_polygon; // make sure for correct name called from main html
 
 
 // Leaflet map

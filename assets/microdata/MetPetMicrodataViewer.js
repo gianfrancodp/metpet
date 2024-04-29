@@ -80,7 +80,7 @@ function addFilter(Mineral) {
         return;
     }
     if (Mineral == 'ShowAll') {
-        poligons = L.geoJSON(json_PAL22_polygon,{
+        poligons = L.geoJSON(polygonLayer,{
             onEachFeature: function(feature, layer) {
                 PopUpContent(feature, layer);
                 }
@@ -95,7 +95,7 @@ function addFilter(Mineral) {
         });        
         return;
     }
-    poligons = L.geoJSON(json_PAL22_polygon,{
+    poligons = L.geoJSON(polygonLayer,{
         filter: function(feature) {
             return feature.properties.Mineral === Mineral;
         }, // end filter
