@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PAL 12a</title>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+	integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+	crossorigin=""></script>
+	<!-- import GeoJSon Variable using JavaScript -->
+	<!-- these for LeafLet map -->
+	<script src="PAL12_A_min_porphy.geojson.js"></script> <!--make sure for correct name called in JS script-->
+	<!-- css for microdata stylesheet -->
+	<link rel="stylesheet" href="../../MetPetMicrodataViewer.css">
+	<link rel="stylesheet" href="../../lib/Lpancontrol/L.Control.Pan.css" />
+	<script src="../../lib/Lpancontrol/L.Control.Pan.js"></script>
+</head>
+<body>
+
+<div id="legendbar">
+	<!-- Legend -->
+	<table>
+		<tr>
+			<td><img src="../../lib/mask/ShowAll.svg" id="ShowAll" onclick="legendClick('ShowAll')"></td>
+			<td><img src="../../lib/mask/Amph_legend.svg" id="Amph_legend" onclick="legendClick('Amph')"></td>
+			<td><img src="../../lib/mask/Ca-Si min_legend.svg" id="Ep_legend" onclick="legendClick('Ca-Si min')"></td> 
+			<!-- <td><img src="../../lib/mask/Ap_legend.svg" id="Ap_legend" onclick="legendClick('Ap')"></td>  -->
+			<td><img src="../../lib/mask/Kfs_legend.svg" id="Kfs_legend" onclick="legendClick('Kfs')"></td>
+		</tr>
+		<tr>
+			<td><img src="../../lib/mask/HideAll.svg" id="HideAll" onclick="legendClick('HideAll')"></td>
+			<!-- <td><img src="../../lib/mask/Ol_legend.svg" id="Ol_legend" onclick="legendClick('Ol')"></td> -->
+			<td><img src="../../lib/mask/Pl_legend.svg" id="Pl_legend" onclick="legendClick('Pl')"></td>
+			<td><img src="../../lib/mask/Px_legend.svg" id="Px_legend" onclick="legendClick('Px')"></td>
+			<!-- <td><img src="../../lib/mask/Qtz_legend.svg" id="Qtz_legend" onclick="legendClick('Qtz')"></td> -->
+			
+		</tr>
+
+	</table>
+</div>
+
+<div id="micromap" style="position: relative;">
+<!-- Map -->
+</div>
+
+<!-- Rose Diagrams SVG -->
+<table id="RoseDiagramsTable">
+	<tr>
+	  <td style="border: none;"><img id="svg1" src="blank_diagram.svg" width=100%></td>
+	  <td style="border: none;"><img id="svg2" src="blank_diagram.svg" width=100%></td>
+	</tr>
+  </table>
+<!-- End of items. -->
+<script src="../../MetPetMicrodataViewer.js"></script>
+<script src="PAL12_A.js"></script>
+</script>
+</body>
+</html>
