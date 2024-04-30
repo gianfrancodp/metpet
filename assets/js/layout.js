@@ -222,11 +222,11 @@ function applyMargins() {
     var HDStructuralFeatureLayerIconPath = iconFolderPath + 'feature-request-device-svgrepo-com.svg';
     var ActiveLandslidesLayerIconPath = iconFolderPath + 'steep-slope-failure-landslide-svgrepo-com.svg';
     var SamplesLayerIconPath = iconFolderPath + 'microscope-laboratory-science-experiment-lab-svgrepo-com.svg';
-
+    var ThreeDLocationIconPath = iconFolderPath + 'cube-svgrepo-com.svg';
 
     // TODO: Reorder layer list and id #
 
-    // 1. ### BASE LAYER ###
+    //
 
 
     // TODO: move attribtions to a separate region of frame
@@ -237,6 +237,7 @@ function applyMargins() {
       properties: {'name': `<img title="Off" src ="${baseLayerOffIconPath}" height="${iconLayerHeight}">`, 'isBaseLayer': true}
     });
 
+    // Open Street Map base layer
     var osmbaselayer = new ol.layer.Tile({
       source: new ol.source.OSM({
         attributions: [ 'CC-BY-SA | Università di Catania | MetPetId | ' + new Date().getFullYear(),
@@ -341,6 +342,22 @@ function applyMargins() {
       properties : {'name': `<img src ="${SamplesLayerIconPath}" height="${iconLayerHeight}"> Samples`, 'isBaseLayer': false}
     });
 
+    // ThreeD Location layer
+    // file:///Volumes/Dati/000%20-%20Dottorato%20UNICT/NAS_Geologia/Repository-MetPet_website/metpet/assets/geodata/ThreeD-Location.geojson
+    // metpet/assets/geodata/ThreeD-Locations.geojson
+    var ThreeDLocationSource = new ol.source.Vector({
+      url: 'assets/geodata/ThreeD-Locations.geojson',
+      format: new ol.format.GeoJSON({
+        dataProjection: 'EPSG:32633',
+        featureProjection: 'EPSG:3857'
+      })
+    });
+    var ThreeDLocationLayer = new ol.layer.Vector({
+      source: ThreeDLocationSource,
+      style: ThreeDLocationStyle,
+      properties : {'name': `<img src ="${ThreeDLocationIconPath}" height="${iconLayerHeight}"> 3D Location`, 'isBaseLayer': false}
+    });
+
 
 
     // TODO: create 2 separate layer collection
@@ -358,6 +375,7 @@ function applyMargins() {
   LayerFristLoad('LayerButton6', HDStructuralFeatureLayer, false, 'LayerButtonIcon6');
   LayerFristLoad('LayerButton7', ActiveLandslidesLayer, false, 'LayerButtonIcon7');
   LayerFristLoad('LayerButton8', SamplesLayer, true, 'LayerButtonIcon8');
+  LayerFristLoad('LayerButton9', ThreeDLocationLayer, false, 'LayerButtonIcon9');
 
     // ### LAYER ORDER ###
 
@@ -371,7 +389,8 @@ function applyMargins() {
           GeneralGeologyLayer, 
           ContourLines10mLayer, 
           HDStructuralFeatureLayer,
-          SamplesLayer
+          SamplesLayer,
+          ThreeDLocationLayer
         ]);
 
     // ### MAP ###

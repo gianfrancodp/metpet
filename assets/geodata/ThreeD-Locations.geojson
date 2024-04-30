@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "ThreeD-Locations",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32633" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Site2" }, "geometry": { "type": "Point", "coordinates": [ 574905.987569240154698, 4248434.810964255593717 ] } },
+{ "type": "Feature", "properties": { "Name": "Site7" }, "geometry": { "type": "Point", "coordinates": [ 574914.244764343369752, 4248240.186056986451149 ] } }
+]
+}

@@ -392,3 +392,27 @@ var SamplesStyle = function(feature) {
     })
   });
 };
+
+// F ThreeDLocation Styles
+
+var ThreeDLocationStyle = function(feature) {
+  return new ol.style.Style({
+  image: new ol.style.Icon({
+    src: 'assets/geodata/icons/3d.png',
+    scale: 0.8
+  }),
+  text: new ol.style.Text({
+      font: '12px Calibri,sans-serif',
+      fill: new ol.style.Fill({
+        color: '#000'
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#fff',
+        width: 3
+      }),
+      text: feature.get('Name'),
+      offsetX: 25, 
+      offsetY: -13
+    })
+  });
+};
