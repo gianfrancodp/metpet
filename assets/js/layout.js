@@ -370,12 +370,12 @@ function applyMargins() {
   LayerFristLoad('LayerButton1', osmbaselayer, false, 'LayerButtonIcon1');
   LayerFristLoad('LayerButton2', OrtofotoTileLayer, true, 'LayerButtonIcon2');
   LayerFristLoad('LayerButton3', TouringClubTileLayer, false, 'LayerButtonIcon3')
-  LayerFristLoad('LayerButton4', GeneralGeologyLayer, true, 'LayerButtonIcon4');
+  LayerFristLoad('LayerButton4', GeneralGeologyLayer, false, 'LayerButtonIcon4');
   LayerFristLoad('LayerButton5', ContourLines10mLayer, false, 'LayerButtonIcon5');
   LayerFristLoad('LayerButton6', HDStructuralFeatureLayer, false, 'LayerButtonIcon6');
   LayerFristLoad('LayerButton7', ActiveLandslidesLayer, false, 'LayerButtonIcon7');
   LayerFristLoad('LayerButton8', SamplesLayer, true, 'LayerButtonIcon8');
-  LayerFristLoad('LayerButton9', ThreeDLocationLayer, false, 'LayerButtonIcon9');
+  LayerFristLoad('LayerButton9', ThreeDLocationLayer, true, 'LayerButtonIcon9');
 
     // ### LAYER ORDER ###
 
