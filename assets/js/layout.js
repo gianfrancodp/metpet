@@ -430,6 +430,19 @@ function applyMargins() {
           var coordinates = feature.getGeometry().getCoordinates();
           map.getView().animate({center: coordinates, zoom: 19});
         }
+        if (layer === ThreeDLocationLayer) {
+          var ThreeDFullScreen = document.getElementById('ThreeDFullScreenButton');
+          var ThreeDframe = document.getElementById('ThreeDFrame');
+          // --> Change the 3D source in the iframe and in the "FullScreen button"
+          var properties = feature.getProperties();
+          var ThreeD_ID = properties["Name"];
+          var ThreeDframesource = 'assets/3d/' + ThreeD_ID + '.html';
+          ThreeDframe.src = ThreeDframesource;
+          ThreeDFullScreen.setAttribute('href', ThreeDframesource);
+          // Set a new center view
+          var coordinates = feature.getGeometry().getCoordinates();
+          map.getView().animate({center: coordinates, zoom: 19});
+        }
       });
     });
     
