@@ -23,3 +23,9 @@ map.touchZoom.disable();
 map.doubleClickZoom.disable();
 map.scrollWheelZoom.enable();
 map.boxZoom.disable();
+
+// Set Center view on popup open
+map.on('popupopen', function(e) {
+    var popup = e.popup;
+    map.setView(popup.getLatLng(), map.getZoom());
+});

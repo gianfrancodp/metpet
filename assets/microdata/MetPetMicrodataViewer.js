@@ -123,6 +123,7 @@ function legendClick(mineral) {
     // idLegend = mineral + '_legend';
     addFilter(mineral);
     updateSVG(mineral);
+
     
     // TODO add turnON and turnOFF the grayscale filter
 
@@ -137,3 +138,4 @@ function legendClick(mineral) {
     // }
 
 }
+

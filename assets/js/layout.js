@@ -428,7 +428,13 @@ function applyMargins() {
           var microdataID = properties["Nome"];
           var microdataframesource = 'assets/microdata/PAL/' + microdataID + '/' + microdataID + '.html';
           microdataframe.src = microdataframesource;
-          microdataFullScreen.setAttribute('href', microdataframesource);
+          //
+          // TODO: resolve link to external resources when change the main html page from this 
+          // to a subpage of the main html page using FullScreen button
+          // 
+          // microdataFullScreenButton.setAttribute('href', microdataframesource);
+          // also commented lines 164-170 in the html file
+          //
           // Set a new center view
           var coordinates = feature.getGeometry().getCoordinates();
           map.getView().animate({center: coordinates, zoom: 19});
