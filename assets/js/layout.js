@@ -415,8 +415,11 @@ function applyMargins() {
     });
 
     // Layers eventListener
+    // Selector for other views
     map.on('click', function(evt) {
       map.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+        // Event if the layer clicked is the SamplesLayer
+        // change the microdata source in the iframe and in the "FullScreen button"
         if (layer === SamplesLayer) {
           var microdataFullScreen = document.getElementById('microdataFullScreenButton');
           var microdataframe = document.getElementById('microdataFrame');
@@ -430,6 +433,8 @@ function applyMargins() {
           var coordinates = feature.getGeometry().getCoordinates();
           map.getView().animate({center: coordinates, zoom: 19});
         }
+        // Event if the layer clicked is the ThreeDLocationLayer
+        // change the 3D source in the iframe and in the "FullScreen button"
         if (layer === ThreeDLocationLayer) {
           var ThreeDFullScreen = document.getElementById('ThreeDFullScreenButton');
           var ThreeDframe = document.getElementById('ThreeDFrame');
