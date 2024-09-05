@@ -300,7 +300,7 @@ function applyMargins() {
 
     // 5. HD Structural Features
     var HDStructuralFeatureSource = new ol.source.Vector({
-      url: 'geodata/HD_Structural_Features.geojson',
+      url: 'assets/geodata/HD_Structural_Features.geojson',
       format: new ol.format.GeoJSON({
         dataProjection: 'EPSG:32633',
         featureProjection: 'EPSG:3857'
