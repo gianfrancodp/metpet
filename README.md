@@ -1,5 +1,9 @@
 # metpet
 
+To cite this repository use:
+
+Di Pietro, G., D’Agostino, A., Ortolano, G., Fazio, E., Visalli, R., Musumeci, R.E., Cirrincione, R., 2024. Web publication of multiscale geological data, methodology, and processes. [DOI: 10.13140/RG.2.2.34955.50726](https://doi.org/10.13140/RG.2.2.34955.50726)
+
 **ALERT: this repo is a work in progress**
 pre-alpha no suitable for use or reuse!
 
